@@ -3,8 +3,9 @@ package org.usfirst.frc.team930.robot.subsystems;
 //import edu.wpi.first.wpilibj.SpeedController;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class SwerveDrive {
+public class SwerveDrive extends Subsystem {
 
 	/*
 	 * Team 930 SwerveDrive
@@ -421,5 +422,10 @@ public class SwerveDrive {
 		while (timeSinceLastUpdate < UPDATE_TIME) {
 			timeSinceLastUpdate = updateStartTime - updateEndTime;
 		}
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+				
 	}
 }
