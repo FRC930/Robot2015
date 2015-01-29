@@ -1,6 +1,5 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SwerveDrive extends Subsystem {
@@ -27,7 +26,6 @@ public class SwerveDrive extends Subsystem {
 
 	// Field Centric Specific Components
 	private boolean isFieldcentric; // are we doin' field centric calculations?
-
 	private double heading, lastHeading; // field centric headings
 
 	// Robot Specs
@@ -35,6 +33,10 @@ public class SwerveDrive extends Subsystem {
 
 	// Calculation Components
 	final double RAD_TO_DEG = 180 / Math.PI;
+	private double topRightSpeed, topLeftSpeed, bottomLeftSpeed,
+			bottomRightSpeed;
+	private double topRightAngle, topLeftAngle, bottomLeftAngle,
+			bottomRightAngle;
 
 	// Output components
 	private enum Outputs {
@@ -113,10 +115,10 @@ public class SwerveDrive extends Subsystem {
 		double ry2 = Math.pow(rightY, 2);
 		double ly2 = Math.pow(leftY, 2);
 
-		double topRightSpeed = Math.sqrt(tx2 + ry2);
-		double topLeftSpeed = Math.sqrt(tx2 + ly2);
-		double bottomLeftSpeed = Math.sqrt(bx2 + ly2);
-		double bottomRightSpeed = Math.sqrt(bx2 + ry2);
+		topRightSpeed = Math.sqrt(tx2 + ry2);
+		topLeftSpeed = Math.sqrt(tx2 + ly2);
+		bottomLeftSpeed = Math.sqrt(bx2 + ly2);
+		bottomRightSpeed = Math.sqrt(bx2 + ry2);
 
 		double max;
 		max = topRightSpeed;
@@ -137,17 +139,18 @@ public class SwerveDrive extends Subsystem {
 		}
 
 		// Set wheel angles
-		double topRightAngle = 90 - Math.atan2(topX, rightY) * RAD_TO_DEG;
-		double topLeftAngle = 90 - Math.atan2(topX, leftY) * RAD_TO_DEG;
-		double bottomLeftAngle = 90 - Math.atan2(bottomX, leftY) * RAD_TO_DEG;
-		double bottomRightAngle = 90 - Math.atan2(bottomX, rightY) * RAD_TO_DEG;
+		topRightAngle = 90 - Math.atan2(topX, rightY) * RAD_TO_DEG;
+		topLeftAngle = 90 - Math.atan2(topX, leftY) * RAD_TO_DEG;
+		bottomLeftAngle = 90 - Math.atan2(bottomX, leftY) * RAD_TO_DEG;
+		bottomRightAngle = 90 - Math.atan2(bottomX, rightY) * RAD_TO_DEG;
 
 		// output
-		System.out.println(topRightSpeed + "\n" + topLeftSpeed + "\n"
-				+ bottomLeftSpeed + "\n" + bottomRightSpeed + "\n");
-		System.out.println(topRightAngle + "\n" + topLeftAngle + "\n"
-				+ bottomLeftAngle + "\n" + bottomRightAngle + "\n");
-
+		/*
+		 * System.out.println(topRightSpeed + "\n" + topLeftSpeed + "\n" +
+		 * bottomLeftSpeed + "\n" + bottomRightSpeed + "\n");
+		 * System.out.println(topRightAngle + "\n" + topLeftAngle + "\n" +
+		 * bottomLeftAngle + "\n" + bottomRightAngle + "\n");
+		 */
 		updateEndTime = System.currentTimeMillis();
 	}
 
@@ -158,19 +161,29 @@ public class SwerveDrive extends Subsystem {
 		isFieldcentric = !isFieldcentric;
 	}
 
-	public double output(Outputs val){
-		switch(val){
-		case TRSpeed: return topRightSpeed;
-		case TRAngle: return topRightAngle;
-		case TLSpeed: return topLeftSpeed;
-		case TLAngle: return topLeftAngle;
-		case BLSpeed: return bottomLeftSpeed;
-		case BLAngle: return bottomLeftAngle;
-		case BRSpeed: return bottomRightSpeed;
-		case BRAngle: return bottomRightAngle;
+	public double output(Outputs val) {
+		switch (val) {
+		case TRSpeed:
+			return topRightSpeed;
+		case TRAngle:
+			return topRightAngle;
+		case TLSpeed:
+			return topLeftSpeed;
+		case TLAngle:
+			return topLeftAngle;
+		case BLSpeed:
+			return bottomLeftSpeed;
+		case BLAngle:
+			return bottomLeftAngle;
+		case BRSpeed:
+			return bottomRightSpeed;
+		case BRAngle:
+			return bottomRightAngle;
+		default:
+			return 930; // incase of error, we throw a ridiculous value
 		}
 	}
-	
+
 	// CONTROL METHODS
 
 	private void timeControl() {
