@@ -1,8 +1,6 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-
-public class SwerveDrive extends Subsystem {
+public class SwerveDrive {
 
 	/*
 	 * Team 930 SwerveDrive
@@ -14,6 +12,8 @@ public class SwerveDrive extends Subsystem {
 	 * For the field centric utilization of the code, you must calibrate the
 	 * robot so that it faces perpendicular to the baseline of the field.
 	 * Heading zero is that way
+	 * 
+	 * THIS IS A MATH CLASS: do dont pass your speedcontrollers and shit
 	 */
 
 	// DECLARATIONS OF VARIABLES AND OTHER THINGS THE CODE MIGHT FIND USEFUL
@@ -192,10 +192,5 @@ public class SwerveDrive extends Subsystem {
 		while (timeSinceLastUpdate < UPDATE_TIME) {
 			timeSinceLastUpdate = updateStartTime - updateEndTime;
 		}
-	}
-
-	@Override
-	protected void initDefaultCommand() {
-
 	}
 }
