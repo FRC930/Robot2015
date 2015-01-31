@@ -9,6 +9,7 @@ public class Drivetrain extends Subsystem {
 	// By Noah and Nick
 	
 	final int CODES_PER_REV = 250;
+	final double DEG_TO_REV = 1 / 360;
 	
 	SwerveDrive swerve;
 	CANTalon frDrive = new CANTalon(1);
@@ -30,6 +31,9 @@ public class Drivetrain extends Subsystem {
 		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, 1, 0, 0);
 		
 		frRot.enableControl();
+		flRot.enableControl();
+		blRot.enableControl();
+		brRot.enableControl();
 	}
 
 	public Drivetrain(double length, double width, boolean fieldcent) {
@@ -38,13 +42,16 @@ public class Drivetrain extends Subsystem {
 
 	public void drive(double forward, double strafe, double rot) {
 		swerve.updateSwerve(forward, strafe, rot);
+		
 		frDrive.set(swerve.output("FRSpeed"));
 		flDrive.set(swerve.output("FLSpeed"));
 		blDrive.set(swerve.output("BLSpeed"));
 		brDrive.set(swerve.output("BRSpeed"));
 		
-		
-
+		frRot.set(swerve.output("FRAngle") * DEG_TO_REV);
+		flRot.set(swerve.output("FLAngle") * DEG_TO_REV);
+		blRot.set(swerve.output("BLAngle") * DEG_TO_REV);
+		brRot.set(swerve.output("BRAngle") * DEG_TO_REV);
 	}
 
 	public void initDefaultCommand() {
