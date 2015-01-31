@@ -37,6 +37,10 @@ public class SwerveDrive {
 			bottomRightAngle;
 
 	// Output components
+	public enum Outputs{
+		frontLeftSpeed,frontRightSpeed,backLeftSpeed,backRightSpeed,
+		frontLeftAngle, frontRightAngle,backLeftAngle,backRightAngle;
+	}
 
 	// CONSTRUCTORS - eventually get them all to accept passed SpeedControllers
 
@@ -156,23 +160,23 @@ public class SwerveDrive {
 		isFieldcentric = !isFieldcentric;
 	}
 
-	public double output(String val) {
+	public double output(Outputs val) {
 		switch (val) {
-		case "TRSpeed":
+		case frontRightSpeed:
 			return topRightSpeed;
-		case "TRAngle":
+		case frontRightAngle:
 			return topRightAngle;
-		case "TLSpeed":
+		case frontLeftSpeed:
 			return topLeftSpeed;
-		case "TLAngle":
+		case frontLeftAngle:
 			return topLeftAngle;
-		case "BLSpeed":
+		case backLeftSpeed:
 			return bottomLeftSpeed;
-		case "BLAngle":
+		case backLeftAngle:
 			return bottomLeftAngle;
-		case "BRSpeed":
+		case backRightSpeed:
 			return bottomRightSpeed;
-		case "BRAngle":
+		case backRightAngle:
 			return bottomRightAngle;
 		default:
 			return 930; // incase of error, we throw a ridiculous value

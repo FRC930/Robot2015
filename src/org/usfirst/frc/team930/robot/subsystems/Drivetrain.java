@@ -2,6 +2,7 @@ package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.commands.Drive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
+import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.CANTalon;
@@ -11,8 +12,12 @@ public class Drivetrain extends Subsystem {
 
 	// By Noah and Nick
 
-	final int CODES_PER_REV = 250;
-	final double DEG_TO_REV = 1 / 360;
+	final int CODES_PER_REV = 497;
+	final double DEG_TO_TICK = 497.0 / 360;
+	final int FRONT_LEFT = 2;
+	final int FRONT_RIGHT = 1;
+	final int BACK_LEFT = 4;
+	final int BACK_RIGHT = 3;
 
 	public SwerveDrive swerve;
 
@@ -38,15 +43,15 @@ public class Drivetrain extends Subsystem {
 
 	public void setMotors() {
 
-		frDrive = new CANTalon(1);
-		flDrive = new CANTalon(3);
-		blDrive = new CANTalon(7);
-		brDrive = new CANTalon(5);
+		frDrive = new CANTalon(FRONT_RIGHT);
+		flDrive = new CANTalon(FRONT_LEFT);
+		blDrive = new CANTalon(BACK_LEFT);
+		brDrive = new CANTalon(BACK_RIGHT);
 
-		frRot = new CANJaguar(2);
-		flRot = new CANJaguar(4);
-		blRot = new CANJaguar(8);
-		brRot = new CANJaguar(6);
+		frRot = new CANJaguar(FRONT_RIGHT);
+		flRot = new CANJaguar(FRONT_LEFT);
+		blRot = new CANJaguar(BACK_LEFT);
+		brRot = new CANJaguar(BACK_RIGHT);
 
 		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, 1, 0, 0);
 		flRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, 1, 0, 0);
@@ -61,16 +66,18 @@ public class Drivetrain extends Subsystem {
 
 	public void drive(double forward, double strafe, double rot) {
 		swerve.updateSwerve(forward, strafe, rot);
+		
+		frDrive.set(swerve.output(Outputs.frontRightSpeed));
+		flDrive.set(swerve.output(Outputs.frontLeftSpeed));
+		blDrive.set(swerve.output(Outputs.backLeftSpeed));
+		brDrive.set(swerve.output(Outputs.backRightSpeed));
+		
+		System.out.println(swerve.output(Outputs.frontRightAngle));
 
-		frDrive.set(swerve.output("FRSpeed"));
-		flDrive.set(swerve.output("FLSpeed"));
-		blDrive.set(swerve.output("BLSpeed"));
-		brDrive.set(swerve.output("BRSpeed"));
-
-		frRot.set(swerve.output("FRAngle") * DEG_TO_REV);
-		flRot.set(swerve.output("FLAngle") * DEG_TO_REV);
-		blRot.set(swerve.output("BLAngle") * DEG_TO_REV);
-		brRot.set(swerve.output("BRAngle") * DEG_TO_REV);
+		frRot.set(swerve.output(Outputs.frontRightAngle) * DEG_TO_TICK);
+		flRot.set(swerve.output(Outputs.frontLeftAngle) * DEG_TO_TICK);
+		blRot.set(swerve.output(Outputs.backLeftAngle) * DEG_TO_TICK);
+		brRot.set(swerve.output(Outputs.backRightAngle) * DEG_TO_TICK);
 	}
 
 	public void initDefaultCommand() {

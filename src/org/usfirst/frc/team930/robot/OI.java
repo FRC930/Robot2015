@@ -53,18 +53,34 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public double getStrafe() {
-		return Xbox.getRawAxis(0);
+		double axis = Xbox.getRawAxis(0);
+		if(Math.abs(axis) < .05) {
+			return 0;
+		}
+		return axis;
 	}
 	
 	public double getForward() {
-		return Xbox.getRawAxis(1);
+		double axis = Xbox.getRawAxis(1);
+		if(Math.abs(axis) < .05) {
+			return 0;
+		}
+		return axis;
 	}
 	
 	public double getRotX() {
-		return Xbox.getRawAxis(4);
+		double axis = Xbox.getRawAxis(4);
+		if(Math.abs(axis) < .05) {
+			return 0;
+		}
+		return axis;
 	}
 	
 	public double getRotY() {
-		return Xbox.getRawAxis(5);
+		double axis = Xbox.getRawAxis(5);
+		if(Math.abs(axis) < .05) {
+			return 0;
+		}
+		return axis;
 	}
 }
