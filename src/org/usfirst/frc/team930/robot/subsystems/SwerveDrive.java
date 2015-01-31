@@ -23,7 +23,7 @@ public class SwerveDrive {
 	// DECLARATIONS OF VARIABLES AND OTHER THINGS THE CODE MIGHT FIND USEFUL
 
 	// Field Centric Specific Components
-	private boolean isFieldcentric; // are we doin' field centric calculations?
+	public boolean isFieldcentric; // are we doin' field centric calculations?
 	private double heading, lastHeading; // field centric headings
 
 	// Robot Specs

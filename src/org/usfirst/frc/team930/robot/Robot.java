@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 
  
     public void robotInit() {
-		oi = new OI();
+		oi = OI.getInstance();
         drive = new Drive();
     }
 	
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-        if (autonomousCommand != null) autonomousCommand.start();
+        //if (autonomousCommand != null) autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        //if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     public void disabledInit(){

@@ -1,5 +1,7 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
+import org.usfirst.frc.team930.robot.commands.Drive;
+
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,7 +13,7 @@ public class Drivetrain extends Subsystem {
 	final int CODES_PER_REV = 250;
 	final double DEG_TO_REV = 1 / 360;
 
-	SwerveDrive swerve;
+	public SwerveDrive swerve;
 
 	CANTalon frDrive;
 	CANTalon flDrive;
@@ -72,6 +74,7 @@ public class Drivetrain extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new Drive());
+		
 	}
 }
