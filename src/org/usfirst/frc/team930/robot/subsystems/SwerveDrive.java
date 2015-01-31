@@ -5,9 +5,13 @@ public class SwerveDrive {
 	/*
 	 * Team 930 SwerveDrive
 	 * 
-	 * Heading of 0 degrees is straight forward to the robot. Interface for
-	 * other objects are the INTERFACE METHODS, and private calculation methods
-	 * are the CALC METHODS.
+	 * Heading of 0 degrees is straight forward to the robot OR in fieldcentric
+	 * it is perpendicular to the driver station and aimed downfield.
+	 * 
+	 * Velocity inputs are measured as (+1,-1) to be the first quadrant
+	 * 
+	 * Interface for other objects are the INTERFACE METHODS, and private
+	 * calculation methods are the CALC METHODS.
 	 * 
 	 * For the field centric utilization of the code, you must calibrate the
 	 * robot so that it faces perpendicular to the baseline of the field.
@@ -17,12 +21,6 @@ public class SwerveDrive {
 	 */
 
 	// DECLARATIONS OF VARIABLES AND OTHER THINGS THE CODE MIGHT FIND USEFUL
-
-	// Time Components
-	final long UPDATE_TIME = 5; // time between updates to the robot (ms)
-	long updateStartTime; // time of this update's start
-	long updateEndTime; // time of the last update's end
-	long timeSinceLastUpdate; // time since the last update, in seconds
 
 	// Field Centric Specific Components
 	private boolean isFieldcentric; // are we doin' field centric calculations?
@@ -48,8 +46,6 @@ public class SwerveDrive {
 
 		this.isFieldcentric = false;
 		this.lastHeading = 0;
-
-		this.updateEndTime = System.currentTimeMillis();
 	}
 
 	public SwerveDrive(double length, double width, boolean fieldcentric) {
@@ -67,7 +63,6 @@ public class SwerveDrive {
 		// keep that in mind as you may be reading this absurdly long comment
 		// about rotIn and absurdly long comments. Rather meta, no?
 
-		this.timeControl();
 
 		// Normalize VIn (strafe and forward)
 		// not necessary with the XBox controllers but just in case...
@@ -75,8 +70,10 @@ public class SwerveDrive {
 			double f2 = Math.pow(forward, 2);
 			double s2 = Math.pow(strafe, 2);
 
-			forward = Math.sqrt(f2 / (f2 + s2));
+			forward = -Math.sqrt(f2 / (f2 + s2));
 			strafe = Math.sqrt(s2 / (f2 + s2));
+		} else {
+			forward *= -1;
 		}
 
 		if (isFieldcentric == false) {
@@ -92,7 +89,8 @@ public class SwerveDrive {
 			// do the conversion so the robocentic code can handle the rest
 			strafe = magnitudeV * Math.sin(phiV - lastHeading);
 			forward = magnitudeV * Math.cos(phiV - lastHeading);
-			rotIn = (heading - lastHeading) / (timeSinceLastUpdate * 1000);
+			rotIn = (heading - lastHeading) / .02;
+			// the code should be updated to the robot every 20ms, so hardcoded
 
 			lastHeading = heading;
 		}
@@ -104,7 +102,7 @@ public class SwerveDrive {
 		double topX = strafe + Rx;
 		double rightY = forward - Ry;
 		double bottomX = strafe - Rx;
-		double leftY = strafe + Ry;
+		double leftY = forward + Ry;
 
 		// Set wheel speeds
 		double tx2 = Math.pow(topX, 2);
@@ -149,7 +147,6 @@ public class SwerveDrive {
 		 * bottomLeftAngle + "\n" + bottomRightAngle + "\n");
 		 */
 
-		updateEndTime = System.currentTimeMillis();
 	}
 
 	// update swerve from joysticks (either robo or field cent)
@@ -179,16 +176,6 @@ public class SwerveDrive {
 			return bottomRightAngle;
 		default:
 			return 930; // incase of error, we throw a ridiculous value
-		}
-	}
-
-	// CONTROL METHODS
-
-	private void timeControl() {
-		updateStartTime = System.currentTimeMillis();
-		timeSinceLastUpdate = updateStartTime - updateEndTime;
-		while (timeSinceLastUpdate < UPDATE_TIME) {
-			timeSinceLastUpdate = updateStartTime - updateEndTime;
 		}
 	}
 }
