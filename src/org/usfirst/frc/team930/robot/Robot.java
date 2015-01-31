@@ -23,6 +23,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
     Command drive;
+    Command closeClaw;
+    Command openClaw;
 
  
     public void robotInit() {
