@@ -8,18 +8,16 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team930.robot.commands.Drive;
-import org.usfirst.frc.team930.robot.commands.ExampleCommand;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team930.robot.subsystems.ExampleSubsystem;
 
 
 public class Robot extends IterativeRobot {
 
 	public static final Arm arm = new Arm();
 	public static final Claw claw = new Claw();
-	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Drivetrain drivetrain = new Drivetrain(33.00 , 21.25);
 	public static OI oi;
 
     Command drive;
