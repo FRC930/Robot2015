@@ -1,8 +1,10 @@
 package org.usfirst.frc.team930.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
 import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.Robot;
+import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
 /**
  *
@@ -28,7 +30,12 @@ public class Drive extends Command {
 					oi.getRotX());
 		else
 			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
-					90 - Math.atan2(oi.getRotX(), oi.getRotY()));
+					Math.atan2(oi.getRotX(), oi.getRotY()));
+		
+//		Robot.drivetrain.frRot.set(0);
+//		Robot.drivetrain.flRot.set(0);
+//		Robot.drivetrain.blRot.set(0);
+//		Robot.drivetrain.brRot.set(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
