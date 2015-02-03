@@ -60,7 +60,7 @@ public class SwerveDrive {
 
 	// update swerve for raw vals (robo or field cent)
 	public void updateSwerve(double forward, double strafe, double rotIn) {
-		if ((forward == strafe) == (rotIn == 0)) {
+		if (forward == 0 && strafe == 0 && rotIn == 0) {
 			topRightSpeed = 0;
 			topLeftSpeed = 0;
 			bottomLeftSpeed = 0;

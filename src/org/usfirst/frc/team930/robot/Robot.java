@@ -21,7 +21,6 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
     Command drive;
-
  
     public void robotInit() {
 		oi = OI.getInstance();

@@ -15,6 +15,11 @@ public class Drivetrain extends Subsystem {
 
 	final int CODES_PER_REV = 414;
 	public final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
+	final double SLOWDOWN = .5;
+
+	final double DEFAULT_P = -5900;
+	final double DEFAULT_I = -80;
+
 	final int FRONT_LEFT = 2;
 	final int FRONT_RIGHT = 1;
 	final int BACK_LEFT = 4;
@@ -54,14 +59,14 @@ public class Drivetrain extends Subsystem {
 		blRot = new CANJaguar(BACK_LEFT);
 		brRot = new CANJaguar(BACK_RIGHT);
 
-		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, -5900,
-				-80, 0);
-		flRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, -5900,
-				-80, 0);
-		blRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, -5900,
-				-80, 0);
-		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, -5900,
-				-80, 0);
+		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
+				DEFAULT_I, 0);
+		flRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
+				DEFAULT_I, 0);
+		blRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
+				DEFAULT_I, 0);
+		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
+				DEFAULT_I, 0);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -70,12 +75,27 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void drive(double forward, double strafe, double rot) {
+
+		//
+//		if (forward == 0 && strafe == 0) {
+//			frRot.setI(0);
+//			flRot.setI(0);
+//			blRot.setI(0);
+//			brRot.setI(0);
+//		} else {
+//			frRot.setI(DEFAULT_I);
+//			flRot.setI(DEFAULT_I);
+//			blRot.setI(DEFAULT_I);
+//			brRot.setI(DEFAULT_I);
+//		}
+
+		//
 		swerve.updateSwerve(forward, strafe, rot);
 
-		frDrive.set(swerve.output(Outputs.frontRightSpeed));
-		flDrive.set(swerve.output(Outputs.frontLeftSpeed));
-		blDrive.set(swerve.output(Outputs.backLeftSpeed));
-		brDrive.set(swerve.output(Outputs.backRightSpeed));
+		frDrive.set(SLOWDOWN * swerve.output(Outputs.frontRightSpeed));
+		flDrive.set(SLOWDOWN * swerve.output(Outputs.frontLeftSpeed));
+		blDrive.set(SLOWDOWN * swerve.output(Outputs.backLeftSpeed));
+		brDrive.set(SLOWDOWN * swerve.output(Outputs.backRightSpeed));
 
 		frRot.set(swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
 		flRot.set(swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
@@ -104,15 +124,15 @@ public class Drivetrain extends Subsystem {
 		 */
 
 		// thigns
-		System.out.println("FRS " + swerve.output(Outputs.frontRightSpeed));
-		System.out.println("FLS " + swerve.output(Outputs.frontLeftSpeed));
-		System.out.println("BLS " + swerve.output(Outputs.backLeftSpeed));
-		System.out.println("BRS " + swerve.output(Outputs.backRightSpeed));
-
-		System.out.println("FRA " + swerve.output(Outputs.frontRightAngle));
-		System.out.println("FLA " + swerve.output(Outputs.frontLeftAngle));
-		System.out.println("BLA " + swerve.output(Outputs.backLeftAngle));
-		System.out.println("BRA " + swerve.output(Outputs.backRightAngle));
+		// System.out.println("FRS " + swerve.output(Outputs.frontRightSpeed));
+		// System.out.println("FLS " + swerve.output(Outputs.frontLeftSpeed));
+		// System.out.println("BLS " + swerve.output(Outputs.backLeftSpeed));
+		// System.out.println("BRS " + swerve.output(Outputs.backRightSpeed));
+		//
+		// System.out.println("FRA " + swerve.output(Outputs.frontRightAngle));
+		// System.out.println("FLA " + swerve.output(Outputs.frontLeftAngle));
+		// System.out.println("BLA " + swerve.output(Outputs.backLeftAngle));
+		// System.out.println("BRA " + swerve.output(Outputs.backRightAngle));
 	}
 
 	public void initDefaultCommand() {
