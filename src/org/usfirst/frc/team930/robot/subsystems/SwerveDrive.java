@@ -264,6 +264,24 @@ public class SwerveDrive {
 				bottomLeftSpeed /= max;
 				bottomRightSpeed /= max;
 			}
+			
+			double min;
+			min = topRightSpeed;
+			if (topLeftSpeed < min) {
+				max = topLeftSpeed;
+			}
+			if (bottomLeftSpeed < min) {
+				min = bottomLeftSpeed;
+			}
+			if (bottomRightSpeed < min) {
+				min = bottomRightSpeed;
+			}
+			if (min < 1) {
+				topRightSpeed /= min;
+				topLeftSpeed /= min;
+				bottomLeftSpeed /= min;
+				bottomRightSpeed /= min;
+			}
 			/*
 
 			// Set wheel angles
