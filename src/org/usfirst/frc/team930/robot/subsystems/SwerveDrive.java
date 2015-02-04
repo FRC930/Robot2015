@@ -1,4 +1,6 @@
 package org.usfirst.frc.team930.robot.subsystems;
+import org.usfirst.frc.team930.robot.OI;
+import org.usfirst.frc.team930.robot.Robot;
 
 public class SwerveDrive {
 
@@ -27,15 +29,16 @@ public class SwerveDrive {
 	private double heading, lastHeading; // field centric headings
 
 	// Robot Specs
-	private double width, length; // length and width of the robot
+	private double width, length, R; // length and width of the robot
+	
 
 	// Calculation Components
 	final double RAD_TO_DEG = 180 / Math.PI;
 	private double topRightSpeed, topLeftSpeed, bottomLeftSpeed,
 			bottomRightSpeed;
 	private double topRightAngle, topLeftAngle, bottomLeftAngle,
-			bottomRightAngle;
-
+			bottomRightAngle, oldTopRightAngle, oldTopLeftAngle, oldBottomLeftAngle,
+			oldBottomRightAngle;
 	// Output components
 	public enum Outputs {
 		frontLeftSpeed, frontRightSpeed, backLeftSpeed, backRightSpeed, frontLeftAngle, frontRightAngle, backLeftAngle, backRightAngle;
@@ -49,11 +52,15 @@ public class SwerveDrive {
 
 		this.isFieldcentric = false;
 		this.lastHeading = 0;
+		
+		R = Math.sqrt(Math.pow(length,2) + Math.pow(width,2));
 	}
 
 	public SwerveDrive(double length, double width, boolean fieldcentric) {
 		this(length, width);
 		this.isFieldcentric = fieldcentric;
+		
+		R = Math.sqrt(Math.pow(length,2) + Math.pow(width,2));
 	}
 
 	// INTERFACE METHODS
@@ -71,6 +78,112 @@ public class SwerveDrive {
 			bottomLeftAngle = 0;
 			bottomRightAngle = 0;
 		} else {
+			
+			double FWD = forward;
+			double STR = strafe;
+			double RCW = rotIn;
+			
+			double A = STR - RCW*(length/R);
+			double B = STR + RCW*(length/R);
+			double C = FWD - RCW*(width/R);
+			double D = FWD + RCW*(width/R); 
+			
+			double A2 = Math.pow(A,2);
+			double B2= Math.pow(B,2);
+			double C2 = Math.pow(C,2);
+			double D2= Math.pow(D,2);
+
+			oldTopRightAngle = topRightAngle;
+			oldTopLeftAngle = topLeftAngle;
+			oldBottomRightAngle = bottomRightAngle;
+			oldBottomLeftAngle = bottomLeftAngle;
+			
+			topRightSpeed = Math.sqrt(B2 + C2);
+			topLeftSpeed = Math.sqrt(B2 + D2);
+			bottomLeftSpeed = Math.sqrt(A2 + D2);
+			bottomRightSpeed = Math.sqrt(A2 + C2);
+			
+			topRightAngle = Math.atan2(B,C) * RAD_TO_DEG;
+			topLeftAngle = Math.atan2(B,D) * RAD_TO_DEG;
+			bottomLeftAngle = Math.atan2(A,D) * RAD_TO_DEG;
+			bottomRightAngle = Math.atan2(A,C) * RAD_TO_DEG;
+			
+			double diffTopRight = (oldTopRightAngle-topRightAngle)%360;
+			double diffTopLeft = (oldTopLeftAngle-topLeftAngle)%360;
+			double diffBottomRight = (oldBottomRightAngle-bottomRightAngle)%360;
+			double diffBottomLeft = (oldBottomLeftAngle-bottomLeftAngle)%360;
+			
+			if(90<diffTopRight&&diffTopRight<180){
+				topRightAngle = topRightAngle + 180;
+				topRightSpeed = topRightSpeed * -1;
+			}else if (diffTopRight == 180){
+				topRightAngle = oldTopRightAngle;
+				topRightSpeed = topRightSpeed * -1;
+			}else if (diffTopRight  > 180){
+				topRightAngle = topRightAngle + 360;
+			}else if (-180<diffTopRight&&diffTopRight<-90){
+				topRightAngle = topRightAngle - 180;
+				topRightSpeed = topRightSpeed * -1;
+			}else if (diffTopRight==-180){
+				topRightAngle = oldTopRightAngle;
+				topRightSpeed = topRightSpeed*-1;
+			}else if (diffTopRight < -180){
+				topRightAngle = topRightAngle - 360;
+			}
+			
+			if(90<diffTopLeft&&diffTopLeft<180){
+				topLeftAngle = topLeftAngle + 180;
+				topLeftSpeed = topLeftSpeed * -1;
+			}else if (diffTopLeft == 180){
+				topLeftAngle = topLeftAngle;
+				topLeftSpeed = topLeftSpeed * -1;
+			}else if (diffTopLeft  > 180){
+				topLeftAngle = topLeftAngle + 360;
+			}else if (-180<diffTopLeft&&diffTopLeft<-90){
+				topLeftAngle = topLeftAngle - 180;
+				topLeftSpeed = topLeftSpeed * -1;
+			}else if (diffTopLeft==-180){
+				topLeftAngle = oldTopLeftAngle;
+				topLeftSpeed = topLeftSpeed*-1;
+			}else if (diffTopLeft < -180){
+				topLeftAngle = topLeftAngle - 360;
+			}
+			
+			if(90<diffBottomRight&&diffBottomRight<180){
+				bottomRightAngle = bottomRightAngle + 180;
+				bottomRightSpeed = bottomRightSpeed * -1;
+			}else if (diffBottomRight == 180){
+				bottomRightAngle = oldBottomRightAngle;
+				bottomRightSpeed = bottomRightSpeed * -1;
+			}else if (diffBottomRight  > 180){
+				bottomRightAngle = bottomRightAngle + 360;
+			}else if (-180<diffBottomRight&&diffBottomRight<-90){
+				bottomRightAngle = bottomRightAngle - 180;
+				bottomRightSpeed = bottomRightSpeed * -1;
+			}else if (diffBottomRight==-180){
+				bottomRightAngle = oldBottomRightAngle;
+				bottomRightSpeed = bottomRightSpeed*-1;
+			}else if (diffBottomRight < -180){
+				bottomRightAngle = bottomRightAngle - 360;
+			}
+			
+			if(90<diffBottomLeft&&diffBottomLeft<180){
+				bottomLeftAngle = bottomLeftAngle + 180;
+				bottomLeftSpeed = bottomLeftSpeed * -1;
+			}else if (diffBottomLeft == 180){
+				bottomLeftAngle = oldBottomLeftAngle;
+				bottomLeftSpeed = bottomLeftSpeed * -1;
+			}else if (diffBottomLeft  > 180){
+				bottomLeftAngle = bottomLeftAngle + 360;
+			}else if (-180<diffBottomLeft&&diffBottomLeft<-90){
+				bottomLeftAngle = bottomLeftAngle - 180;
+				bottomLeftSpeed = bottomLeftSpeed * -1;
+			}else if (diffBottomLeft==-180){
+				bottomLeftAngle = oldBottomLeftAngle;
+				bottomLeftSpeed = bottomLeftSpeed*-1;
+			}else if (diffBottomLeft < -180){
+				bottomLeftAngle = bottomLeftAngle - 360;
+			}
 
 			// rotIn is either the heading for fieldcentric code or omega in
 			// robot
@@ -82,13 +195,13 @@ public class SwerveDrive {
 
 			// Normalize VIn (strafe and forward)
 			// not necessary with the XBox controllers but just in case...
-			if (Math.pow(forward, 2) + Math.pow(strafe, 2) > 1) {
+			/*if (Math.pow(forward, 2) + Math.pow(strafe, 2) > 1) {
 				double f2 = Math.pow(forward, 2);
 				double s2 = Math.pow(strafe, 2);
 
 				forward = -Math.sqrt(f2 / (f2 + s2));
 				strafe = Math.sqrt(s2 / (f2 + s2));
-			} else {
+			}   else {
 				forward *= -1;
 			}
 
@@ -133,6 +246,7 @@ public class SwerveDrive {
 			bottomLeftSpeed = Math.sqrt(bx2 + ly2);
 			bottomRightSpeed = Math.sqrt(bx2 + ry2);
 
+			*/
 			double max;
 			max = topRightSpeed;
 			if (topLeftSpeed > max) {
@@ -150,20 +264,21 @@ public class SwerveDrive {
 				bottomLeftSpeed /= max;
 				bottomRightSpeed /= max;
 			}
+			/*
 
 			// Set wheel angles
 			topRightAngle = Math.atan2(topX, rightY) * RAD_TO_DEG;
 			topLeftAngle = Math.atan2(topX, leftY) * RAD_TO_DEG;
 			bottomLeftAngle = Math.atan2(bottomX, leftY) * RAD_TO_DEG;
 			bottomRightAngle = Math.atan2(bottomX, rightY) * RAD_TO_DEG;
-
+*/
 			// output
-			/*
-			 * System.out.println(topRightSpeed + "\n" + topLeftSpeed + "\n" +
-			 * bottomLeftSpeed + "\n" + bottomRightSpeed + "\n");
-			 * System.out.println(topRightAngle + "\n" + topLeftAngle + "\n" +
-			 * bottomLeftAngle + "\n" + bottomRightAngle + "\n");
-			 */
+			
+			 System.out.println("top right speed: " + topRightSpeed + "\n" + "top left speed: " + topLeftSpeed + "\n" +
+			 "bottom left speed: " + bottomLeftSpeed + "\n" + "bottom right speed: " + bottomRightSpeed + "\n");
+			 System.out.println("top right angle: " + topRightAngle + "\n" + "top left angle: " + topLeftAngle + "\n" +
+			 "bottom left angle: " + bottomLeftAngle + "\n" + "bottom right angle: " + bottomRightAngle + "\n");
+			
 		}
 
 	}
