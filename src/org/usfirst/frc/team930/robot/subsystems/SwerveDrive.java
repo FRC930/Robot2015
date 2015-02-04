@@ -113,6 +113,8 @@ public class SwerveDrive {
 			double diffBottomRight = (oldBottomRightAngle-bottomRightAngle)%360;
 			double diffBottomLeft = (oldBottomLeftAngle-bottomLeftAngle)%360;
 			
+			System.out.println(topRightAngle);
+			
 			if(90<diffTopRight&&diffTopRight<180){
 				topRightAngle = topRightAngle + 180;
 				topRightSpeed = topRightSpeed * -1;
@@ -292,10 +294,10 @@ public class SwerveDrive {
 */
 			// output
 			
-			 System.out.println("top right speed: " + topRightSpeed + "\n" + "top left speed: " + topLeftSpeed + "\n" +
+			 /*System.out.println("top right speed: " + topRightSpeed + "\n" + "top left speed: " + topLeftSpeed + "\n" +
 			 "bottom left speed: " + bottomLeftSpeed + "\n" + "bottom right speed: " + bottomRightSpeed + "\n");
 			 System.out.println("top right angle: " + topRightAngle + "\n" + "top left angle: " + topLeftAngle + "\n" +
-			 "bottom left angle: " + bottomLeftAngle + "\n" + "bottom right angle: " + bottomRightAngle + "\n");
+			 "bottom left angle: " + bottomLeftAngle + "\n" + "bottom right angle: " + bottomRightAngle + "\n");*/
 			
 		}
 
