@@ -268,7 +268,7 @@ public class SwerveDrive {
 			double min;
 			min = topRightSpeed;
 			if (topLeftSpeed < min) {
-				max = topLeftSpeed;
+				min = topLeftSpeed;
 			}
 			if (bottomLeftSpeed < min) {
 				min = bottomLeftSpeed;
@@ -276,7 +276,7 @@ public class SwerveDrive {
 			if (bottomRightSpeed < min) {
 				min = bottomRightSpeed;
 			}
-			if (min < 1) {
+			if (min < -1) {
 				topRightSpeed /= min;
 				topLeftSpeed /= min;
 				bottomLeftSpeed /= min;
