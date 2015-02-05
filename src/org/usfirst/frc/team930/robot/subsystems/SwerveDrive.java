@@ -118,8 +118,6 @@ public class SwerveDrive {
 			double diffBottomRight = (oldBottomRightAngle-bottomRightAngle)%360;
 			double diffBottomLeft = (oldBottomLeftAngle-bottomLeftAngle)%360;
 			
-			System.out.println(topRightAngle);
-			
 			if(90<diffTopRight&&diffTopRight<180){
 				topRightAngle = topRightAngle + 180 + (modTopRight * 360);
 				topRightSpeed = topRightSpeed * -1;
@@ -136,7 +134,7 @@ public class SwerveDrive {
 				topRightSpeed = topRightSpeed*-1;
 			}else if (diffTopRight < -180){
 				topRightAngle = topRightAngle - 360 + (modTopRight * 360);
-			}else if (oldTopRightAngle > 270 || oldTopRightAngle < -270){
+			}else if (oldTopRightAngle%360 > 270 || oldTopRightAngle%360 < -270){
 				topRightAngle = topRightAngle + (modTopRight*360);
 			}
 			
@@ -156,7 +154,7 @@ public class SwerveDrive {
 				topLeftSpeed = topLeftSpeed*-1;
 			}else if (diffTopLeft < -180){
 				topLeftAngle = topLeftAngle - 360 + (modTopLeft * 360);
-			}else if (oldTopLeftAngle > 270 || oldTopLeftAngle < -270){
+			}else if (oldTopLeftAngle%360 > 270 || oldTopLeftAngle%360 < -270){
 				topLeftAngle = topLeftAngle + (modTopLeft*360);
 			}
 			
@@ -176,7 +174,7 @@ public class SwerveDrive {
 				bottomRightSpeed = bottomRightSpeed*-1;
 			}else if (diffBottomRight < -180){
 				bottomRightAngle = bottomRightAngle - 360 + (modBottomRight * 360);
-			}else if (oldBottomRightAngle > 270 || oldBottomRightAngle < -270){
+			}else if (oldBottomRightAngle%360 > 270 || oldBottomRightAngle%360 < -270){
 				bottomRightAngle = bottomRightAngle + (modBottomRight*360);
 			}
 			
@@ -196,7 +194,7 @@ public class SwerveDrive {
 				bottomLeftSpeed = bottomLeftSpeed*-1;
 			}else if (diffBottomLeft < -180){
 				bottomLeftAngle = bottomLeftAngle - 360 + (modBottomLeft * 360);
-			}else if (oldBottomLeftAngle > 270 || oldBottomLeftAngle < -270){
+			}else if (oldBottomLeftAngle%360 > 270 || oldBottomLeftAngle%360 < -270){
 				bottomLeftAngle = bottomLeftAngle + (modBottomLeft*360);
 			}
 
@@ -297,6 +295,7 @@ public class SwerveDrive {
 				bottomLeftSpeed /= min;
 				bottomRightSpeed /= min;
 			}
+			
 			/*
 
 			// Set wheel angles
