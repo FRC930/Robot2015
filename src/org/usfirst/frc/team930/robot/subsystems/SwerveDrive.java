@@ -74,9 +74,9 @@ public class SwerveDrive {
 			bottomRightSpeed = 0;
 
 			topRightAngle = oldTopRightAngle;
-			topLeftAngle = oldTopRightAngle;
-			bottomLeftAngle = oldTopRightAngle;
-			bottomRightAngle = oldTopRightAngle;
+			topLeftAngle = oldTopLeftAngle;
+			bottomLeftAngle = oldBottomLeftAngle;
+			bottomRightAngle = oldBottomRightAngle;
 		} else {
 			
 			double FWD = forward;
@@ -136,7 +136,7 @@ public class SwerveDrive {
 				topRightSpeed = topRightSpeed*-1;
 			}else if (diffTopRight < -180){
 				topRightAngle = topRightAngle - 360 + (modTopRight * 360);
-			}else if (diffTopRight == 0){
+			}else if (oldTopRightAngle > 270 || oldTopRightAngle < -270){
 				topRightAngle = topRightAngle + (modTopRight*360);
 			}
 			
@@ -152,11 +152,11 @@ public class SwerveDrive {
 				topLeftAngle = topLeftAngle -180 + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed * -1;
 			}else if (diffTopLeft==-180){
-				topLeftAngle = oldTopLeftAngle + 180 + (modTopLeft * 360);
+				topLeftAngle = oldTopLeftAngle + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed*-1;
 			}else if (diffTopLeft < -180){
 				topLeftAngle = topLeftAngle - 360 + (modTopLeft * 360);
-			}else if (diffTopLeft == 0){
+			}else if (oldTopLeftAngle > 270 || oldTopLeftAngle < -270){
 				topLeftAngle = topLeftAngle + (modTopLeft*360);
 			}
 			
@@ -176,7 +176,7 @@ public class SwerveDrive {
 				bottomRightSpeed = bottomRightSpeed*-1;
 			}else if (diffBottomRight < -180){
 				bottomRightAngle = bottomRightAngle - 360 + (modBottomRight * 360);
-			}else if (diffBottomRight == 0){
+			}else if (oldBottomRightAngle > 270 || oldBottomRightAngle < -270){
 				bottomRightAngle = bottomRightAngle + (modBottomRight*360);
 			}
 			
@@ -196,7 +196,7 @@ public class SwerveDrive {
 				bottomLeftSpeed = bottomLeftSpeed*-1;
 			}else if (diffBottomLeft < -180){
 				bottomLeftAngle = bottomLeftAngle - 360 + (modBottomLeft * 360);
-			}else if (diffBottomLeft == 0){
+			}else if (oldBottomLeftAngle > 270 || oldBottomLeftAngle < -270){
 				bottomLeftAngle = bottomLeftAngle + (modBottomLeft*360);
 			}
 
