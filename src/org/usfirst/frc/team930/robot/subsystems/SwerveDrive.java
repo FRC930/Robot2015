@@ -73,10 +73,10 @@ public class SwerveDrive {
 			bottomLeftSpeed = 0;
 			bottomRightSpeed = 0;
 
-			topRightAngle = 0;
-			topLeftAngle = 0;
-			bottomLeftAngle = 0;
-			bottomRightAngle = 0;
+			topRightAngle = oldTopRightAngle;
+			topLeftAngle = oldTopRightAngle;
+			bottomLeftAngle = oldTopRightAngle;
+			bottomRightAngle = oldTopRightAngle;
 		} else {
 			
 			double FWD = forward;
@@ -108,6 +108,11 @@ public class SwerveDrive {
 			bottomLeftAngle = Math.atan2(A,D) * RAD_TO_DEG;
 			bottomRightAngle = Math.atan2(A,C) * RAD_TO_DEG;
 			
+			int modTopRight = (int)((oldTopRightAngle - topRightAngle)/360);
+			int modTopLeft = (int)((oldTopLeftAngle - topLeftAngle)/360);
+			int modBottomRight = (int)((oldBottomRightAngle - bottomRightAngle)/360);
+			int modBottomLeft = (int)((oldBottomLeftAngle - bottomLeftAngle)/360);
+			
 			double diffTopRight = (oldTopRightAngle-topRightAngle)%360;
 			double diffTopLeft = (oldTopLeftAngle-topLeftAngle)%360;
 			double diffBottomRight = (oldBottomRightAngle-bottomRightAngle)%360;
@@ -116,75 +121,83 @@ public class SwerveDrive {
 			System.out.println(topRightAngle);
 			
 			if(90<diffTopRight&&diffTopRight<180){
-				topRightAngle = topRightAngle + 180;
+				topRightAngle = topRightAngle + 180 + (modTopRight * 360);
 				topRightSpeed = topRightSpeed * -1;
 			}else if (diffTopRight == 180){
-				topRightAngle = oldTopRightAngle;
+				topRightAngle = oldTopRightAngle + (modTopRight * 360);;
 				topRightSpeed = topRightSpeed * -1;
 			}else if (diffTopRight  > 180){
-				topRightAngle = topRightAngle + 360;
+				topRightAngle = topRightAngle + 360 + (modTopRight * 360);;
 			}else if (-180<diffTopRight&&diffTopRight<-90){
-				topRightAngle = topRightAngle - 180;
+				topRightAngle = topRightAngle - 180 + (modTopRight * 360);;
 				topRightSpeed = topRightSpeed * -1;
 			}else if (diffTopRight==-180){
-				topRightAngle = oldTopRightAngle;
+				topRightAngle = oldTopRightAngle + (modTopRight * 360);;
 				topRightSpeed = topRightSpeed*-1;
 			}else if (diffTopRight < -180){
-				topRightAngle = topRightAngle - 360;
+				topRightAngle = topRightAngle - 360 + (modTopRight * 360);
+			}else if (diffTopRight == 0){
+				topRightAngle = topRightAngle + (modTopRight*360);
 			}
 			
 			if(90<diffTopLeft&&diffTopLeft<180){
-				topLeftAngle = topLeftAngle + 180;
+				topLeftAngle = topLeftAngle + 180 + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed * -1;
 			}else if (diffTopLeft == 180){
-				topLeftAngle = topLeftAngle;
+				topLeftAngle = oldTopLeftAngle + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed * -1;
 			}else if (diffTopLeft  > 180){
-				topLeftAngle = topLeftAngle + 360;
+				topLeftAngle = topLeftAngle + 360 + (modTopLeft * 360);
 			}else if (-180<diffTopLeft&&diffTopLeft<-90){
-				topLeftAngle = topLeftAngle - 180;
+				topLeftAngle = topLeftAngle -180 + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed * -1;
 			}else if (diffTopLeft==-180){
-				topLeftAngle = oldTopLeftAngle;
+				topLeftAngle = oldTopLeftAngle + 180 + (modTopLeft * 360);
 				topLeftSpeed = topLeftSpeed*-1;
 			}else if (diffTopLeft < -180){
-				topLeftAngle = topLeftAngle - 360;
+				topLeftAngle = topLeftAngle - 360 + (modTopLeft * 360);
+			}else if (diffTopLeft == 0){
+				topLeftAngle = topLeftAngle + (modTopLeft*360);
 			}
 			
 			if(90<diffBottomRight&&diffBottomRight<180){
-				bottomRightAngle = bottomRightAngle + 180;
+				bottomRightAngle = bottomRightAngle + 180 + (modBottomRight * 360);
 				bottomRightSpeed = bottomRightSpeed * -1;
 			}else if (diffBottomRight == 180){
-				bottomRightAngle = oldBottomRightAngle;
+				bottomRightAngle = oldBottomRightAngle + (modBottomRight * 360);
 				bottomRightSpeed = bottomRightSpeed * -1;
 			}else if (diffBottomRight  > 180){
-				bottomRightAngle = bottomRightAngle + 360;
+				bottomRightAngle = bottomRightAngle + 360 + (modBottomRight * 360);
 			}else if (-180<diffBottomRight&&diffBottomRight<-90){
-				bottomRightAngle = bottomRightAngle - 180;
+				bottomRightAngle = bottomRightAngle - 180 + (modBottomRight * 360);
 				bottomRightSpeed = bottomRightSpeed * -1;
 			}else if (diffBottomRight==-180){
-				bottomRightAngle = oldBottomRightAngle;
+				bottomRightAngle = oldBottomRightAngle + (modBottomRight * 360);
 				bottomRightSpeed = bottomRightSpeed*-1;
 			}else if (diffBottomRight < -180){
-				bottomRightAngle = bottomRightAngle - 360;
+				bottomRightAngle = bottomRightAngle - 360 + (modBottomRight * 360);
+			}else if (diffBottomRight == 0){
+				bottomRightAngle = bottomRightAngle + (modBottomRight*360);
 			}
 			
 			if(90<diffBottomLeft&&diffBottomLeft<180){
-				bottomLeftAngle = bottomLeftAngle + 180;
+				bottomLeftAngle = bottomLeftAngle + 180 + (modBottomLeft * 360);
 				bottomLeftSpeed = bottomLeftSpeed * -1;
 			}else if (diffBottomLeft == 180){
-				bottomLeftAngle = oldBottomLeftAngle;
+				bottomLeftAngle = oldBottomLeftAngle + (modBottomLeft * 360);
 				bottomLeftSpeed = bottomLeftSpeed * -1;
 			}else if (diffBottomLeft  > 180){
-				bottomLeftAngle = bottomLeftAngle + 360;
+				bottomLeftAngle = bottomLeftAngle + 360 + (modBottomLeft * 360);
 			}else if (-180<diffBottomLeft&&diffBottomLeft<-90){
-				bottomLeftAngle = bottomLeftAngle - 180;
+				bottomLeftAngle = bottomLeftAngle - 180 + (modBottomLeft * 360);
 				bottomLeftSpeed = bottomLeftSpeed * -1;
 			}else if (diffBottomLeft==-180){
-				bottomLeftAngle = oldBottomLeftAngle;
+				bottomLeftAngle = oldBottomLeftAngle + (modBottomLeft * 360);
 				bottomLeftSpeed = bottomLeftSpeed*-1;
 			}else if (diffBottomLeft < -180){
-				bottomLeftAngle = bottomLeftAngle - 360;
+				bottomLeftAngle = bottomLeftAngle - 360 + (modBottomLeft * 360);
+			}else if (diffBottomLeft == 0){
+				bottomLeftAngle = bottomLeftAngle + (modBottomLeft*360);
 			}
 
 			// rotIn is either the heading for fieldcentric code or omega in
