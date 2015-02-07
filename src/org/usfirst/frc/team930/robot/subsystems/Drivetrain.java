@@ -102,13 +102,13 @@ public class Drivetrain extends Subsystem {
 		blRot.set(swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
 		brRot.set(swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
 		
-		SmartDashboard.putNumber("front right", frRot.getFaults());
-		SmartDashboard.putNumber("front left", flRot.getFaults());
-		SmartDashboard.putNumber("back right", brRot.getFaults());
-		SmartDashboard.putNumber("back left", blRot.getFaults());
-		
+//		SmartDashboard.putNumber("front right", frRot.getFaults());
+//		SmartDashboard.putNumber("front left", flRot.getFaults());
+//		SmartDashboard.putNumber("back right", brRot.getFaults());
+//		SmartDashboard.putNumber("back left", blRot.getFaults());
+//		
 		System.out.println("Front right encoder: "+ frRot.getPosition());
-		System.out.println("Front left eoncoder: "+ flRot.getPosition());
+		System.out.println("Front left encoder: "+ flRot.getPosition());
 		System.out.println("Back right encoder: "+ brRot.getPosition());
 		System.out.println("Back left encoder: "+ blRot.getPosition());
 		
@@ -116,6 +116,7 @@ public class Drivetrain extends Subsystem {
 		System.out.println("FL output: " + swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
 		System.out.println("BR output: " + swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
 		System.out.println("BL output: " + swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
+
 		
 		// outputings
 		/*

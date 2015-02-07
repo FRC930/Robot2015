@@ -24,13 +24,15 @@ public class Drive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.drivetrain.swerve.isFieldcentric == false)
+		if (Robot.drivetrain.swerve.isFieldcentric == false){
 			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
 					oi.getRotX());
-		else
+		
+		}
+		else{
 			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
 					Math.atan2(oi.getRotX(), oi.getRotY()));
-		
+		}
 //		Robot.drivetrain.frRot.set(0);
 //		Robot.drivetrain.flRot.set(0);
 //		Robot.drivetrain.blRot.set(0);
