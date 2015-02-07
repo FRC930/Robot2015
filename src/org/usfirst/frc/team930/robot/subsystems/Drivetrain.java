@@ -106,17 +106,22 @@ public class Drivetrain extends Subsystem {
 //		SmartDashboard.putNumber("front left", flRot.getFaults());
 //		SmartDashboard.putNumber("back right", brRot.getFaults());
 //		SmartDashboard.putNumber("back left", blRot.getFaults());
-//		
-		System.out.println("Front right encoder: "+ frRot.getPosition());
-		System.out.println("Front left encoder: "+ flRot.getPosition());
-		System.out.println("Back right encoder: "+ brRot.getPosition());
-		System.out.println("Back left encoder: "+ blRot.getPosition());
+//
 		
-		System.out.println("FR output: " + swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
-		System.out.println("FL output: " + swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
-		System.out.println("BR output: " + swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
-		System.out.println("BL output: " + swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
-
+		SmartDashboard.putNumber("Front right encoder", frRot.getPosition());
+		SmartDashboard.putNumber("Front left encoder", flRot.getPosition());
+		SmartDashboard.putNumber("Back right encoder", brRot.getPosition());
+		SmartDashboard.putNumber("Back left encoder", blRot.getPosition());
+		
+		SmartDashboard.putNumber("FR output", swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("FL output", swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("BR output",swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("BL output", swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
+		
+		SmartDashboard.putNumber("FR speed output", swerve.output(Outputs.frontRightSpeed));
+		SmartDashboard.putNumber("FL speed output", swerve.output(Outputs.frontLeftSpeed));
+		SmartDashboard.putNumber("BR speed output",swerve.output(Outputs.backRightSpeed));
+		SmartDashboard.putNumber("BL speed output", swerve.output(Outputs.backLeftSpeed));
 		
 		// outputings
 		/*

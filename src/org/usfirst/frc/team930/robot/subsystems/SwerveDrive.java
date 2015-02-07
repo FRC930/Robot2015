@@ -2,6 +2,8 @@ package org.usfirst.frc.team930.robot.subsystems;
 import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.Robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class SwerveDrive {
 
 	/*
@@ -130,25 +132,27 @@ public class SwerveDrive {
 			double diffBottomRight = (oldBottomRightAngle-bottomRightAngle)%360;
 			double diffBottomLeft = (oldBottomLeftAngle-bottomLeftAngle)%360;
 			
-			if(90<diffTopRight&&diffTopRight<180){
+			
+			
+			if(90<diffTopRight&&diffTopRight<=180){
 				topRightAngle = topRightAngle + 180 + (modTopRight * 360);
 				topRightSpeed = topRightSpeed * -1;
 				//System.out.println("1 " + topRightAngle);
-			}else if (diffTopRight == 180){
-				topRightAngle = oldTopRightAngle;
-				topRightSpeed = topRightSpeed * -1;
-				//System.out.println("2 " + topRightAngle);
+//			}else if (diffTopRight == 180){
+//				topRightAngle = oldTopRightAngle;
+//				topRightSpeed = topRightSpeed * -1;
+//				//System.out.println("2 " + topRightAngle);
 			}else if (diffTopRight  > 180){
 				topRightAngle = topRightAngle + 360 + (modTopRight * 360);
 				//System.out.println("3 " + topRightAngle);
-			}else if (-180<diffTopRight&&diffTopRight<-90){
+			}else if (-180<=diffTopRight&&diffTopRight<-90){
 				topRightAngle = topRightAngle - 180 + (modTopRight * 360);
 				topRightSpeed = topRightSpeed * -1;
 				//System.out.println("4 " + topRightAngle);
-			}else if (diffTopRight==-180){
-				topRightAngle = oldTopRightAngle;
-				topRightSpeed = topRightSpeed*-1;
-				//System.out.println("5 " + topRightAngle);
+//			}else if (diffTopRight==-180){
+//				topRightAngle = oldTopRightAngle;
+//				topRightSpeed = topRightSpeed*-1;
+//				//System.out.println("5 " + topRightAngle);
 			}else if (diffTopRight < -180){
 				topRightAngle = topRightAngle - 360 + (modTopRight * 360);
 				//System.out.println("6 " + topRightAngle);
