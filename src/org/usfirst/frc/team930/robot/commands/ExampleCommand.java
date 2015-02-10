@@ -1,26 +1,18 @@
+
 package org.usfirst.frc.team930.robot.commands;
 
-import org.usfirst.frc.team930.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc.team930.robot.Robot;
 
 /**
  *
  */
-public class OpenClaw extends Command {
+public class ExampleCommand extends Command {
 
-    public OpenClaw() {
+    public ExampleCommand() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    	requires(Robot.claw);	
-=======
-    	requires(Robot.claw);
->>>>>>> 241bffde9df7f41f24123ea9da86fe0b6bb169f3
-=======
-    	requires(Robot.claw);
->>>>>>> 43910c700cc0bae58df19f610d690026b38427ee
+        requires(Robot.exampleSubsystem);
     }
 
     // Called just before this Command runs the first time
