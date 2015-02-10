@@ -17,6 +17,7 @@ public class Drivetrain extends Subsystem {
 	final int CODES_PER_REV = 414;
 	public final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
 	final double SLOWDOWN = .5;
+	final int SPEED_TO_CODES = 8000;
 
 	final double DEFAULT_JAG_P = -5900;
 	final double DEFAULT_JAG_I = -80;
@@ -104,10 +105,14 @@ public class Drivetrain extends Subsystem {
 		//
 		swerve.updateSwerve(forward, strafe, rot);
 
-		frDrive.set(SLOWDOWN * swerve.output(Outputs.frontRightSpeed));
-		flDrive.set(SLOWDOWN * swerve.output(Outputs.frontLeftSpeed));
-		blDrive.set(SLOWDOWN * swerve.output(Outputs.backLeftSpeed));
-		brDrive.set(SLOWDOWN * swerve.output(Outputs.backRightSpeed));
+		frDrive.set(SPEED_TO_CODES * SLOWDOWN
+				* swerve.output(Outputs.frontRightSpeed));
+		flDrive.set(SPEED_TO_CODES * SLOWDOWN
+				* swerve.output(Outputs.frontLeftSpeed));
+		blDrive.set(SPEED_TO_CODES * SLOWDOWN
+				* swerve.output(Outputs.backLeftSpeed));
+		brDrive.set(SPEED_TO_CODES * SLOWDOWN
+				* swerve.output(Outputs.backRightSpeed));
 
 		frRot.set(swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
 		flRot.set(swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
