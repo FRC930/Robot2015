@@ -1,13 +1,11 @@
-package org.usfirst.frc.team930.robot.subsystems;
+//Sybsystem: Claw
 
+package org.usfirst.frc.team930.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class Claw extends Subsystem {
 
 	// Put methods for controlling this subsystem

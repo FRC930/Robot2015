@@ -19,9 +19,15 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
+<<<<<<< HEAD
 	Command drive;
 	Command closedclaw;
 	Command openclaw;
+=======
+    Command drive;
+    Command closeClaw;
+    Command openClaw;
+>>>>>>> 241bffde9df7f41f24123ea9da86fe0b6bb169f3
 
 	public void robotInit() {
 		oi = new OI();
