@@ -5,6 +5,7 @@ import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,8 +18,10 @@ public class Drivetrain extends Subsystem {
 	public final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
 	final double SLOWDOWN = .5;
 
-	final double DEFAULT_P = -5900;
-	final double DEFAULT_I = -80;
+	final double DEFAULT_JAG_P = -5900;
+	final double DEFAULT_JAG_I = -80;
+	final double DEFAULT_TAL_P = .05;
+	final double DEFAULT_TAL_I = .0007;
 
 	final int FRONT_LEFT = 2;
 	final int FRONT_RIGHT = 1;
@@ -59,14 +62,23 @@ public class Drivetrain extends Subsystem {
 		blRot = new CANJaguar(BACK_LEFT);
 		brRot = new CANJaguar(BACK_RIGHT);
 
-		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
-				DEFAULT_I, 0);
-		flRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
-				DEFAULT_I, 0);
-		blRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
-				DEFAULT_I, 0);
-		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV, DEFAULT_P,
-				DEFAULT_I, 0);
+		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
+				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
+		flRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
+				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
+		blRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
+				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
+		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
+				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
+
+		frDrive.changeControlMode(ControlMode.Speed);
+		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		flDrive.changeControlMode(ControlMode.Speed);
+		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		blDrive.changeControlMode(ControlMode.Speed);
+		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		brDrive.changeControlMode(ControlMode.Speed);
+		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -77,17 +89,17 @@ public class Drivetrain extends Subsystem {
 	public void drive(double forward, double strafe, double rot) {
 
 		//
-//		if (forward == 0 && strafe == 0) {
-//			frRot.setI(0);
-//			flRot.setI(0);
-//			blRot.setI(0);
-//			brRot.setI(0);
-//		} else {
-//			frRot.setI(DEFAULT_I);
-//			flRot.setI(DEFAULT_I);
-//			blRot.setI(DEFAULT_I);
-//			brRot.setI(DEFAULT_I);
-//		}
+		// if (forward == 0 && strafe == 0) {
+		// frRot.setI(0);
+		// flRot.setI(0);
+		// blRot.setI(0);
+		// brRot.setI(0);
+		// } else {
+		// frRot.setI(DEFAULT_I);
+		// flRot.setI(DEFAULT_I);
+		// blRot.setI(DEFAULT_I);
+		// brRot.setI(DEFAULT_I);
+		// }
 
 		//
 		swerve.updateSwerve(forward, strafe, rot);
@@ -101,28 +113,36 @@ public class Drivetrain extends Subsystem {
 		flRot.set(swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
 		blRot.set(swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
 		brRot.set(swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
-		
-//		SmartDashboard.putNumber("front right", frRot.getFaults());
-//		SmartDashboard.putNumber("front left", flRot.getFaults());
-//		SmartDashboard.putNumber("back right", brRot.getFaults());
-//		SmartDashboard.putNumber("back left", blRot.getFaults());
-//
-		
+
+		// SmartDashboard.putNumber("front right", frRot.getFaults());
+		// SmartDashboard.putNumber("front left", flRot.getFaults());
+		// SmartDashboard.putNumber("back right", brRot.getFaults());
+		// SmartDashboard.putNumber("back left", blRot.getFaults());
+		//
+
 		SmartDashboard.putNumber("Front right encoder", frRot.getPosition());
 		SmartDashboard.putNumber("Front left encoder", flRot.getPosition());
 		SmartDashboard.putNumber("Back right encoder", brRot.getPosition());
 		SmartDashboard.putNumber("Back left encoder", blRot.getPosition());
-		
-		SmartDashboard.putNumber("FR output", swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("FL output", swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("BR output",swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("BL output", swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
-		
-		SmartDashboard.putNumber("FR speed output", swerve.output(Outputs.frontRightSpeed));
-		SmartDashboard.putNumber("FL speed output", swerve.output(Outputs.frontLeftSpeed));
-		SmartDashboard.putNumber("BR speed output",swerve.output(Outputs.backRightSpeed));
-		SmartDashboard.putNumber("BL speed output", swerve.output(Outputs.backLeftSpeed));
-		
+
+		SmartDashboard.putNumber("FR output",
+				swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("FL output",
+				swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("BR output",
+				swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
+		SmartDashboard.putNumber("BL output",
+				swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
+
+		SmartDashboard.putNumber("FR speed output",
+				swerve.output(Outputs.frontRightSpeed));
+		SmartDashboard.putNumber("FL speed output",
+				swerve.output(Outputs.frontLeftSpeed));
+		SmartDashboard.putNumber("BR speed output",
+				swerve.output(Outputs.backRightSpeed));
+		SmartDashboard.putNumber("BL speed output",
+				swerve.output(Outputs.backLeftSpeed));
+
 		// outputings
 		/*
 		 * SmartDashboard.putNumber("FRS",
