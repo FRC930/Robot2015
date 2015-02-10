@@ -52,30 +52,42 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-	
+
 	public double getStrafe() {
-		if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2) <= Math.pow(DEADBAND, 2)) {
+		/*
+		 * if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2)
+		 * <= Math.pow(DEADBAND, 2)) { return 0; }
+		 */
+		if (Math.abs(Xbox.getRawAxis(4)) < DEADBAND)
 			return 0;
-		}
-		return Xbox.getRawAxis(0);
+		return -1 * Xbox.getRawAxis(4);
 	}
-	
+
 	public double getForward() {
-		if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2) < Math.pow(DEADBAND, 2)) {
+		/*
+		 * if (Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2)
+		 * < Math .pow(DEADBAND, 2)) { return 0; }
+		 */
+		if (Math.abs(Xbox.getRawAxis(1)) < DEADBAND)
 			return 0;
-		}
 		return Xbox.getRawAxis(1);
 	}
-	
+
 	public double getRotX() {
-		if(Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math.pow(DEADBAND, 2)) {
+		/*
+		 * if (Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2)
+		 * < Math .pow(DEADBAND, 2)) { return 0; } return Xbox.getRawAxis(4);
+		 */
+		double val = Xbox.getRawAxis(3);
+		if (Math.abs(val) < DEADBAND)
 			return 0;
-		}
-		return Xbox.getRawAxis(4);
+		else
+			return val;
 	}
-	
+
 	public double getRotY() {
-		if(Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math.pow(DEADBAND, 2)) {
+		if (Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math
+				.pow(DEADBAND, 2)) {
 			return 0;
 		}
 		return Xbox.getRawAxis(5);
