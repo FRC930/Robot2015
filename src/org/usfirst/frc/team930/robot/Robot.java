@@ -10,12 +10,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team930.robot.commands.ArmHeight0;
 import org.usfirst.frc.team930.robot.commands.ArmHeight1;
 import org.usfirst.frc.team930.robot.commands.Drive;
-import org.usfirst.frc.team930.robot.commands.ExampleCommand;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team930.robot.subsystems.ExampleSubsystem;
-
 
 public class Robot extends IterativeRobot {
 
@@ -41,7 +38,7 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-        if (autonomousCommand != null) autonomousCommand.start();
+        // if (autonomousCommand != null) autonomousCommand.start();
     }
 
     public void autonomousPeriodic() {
@@ -49,7 +46,7 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        // if (autonomousCommand != null) autonomousCommand.cancel();
     }
 
     public void disabledInit(){
