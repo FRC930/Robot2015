@@ -133,59 +133,91 @@ public class SwerveDrive {
 		double diffBottomRight = (oldBottomRightAngle - bottomRightAngle) % 360;
 		double diffBottomLeft = (oldBottomLeftAngle - bottomLeftAngle) % 360;
 
-		// topRightAngle = diffTopRight;
-		// if (modTopRight % 2 != 0)
+		// /*
+		// * So this does run in O(1) since the while loop will only run once
+		// * or twice due to the += 360 * (int) lines of code to bring it within
+		// * 360 degrees. For all intents and purposes it won't run that long
+		// */
+		// int dir;
+		// // tr
+		// topRightAngle += 360 * (int) ((oldTopRightAngle - topRightAngle) /
+		// 360);
+		// if (oldTopRightAngle > topRightAngle)
+		// dir = 1;
+		// else
+		// dir = -1;
+		// while (Math.abs(oldTopRightAngle - topRightAngle) < 90) {
+		// topRightAngle += dir * 180;
 		// topRightSpeed *= -1;
-		//
-		// topLeftAngle = diffTopLeft;
-		// if (modTopLeft % 2 != 0)
-		// topRightSpeed *= -1;
-		//
-		// bottomLeftAngle = diffBottomLeft;
-		// if (modBottomLeft % 2 != 0)
+		// }
+		// // tl
+		// topLeftAngle += (int) (oldTopLeftAngle - topLeftAngle);
+		// if (oldFrontLeftAngle > frontLeftAngle)
+		// dir = 1;
+		// else
+		// dir = -1;
+		// while (Math.abs(oldTopLeftAngle - topLeftAngle) < 90) {
+		// topLeftAngle += dir * 180;
+		// topLeftSpeed *= -1;
+		// }
+		// // bl
+		// bottomLeftAngle += (int) (oldBottomLeftAngle - bottomLeftAngle);
+		// if (oldBottomLeftAngle > bottomLeftAngle)
+		// dir = 1;
+		// else
+		// dir = -1;
+		// while (Math.abs(oldBottomLeftAngle - bottomLeftAngle) < 90) {
+		// bottomLeftAngle += dir * 180;
 		// bottomLeftSpeed *= -1;
-		//
-		// bottomRightAngle = diffBottomRight;
-		// if (modBottomRight % 2 != 0)
+		// }
+		// // br
+		// bottomRightAngle += (int) (oldBottomRightAngle - bottomRightAngle);
+		// if (oldBottomRightAngle > bottomRightAngle)
+		// dir = 1;
+		// else
+		// dir = -1;
+		// while (Math.abs(oldBottomRightAngle - bottomRightAngle) < 90) {
+		// bottomRightAngle += dir * 180;
 		// bottomRightSpeed *= -1;
+		// }
 
 		if (90 < diffTopRight && diffTopRight <= 270) {
 			topRightAngle = topRightAngle + 180 + (modTopRight * 360);
 			topRightSpeed = topRightSpeed * -1;
-			 System.out.println("1 " + topRightAngle);
-			 System.out.println("1 " + topRightSpeed);
+			System.out.println("1 " + topRightAngle);
+			System.out.println("1 " + topRightSpeed);
 		} else if (diffTopRight == 180) {
 			topRightAngle = oldTopRightAngle;
 			topRightSpeed = topRightSpeed * -1;
-			 System.out.println("2 " + topRightAngle);
-			 System.out.println("2 " + topRightSpeed);
+			System.out.println("2 " + topRightAngle);
+			System.out.println("2 " + topRightSpeed);
 		} else if (diffTopRight > 270) {
 			topRightAngle = topRightAngle + 360 + (modTopRight * 360);
-			 System.out.println("3 " + topRightAngle);
-			 System.out.println("3 " + topRightSpeed);
+			System.out.println("3 " + topRightAngle);
+			System.out.println("3 " + topRightSpeed);
 		} else if (-270 <= diffTopRight && diffTopRight < -90) {
 			topRightAngle = topRightAngle - 180 + (modTopRight * 360);
 			topRightSpeed = topRightSpeed * -1;
-			 System.out.println("4 " + topRightAngle);
-			 System.out.println("4 " + topRightSpeed);
+			System.out.println("4 " + topRightAngle);
+			System.out.println("4 " + topRightSpeed);
 		} else if (diffTopRight == -180) {
 			topRightAngle = oldTopRightAngle;
 			topRightSpeed = topRightSpeed * -1;
-			 System.out.println("5 " + topRightAngle);
-			 System.out.println("5 " + topRightSpeed);
+			System.out.println("5 " + topRightAngle);
+			System.out.println("5 " + topRightSpeed);
 		} else if (diffTopRight < -270) {
 			topRightAngle = topRightAngle - 360 + (modTopRight * 360);
-			 System.out.println("6 " + topRightAngle);
-			 System.out.println("6 " + topRightSpeed);
+			System.out.println("6 " + topRightAngle);
+			System.out.println("6 " + topRightSpeed);
 		} else if (oldTopRightAngle % 360 > 270
 				|| oldTopRightAngle % 360 < -270) {
 			topRightAngle = topRightAngle + (modTopRight * 360);
-			 System.out.println("7 " + topRightAngle);
-			 System.out.println("7 " + topRightSpeed);
+			System.out.println("7 " + topRightAngle);
+			System.out.println("7 " + topRightSpeed);
 		} else {
 			topRightAngle = topRightAngle + (modTopRight * 360);
-			 System.out.println("8 " + topRightAngle);
-			 System.out.println("8 " + topRightSpeed);
+			System.out.println("8 " + topRightAngle);
+			System.out.println("8 " + topRightSpeed);
 		}
 
 		if (90 < diffTopLeft && diffTopLeft <= 270) {
