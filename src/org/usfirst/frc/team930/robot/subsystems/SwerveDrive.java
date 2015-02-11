@@ -149,37 +149,46 @@ public class SwerveDrive {
 		// if (modBottomRight % 2 != 0)
 		// bottomRightSpeed *= -1;
 
-		if (90 < diffTopRight && diffTopRight < 270) {
+		if (90 < diffTopRight && diffTopRight <= 270) {
 			topRightAngle = topRightAngle + 180 + (modTopRight * 360);
 			topRightSpeed = topRightSpeed * -1;
-			// System.out.println("1 " + topRightAngle);
+			 System.out.println("1 " + topRightAngle);
+			 System.out.println("1 " + topRightSpeed);
 		} else if (diffTopRight == 180) {
 			topRightAngle = oldTopRightAngle;
 			topRightSpeed = topRightSpeed * -1;
-			// System.out.println("2 " + topRightAngle);
+			 System.out.println("2 " + topRightAngle);
+			 System.out.println("2 " + topRightSpeed);
 		} else if (diffTopRight > 270) {
 			topRightAngle = topRightAngle + 360 + (modTopRight * 360);
-			// System.out.println("3 " + topRightAngle);
-		} else if (-270 < diffTopRight && diffTopRight < -90) {
+			 System.out.println("3 " + topRightAngle);
+			 System.out.println("3 " + topRightSpeed);
+		} else if (-270 <= diffTopRight && diffTopRight < -90) {
 			topRightAngle = topRightAngle - 180 + (modTopRight * 360);
 			topRightSpeed = topRightSpeed * -1;
-			// System.out.println("4 " + topRightAngle);
+			 System.out.println("4 " + topRightAngle);
+			 System.out.println("4 " + topRightSpeed);
 		} else if (diffTopRight == -180) {
 			topRightAngle = oldTopRightAngle;
 			topRightSpeed = topRightSpeed * -1;
-			// System.out.println("5 " + topRightAngle);
+			 System.out.println("5 " + topRightAngle);
+			 System.out.println("5 " + topRightSpeed);
 		} else if (diffTopRight < -270) {
 			topRightAngle = topRightAngle - 360 + (modTopRight * 360);
-			// System.out.println("6 " + topRightAngle);
-		} else if (oldTopRightAngle % 360 > 270 || oldTopRightAngle % 360 < -270) {
+			 System.out.println("6 " + topRightAngle);
+			 System.out.println("6 " + topRightSpeed);
+		} else if (oldTopRightAngle % 360 > 270
+				|| oldTopRightAngle % 360 < -270) {
 			topRightAngle = topRightAngle + (modTopRight * 360);
-			// System.out.println("7 " + topRightAngle);
+			 System.out.println("7 " + topRightAngle);
+			 System.out.println("7 " + topRightSpeed);
 		} else {
 			topRightAngle = topRightAngle + (modTopRight * 360);
-			// System.out.println("8 " + topRightAngle);
+			 System.out.println("8 " + topRightAngle);
+			 System.out.println("8 " + topRightSpeed);
 		}
 
-		if (90 < diffTopLeft && diffTopLeft < 270) {
+		if (90 < diffTopLeft && diffTopLeft <= 270) {
 			topLeftAngle = topLeftAngle + 180 + (modTopLeft * 360);
 			topLeftSpeed = topLeftSpeed * -1;
 		} else if (diffTopLeft == 180) {
@@ -187,7 +196,7 @@ public class SwerveDrive {
 			topLeftSpeed = topLeftSpeed * -1;
 		} else if (diffTopLeft > 270) {
 			topLeftAngle = topLeftAngle + 360 + (modTopLeft * 360);
-		} else if (-270 < diffTopLeft && diffTopLeft < -90) {
+		} else if (-270 <= diffTopLeft && diffTopLeft < -90) {
 			topLeftAngle = topLeftAngle - 180 + (modTopLeft * 360);
 			topLeftSpeed = topLeftSpeed * -1;
 		} else if (diffTopLeft == -180) {
@@ -201,7 +210,7 @@ public class SwerveDrive {
 			topLeftAngle = topLeftAngle + (modTopLeft * 360);
 		}
 
-		if (90 < diffBottomRight && diffBottomRight < 270) {
+		if (90 < diffBottomRight && diffBottomRight <= 270) {
 			bottomRightAngle = bottomRightAngle + 180 + (modBottomRight * 360);
 			bottomRightSpeed = bottomRightSpeed * -1;
 		} else if (diffBottomRight == 180) {
@@ -209,7 +218,7 @@ public class SwerveDrive {
 			bottomRightSpeed = bottomRightSpeed * -1;
 		} else if (diffBottomRight > 270) {
 			bottomRightAngle = bottomRightAngle + 360 + (modBottomRight * 360);
-		} else if (-270 < diffBottomRight && diffBottomRight < -90) {
+		} else if (-270 <= diffBottomRight && diffBottomRight < -90) {
 			bottomRightAngle = bottomRightAngle - 180 + (modBottomRight * 360);
 			bottomRightSpeed = bottomRightSpeed * -1;
 		} else if (diffBottomRight == -180) {
@@ -217,13 +226,14 @@ public class SwerveDrive {
 			bottomRightSpeed = bottomRightSpeed * -1;
 		} else if (diffBottomRight < -270) {
 			bottomRightAngle = bottomRightAngle - 360 + (modBottomRight * 360);
-		} else if (oldBottomRightAngle % 360 > 270 || oldBottomRightAngle % 360 < -270) {
+		} else if (oldBottomRightAngle % 360 > 270
+				|| oldBottomRightAngle % 360 < -270) {
 			bottomRightAngle = bottomRightAngle + (modBottomRight * 360);
 		} else {
 			bottomRightAngle = bottomRightAngle + (modBottomRight * 360);
 		}
-		
-		if (90 < diffBottomLeft && diffBottomLeft < 270) {
+
+		if (90 < diffBottomLeft && diffBottomLeft <= 270) {
 			bottomLeftAngle = bottomLeftAngle + 180 + (modBottomLeft * 360);
 			bottomLeftSpeed = bottomLeftSpeed * -1;
 		} else if (diffBottomLeft == 180) {
@@ -231,7 +241,7 @@ public class SwerveDrive {
 			bottomLeftSpeed = bottomLeftSpeed * -1;
 		} else if (diffBottomLeft > 270) {
 			bottomLeftAngle = bottomLeftAngle + 360 + (modBottomLeft * 360);
-		} else if (-270 < diffBottomLeft && diffBottomLeft < -90) {
+		} else if (-270 <= diffBottomLeft && diffBottomLeft < -90) {
 			bottomLeftAngle = bottomLeftAngle - 180 + (modBottomLeft * 360);
 			bottomLeftSpeed = bottomLeftSpeed * -1;
 		} else if (diffBottomLeft == -180) {
@@ -239,10 +249,11 @@ public class SwerveDrive {
 			bottomLeftSpeed = bottomLeftSpeed * -1;
 		} else if (diffBottomLeft < -270) {
 			bottomLeftAngle = bottomLeftAngle - 360 + (modBottomLeft * 360);
-		} else if (oldBottomLeftAngle % 360 > 270 || oldBottomLeftAngle % 360 < -270) {
+		} else if (oldBottomLeftAngle % 360 > 270
+				|| oldBottomLeftAngle % 360 < -270) {
 			bottomLeftAngle = bottomLeftAngle + (modBottomLeft * 360);
 		} else {
-			bottomLeftAngle = bottomLeftAngle + (modBottomLeft* 360);
+			bottomLeftAngle = bottomLeftAngle + (modBottomLeft * 360);
 		}
 
 		// rotIn is either the heading for fieldcentric code or omega in
@@ -353,6 +364,17 @@ public class SwerveDrive {
 		 * "\n");
 		 */
 
+	}
+
+	public void updateSwerve(double forward, double strafe, double rotIn,
+			double heading) {
+		double tempF = forward;
+		double tempS = strafe;
+
+		forward = tempF * Math.sin(heading) + tempS * Math.cos(heading);
+		strafe = tempF * Math.cos(heading) + tempS * Math.sin(heading);
+
+		this.updateSwerve(forward, strafe, rotIn);
 	}
 
 	// update swerve from joysticks (either robo or field cent)

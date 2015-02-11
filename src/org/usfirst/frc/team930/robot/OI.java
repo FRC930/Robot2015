@@ -21,7 +21,6 @@ public class OI {
 	}
 
 	final int JOYPORT = 0;
-	final double DEADBAND = .09;
 
 	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
@@ -52,44 +51,36 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-
+	
 	public double getStrafe() {
-		/*
-		 * if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2)
-		 * <= Math.pow(DEADBAND, 2)) { return 0; }
-		 */
-		if (Math.abs(Xbox.getRawAxis(4)) < DEADBAND)
-			return 0;
-		return -1 * Xbox.getRawAxis(4);
-	}
-
-	public double getForward() {
-		/*
-		 * if (Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2)
-		 * < Math .pow(DEADBAND, 2)) { return 0; }
-		 */
-		if (Math.abs(Xbox.getRawAxis(1)) < DEADBAND)
-			return 0;
-		return Xbox.getRawAxis(1);
-	}
-
-	public double getRotX() {
-		/*
-		 * if (Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2)
-		 * < Math .pow(DEADBAND, 2)) { return 0; } return Xbox.getRawAxis(4);
-		 */
-		double val = Xbox.getRawAxis(3);
-		if (Math.abs(val) < DEADBAND)
-			return 0;
-		else
-			return val;
-	}
-
-	public double getRotY() {
-		if (Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math
-				.pow(DEADBAND, 2)) {
+		double axis = Xbox.getRawAxis(0);
+		if(Math.abs(axis) < .07) {
 			return 0;
 		}
-		return Xbox.getRawAxis(5);
+		return axis;
+	}
+	
+	public double getForward() {
+		double axis = Xbox.getRawAxis(1);
+		if(Math.abs(axis) < .07) {
+			return 0;
+		}
+		return axis;
+	}
+	
+	public double getRotX() {
+		double axis = Xbox.getRawAxis(4);
+		if(Math.abs(axis) < .07) {
+			return 0;
+		}
+		return axis;
+	}
+	
+	public double getRotY() {
+		double axis = Xbox.getRawAxis(5);
+		if(Math.abs(axis) < .07) {
+			return 0;
+		}
+		return axis;
 	}
 }

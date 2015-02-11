@@ -7,12 +7,13 @@ import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
 
-	// By Noah and Nick
+	// By Team 930
 
 	final int CODES_PER_REV = 414;
 	public final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
@@ -41,6 +42,8 @@ public class Drivetrain extends Subsystem {
 	public CANJaguar blRot;
 	public CANJaguar brRot;
 
+	Gyro gyro;
+
 	public Drivetrain(double length, double width) {
 		this.swerve = new SwerveDrive(length, width);
 		this.setMotors();
@@ -62,6 +65,8 @@ public class Drivetrain extends Subsystem {
 		flRot = new CANJaguar(FRONT_LEFT);
 		blRot = new CANJaguar(BACK_LEFT);
 		brRot = new CANJaguar(BACK_RIGHT);
+
+		gyro = new Gyro(1);
 
 		frRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
@@ -85,6 +90,8 @@ public class Drivetrain extends Subsystem {
 		flRot.enableControl();
 		blRot.enableControl();
 		brRot.enableControl();
+
+		gyro.initGyro();
 	}
 
 	public void drive(double forward, double strafe, double rot) {
@@ -102,7 +109,7 @@ public class Drivetrain extends Subsystem {
 		// brRot.setI(DEFAULT_I);
 		// }
 
-		//
+		//double heading = Math.PI / 2 - gyro.getAngle() * (Math.PI / 180);
 		swerve.updateSwerve(forward, strafe, rot);
 
 		frDrive.set(SPEED_TO_CODES * SLOWDOWN
@@ -125,18 +132,20 @@ public class Drivetrain extends Subsystem {
 		// SmartDashboard.putNumber("back left", blRot.getFaults());
 		//
 
-		SmartDashboard.putNumber("Front right encoder", frRot.getPosition());
-		SmartDashboard.putNumber("Front left encoder", flRot.getPosition());
-		SmartDashboard.putNumber("Back right encoder", brRot.getPosition());
-		SmartDashboard.putNumber("Back left encoder", blRot.getPosition());
+		/*
+		 * SmartDashboard.putNumber("Front right encoder", frRot.getPosition());
+		 * SmartDashboard.putNumber("Front left encoder", flRot.getPosition());
+		 * SmartDashboard.putNumber("Back right encoder", brRot.getPosition());
+		 * SmartDashboard.putNumber("Back left encoder", blRot.getPosition());
+		 */
 
-		SmartDashboard.putNumber("FR output",
+		SmartDashboard.putNumber("FR angle output",
 				swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("FL output",
+		SmartDashboard.putNumber("FL angle output",
 				swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("BR output",
+		SmartDashboard.putNumber("BR angle output",
 				swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
-		SmartDashboard.putNumber("BL output",
+		SmartDashboard.putNumber("BL angle output",
 				swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
 
 		SmartDashboard.putNumber("FR speed output",
@@ -147,6 +156,8 @@ public class Drivetrain extends Subsystem {
 				swerve.output(Outputs.backRightSpeed));
 		SmartDashboard.putNumber("BL speed output",
 				swerve.output(Outputs.backLeftSpeed));
+
+		SmartDashboard.putNumber("Gyro", gyro.getAngle() % 360);
 
 		// outputings
 		/*
