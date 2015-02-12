@@ -21,9 +21,11 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
+
     Command drive;
     Command armHeight0;
     Command armHeight1;
+ 
     
 // XXX_N!tr0*Typ3_XXX
     public void robotInit() {
