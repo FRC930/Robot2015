@@ -137,6 +137,8 @@ public class SwerveDrive {
 		// * So this does run in O(1) since the while loop will only run once
 		// * or twice due to the += 360 * (int) lines of code to bring it within
 		// * 360 degrees. For all intents and purposes it won't run that long
+		// *
+		// * WARNING: CURRENTLY SLIGHTLY BROKEN. WORKING ON FIX
 		// */
 		// int dir;
 		// // tr
@@ -404,7 +406,7 @@ public class SwerveDrive {
 		double tempS = strafe;
 
 		forward = tempF * Math.sin(heading) + tempS * Math.cos(heading);
-		strafe = tempF * Math.cos(heading) + tempS * Math.sin(heading);
+		strafe = -1 * tempF * Math.cos(heading) + tempS * Math.sin(heading);
 
 		this.updateSwerve(forward, strafe, rotIn);
 	}
