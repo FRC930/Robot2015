@@ -111,20 +111,21 @@ public class Drivetrain extends Subsystem {
 
 		//double heading = Math.PI / 2 - gyro.getAngle() * (Math.PI / 180);
 		swerve.updateSwerve(forward, strafe, rot);
-
-		frDrive.set(SPEED_TO_CODES * SLOWDOWN
-				* swerve.output(Outputs.frontRightSpeed));
-		flDrive.set(SPEED_TO_CODES * SLOWDOWN
-				* swerve.output(Outputs.frontLeftSpeed));
-		blDrive.set(SPEED_TO_CODES * SLOWDOWN
-				* swerve.output(Outputs.backLeftSpeed));
-		brDrive.set(SPEED_TO_CODES * SLOWDOWN
-				* swerve.output(Outputs.backRightSpeed));
-
-		frRot.set(swerve.output(Outputs.frontRightAngle) * DEG_TO_GEAR_TO_REV);
-		flRot.set(swerve.output(Outputs.frontLeftAngle) * DEG_TO_GEAR_TO_REV);
-		blRot.set(swerve.output(Outputs.backLeftAngle) * DEG_TO_GEAR_TO_REV);
-		brRot.set(swerve.output(Outputs.backRightAngle) * DEG_TO_GEAR_TO_REV);
+		
+		System.out.println("fr encoder "+ frRot.getPosition());
+		
+		this.quickAngle(swerve.output(Outputs.frontRightAngle), 
+				swerve.output(Outputs.frontRightSpeed), 
+				frRot, frDrive);
+		this.quickAngle(swerve.output(Outputs.frontLeftAngle), 
+				swerve.output(Outputs.frontLeftSpeed), 
+				flRot, flDrive);
+		this.quickAngle(swerve.output(Outputs.backLeftAngle), 
+				swerve.output(Outputs.backLeftSpeed), 
+				blRot, blDrive);
+		this.quickAngle(swerve.output(Outputs.backRightAngle), 
+				swerve.output(Outputs.backRightSpeed), 
+				brRot, brDrive);
 
 		// SmartDashboard.putNumber("front right", frRot.getFaults());
 		// SmartDashboard.putNumber("front left", flRot.getFaults());
@@ -191,10 +192,33 @@ public class Drivetrain extends Subsystem {
 		// System.out.println("BLA " + swerve.output(Outputs.backLeftAngle));
 		// System.out.println("BRA " + swerve.output(Outputs.backRightAngle));
 	}
+	
+	public void quickAngle(double angle, double speed, CANJaguar jag, CANTalon talon){
+		// tr
+		double oldAngle = jag.getPosition()*360;
+		double dir = 0;
+				angle += 360 * (int) ((oldAngle - angle) / 360);
+
+				
+				if (oldAngle > angle) {
+					dir = 1;
+				} else {
+					dir = -1;
+				}
+				while (Math.abs(oldAngle - angle) > 90) {
+					angle += dir * 180;
+					speed *= -1;
+
+				}
+		jag.set(angle *  DEG_TO_GEAR_TO_REV);
+		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+		
+	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new Drive());
 
 	}
+
 }

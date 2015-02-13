@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Joystick;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+	private static final double DEADBAND = .1;
 
 	public static OI getInstance() {
 		return Holder.instance;
@@ -21,7 +23,6 @@ public class OI {
 	}
 
 	final int JOYPORT = 0;
-	final double DEADBAND = .07;
 
 	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
@@ -54,30 +55,34 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public double getStrafe() {
-		if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2) <= Math.pow(DEADBAND, 2)) {
+		double axis = Xbox.getRawAxis(0);
+		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
-		return Xbox.getRawAxis(0);
+		return axis;
 	}
 	
 	public double getForward() {
-		if(Math.pow(Xbox.getRawAxis(0), 2) + Math.pow(Xbox.getRawAxis(1), 2) < Math.pow(DEADBAND, 2)) {
+		double axis = Xbox.getRawAxis(1);
+		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
-		return Xbox.getRawAxis(1);
+		return axis;
 	}
 	
 	public double getRotX() {
-		if(Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math.pow(DEADBAND, 2)) {
+		double axis = Xbox.getRawAxis(4);
+		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
-		return Xbox.getRawAxis(4);
+		return axis;
 	}
 	
 	public double getRotY() {
-		if(Math.pow(Xbox.getRawAxis(4), 2) + Math.pow(Xbox.getRawAxis(5), 2) < Math.pow(DEADBAND, 2)) {
+		double axis = Xbox.getRawAxis(5);
+		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
-		return Xbox.getRawAxis(5);
+		return axis;
 	}
 }

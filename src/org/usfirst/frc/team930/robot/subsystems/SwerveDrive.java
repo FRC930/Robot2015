@@ -149,6 +149,7 @@ public class SwerveDrive {
 		topRightAngle += 360 * (int) ((oldTopRightAngle - topRightAngle) / 360);
 		System.out.println("old tr angle " + oldTopRightAngle);
 		System.out.println("old tr speed " + topRightSpeed);
+
 		
 		if (oldTopRightAngle > topRightAngle) {
 			dir = 1;
