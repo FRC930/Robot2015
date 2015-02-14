@@ -1,4 +1,4 @@
-//Sybsystem: Claw
+//Subsystem: Claw
 
 package org.usfirst.frc.team930.robot.subsystems;
 
@@ -13,10 +13,10 @@ public class Claw extends Subsystem {
 	Relay relay2;
 	Relay relay1;
 	DigitalInput limitSwitch1;
-	DigitalInput limitSwitch2 ;
+	DigitalInput limitSwitch2;
 	
 	public Claw(){ // Constructor
-		relay1 = new Relay(1);					
+		relay1 = new Relay(1);			
 		relay2 = new Relay(2);
 		limitSwitch1 = new DigitalInput(1);
 		limitSwitch2 = new DigitalInput(2);
@@ -30,26 +30,14 @@ public class Claw extends Subsystem {
 	}
 
 	public void openClaw() {
-		if (limitSwitch2.get() == false) {		//Control for open claw
+		while (limitSwitch1.get() != true){
 			relay1.set(Relay.Value.kReverse);
-			relay2.set(Relay.Value.kReverse);
-
-		} else {
-			relay1.set(Relay.Value.kOff);						//Control for close claw, opposite
-			relay2.set(Relay.Value.kOff);		
 		}
-
 	}
 
 	public void closeClaw() {
-		if (limitSwitch1.get() == false) {	//Control for close claw
+		while (limitSwitch2.get() != true){
 			relay1.set(Relay.Value.kForward);
-			relay2.set(Relay.Value.kForward);
-
-		} else {
-			relay1.set(Relay.Value.kOff);					//Control for open claw, opposite
-			relay2.set(Relay.Value.kOff);	
-
 		}
 	}
 }
