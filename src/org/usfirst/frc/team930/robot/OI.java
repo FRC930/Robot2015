@@ -13,7 +13,6 @@ public class OI {
 	}
 
 	public OI() {
-
 	}
 
 	public static class Holder {
