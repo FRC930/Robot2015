@@ -4,9 +4,6 @@ import org.usfirst.frc.team930.robot.Robot;
 import org.usfirst.frc.team930.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class MoveArm extends Command {
 	OI oi = OI.getInstance();
     public MoveArm() {
