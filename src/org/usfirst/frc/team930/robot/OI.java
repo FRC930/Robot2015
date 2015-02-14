@@ -43,4 +43,8 @@ public class OI {
 	public double getRobotAccelY() {
 		return -1 * roboaccel.getY();
 	}
+	
+	public double getRobotAccelZ(){
+		return roboaccel.getZ();
+	}
 }

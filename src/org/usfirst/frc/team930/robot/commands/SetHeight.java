@@ -24,7 +24,7 @@ public class SetHeight extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-//		height in inches from the floor
+		// height in inches from the floor
 		double height = HEIGHT_MIN + (HEIGHT_MAX - HEIGHT_MIN) * oi.getArmHeight();
 
 		double angle = Math.asin((height - HEIGHT_OF_ROBOT) / LENGTH_OF_ARM);

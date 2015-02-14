@@ -20,13 +20,12 @@ public class ArmSource implements PIDSource {
 	}
 
 	public double getArmAngle() {
-		double x = oi.getArmAccelX() + oi.getRobotAccelY()
-				* Math.sin(lastAngle);
-		double y = oi.getArmAccelX() - oi.getRobotAccelY()
-				* Math.cos(lastAngle);
-		double cur = Math.atan2(x, y);
-		
-		lastAngle = cur;
-		return cur;
+		double xarm = oi.getArmAccelX();
+		double yarm = oi.getArmAccelY();
+		double xrobot = oi.getRobotAccelY();
+		double yrobot = oi.getRobotAccelZ();
+
+		return Math.atan2((xrobot * yarm - yrobot * xarm), (xrobot * xarm + yrobot
+				* yarm));
 	}
 }
