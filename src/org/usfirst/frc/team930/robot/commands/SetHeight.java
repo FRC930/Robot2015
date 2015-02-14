@@ -27,12 +27,13 @@ public class SetHeight extends Command {
 		// height in inches from the floor
 		double height = HEIGHT_MIN + (HEIGHT_MAX - HEIGHT_MIN) * oi.getArmHeight();
 
+		if (height > HEIGHT_MAX)
+			height = HEIGHT_MAX;
+		else if (height < HEIGHT_MIN)
+			height = HEIGHT_MIN;
+		
 		double angle = Math.asin((height - HEIGHT_OF_ROBOT) / LENGTH_OF_ARM);
 
-		if (angle > HEIGHT_MAX)
-			angle = HEIGHT_MAX;
-		else if (angle < HEIGHT_MIN)
-			angle = HEIGHT_MIN;
 		Robot.arm.setAngle(angle);
 	}
 
