@@ -10,8 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Drive extends Command {
 
     public Drive() {
-    	requires(Robot.arm);
-    	
+    	  	
 
      }
 

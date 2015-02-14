@@ -3,7 +3,7 @@ package org.usfirst.frc.team930.robot.subsystems;
 import org.usfirst.frc.team930.robot.OI;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends Subsystem {
@@ -13,9 +13,10 @@ public class Arm extends Subsystem {
 	
 	ArmOutput armOutput;
 	ArmSource armSource;
+	public PIDController armPID;
 	
 	final double SPEED_P = .005;
-	final double SPEED_I = .001;
+	final double SPEED_I = .0007;
 	final double POS_P = 0;
 	final double POS_I = 0;
 	
@@ -25,41 +26,46 @@ public class Arm extends Subsystem {
 		
 		armOutput = new ArmOutput(talon1, talon2);
 		armSource = new ArmSource(OI.getInstance());
+		armPID = new PIDController(SPEED_P, SPEED_I, 0, armSource, armOutput);
 	}
 
 	public double getArmAngle() {
 		return armSource.getArmAngle();
 	}
 	
-	public void armUp() {
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-
-		talon1.enableControl();
-		talon2.enableControl();
-
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-
-		talon1.set(1);
-		talon2.set(1);
-
+	public void setAngle(double set) {
+		armPID.setSetpoint(set);
 	}
-
-	public void armDown() {
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-
-		talon1.enableControl();
-		talon2.enableControl();
-
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-
-		talon1.set(1);
-		talon2.set(1);
-
-	}
+	
+//	public void armUp() {
+//		talon1.changeControlMode(ControlMode.Speed);
+//		talon2.changeControlMode(ControlMode.Speed);
+//
+//		talon1.enableControl();
+//		talon2.enableControl();
+//
+//		talon1.setPID(0, 0, 0);
+//		talon2.setPID(0, 0, 0);
+//
+//		talon1.set(1);
+//		talon2.set(1);
+//
+//	}
+//
+//	public void armDown() {
+//		talon1.changeControlMode(ControlMode.Speed);
+//		talon2.changeControlMode(ControlMode.Speed);
+//
+//		talon1.enableControl();
+//		talon2.enableControl();
+//
+//		talon1.setPID(0, 0, 0);
+//		talon2.setPID(0, 0, 0);
+//
+//		talon1.set(1);
+//		talon2.set(1);
+//
+//	}
 	
 	public void initDefaultCommand() {
 

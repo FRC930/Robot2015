@@ -7,9 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-//import org.usfirst.frc.team930.robot.commands.ArmHeight0;
-//import org.usfirst.frc.team930.robot.commands.ArmHeight1;
 import org.usfirst.frc.team930.robot.commands.Drive;
+import org.usfirst.frc.team930.robot.commands.SetHeight;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
@@ -22,14 +21,12 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 
 	Command drive;
-	Command armHeight0;
-	Command armHeight1;
+	Command setHeight;
 
 	public void robotInit() {
 
 		drive = new Drive();
-		// armHeight0 = new ArmHeight0();
-		// armHeight1 = new ArmHeight1();
+		setHeight = new SetHeight();
 	}
 
 	public void disabledPeriodic() {
