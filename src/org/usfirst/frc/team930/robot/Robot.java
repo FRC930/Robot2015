@@ -11,16 +11,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team930.robot.commands.CloseClaw;
 import org.usfirst.frc.team930.robot.commands.OpenClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
-import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team930.robot.subsystems.Grip;
+import org.usfirst.frc.team930.robot.subsystems.Claw;
 
 public class Robot extends IterativeRobot {
 
 	public static final Arm arm = new Arm();
 	public static final Claw claw = new Claw();
 	public static final Drivetrain drivetrain = new Drivetrain();
-	public static final Grip grip = new Grip();
 	public static OI oi;
 
 	Command closeClaw;
