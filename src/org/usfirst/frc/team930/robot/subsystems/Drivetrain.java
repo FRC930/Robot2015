@@ -17,7 +17,7 @@ public class Drivetrain extends Subsystem {
 
 	final int CODES_PER_REV = 414;
 	public final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
-	final double SLOWDOWN = .8;
+	final double SLOWDOWN = .3;
 	final int SPEED_TO_CODES = 8000;
 
 	final double DEFAULT_JAG_P = -5900;
