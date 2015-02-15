@@ -26,11 +26,12 @@ public class CloseRightClaw extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.rightClaw.isFinished();
+        return Robot.rightClaw.limitSwitchClosed.get();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.rightClaw.stopClaw();
     }
 
     // Called when another command which requires one or more of the same
