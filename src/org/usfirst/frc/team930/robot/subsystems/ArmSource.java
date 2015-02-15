@@ -8,11 +8,9 @@ import edu.wpi.first.wpilibj.ADXL345_SPI;
 public class ArmSource implements PIDSource {
 	OI oi;
 	ADXL345_SPI accel;
-	double lastAngle;
 
 	public ArmSource(OI oi) {
 		this.oi = oi;
-		lastAngle = Math.atan2(oi.getArmAccelX(), oi.getArmAccelY());
 	}
 
 	public double pidGet() {
@@ -25,7 +23,7 @@ public class ArmSource implements PIDSource {
 		double xrobot = oi.getRobotAccelY();
 		double yrobot = oi.getRobotAccelZ();
 
-		return Math.atan2((xrobot * yarm - yrobot * xarm), (xrobot * xarm + yrobot
-				* yarm));
+		return Math.atan2((xrobot * yarm - yrobot * xarm),
+				(xrobot * xarm + yrobot * yarm));
 	}
 }

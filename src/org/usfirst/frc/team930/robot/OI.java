@@ -13,25 +13,25 @@ public class OI {
 	}
 
 	public OI() {
-		
+
 	}
 
 	public static class Holder {
 		public static final OI instance = new OI();
 	}
-	
-	//Declarations and stuff
+
+	// Declarations and stuff
 	Joystick stick2 = new Joystick(0);
 	ADXL345_SPI armaccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
 			Accelerometer.Range.k2G);
 	BuiltInAccelerometer roboaccel = new BuiltInAccelerometer(
 			Accelerometer.Range.k8G);
-	
-	//funcs and stuff
+
+	// funcs and stuff
 	public double getArmHeight() {
 		return stick2.getRawAxis(2);
 	}
-	
+
 	public double getArmAccelX() {
 		return armaccel.getX();
 	}
@@ -39,12 +39,12 @@ public class OI {
 	public double getArmAccelY() {
 		return armaccel.getY();
 	}
-	
+
 	public double getRobotAccelY() {
 		return -1 * roboaccel.getY();
 	}
-	
-	public double getRobotAccelZ(){
+
+	public double getRobotAccelZ() {
 		return roboaccel.getZ();
 	}
 }

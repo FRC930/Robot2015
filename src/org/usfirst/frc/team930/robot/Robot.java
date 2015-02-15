@@ -17,7 +17,6 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi = OI.getInstance();
 	public static final Arm arm = new Arm();
-	public static final Claw claw = new Claw();
 	public static final Drivetrain drivetrain = new Drivetrain();
 
 	Command drive;
