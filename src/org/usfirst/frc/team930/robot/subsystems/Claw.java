@@ -1,4 +1,6 @@
 package org.usfirst.frc.team930.robot.subsystems;
+import org.usfirst.frc.team930.robot.Robot;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,7 +34,7 @@ public class Claw extends Subsystem{
 	public void openClaw() {
 		isFinished = false;
 		System.out.println("open claw " + limitSwitchOpen.get());
-		while (limitSwitchOpen.get() == true) {
+		while ((limitSwitchOpen.get() == true) & Robot.isEnabled() {
 			r.set(Relay.Value.kReverse);
 			System.out.println("open claw. im stuck " + id);
 			
