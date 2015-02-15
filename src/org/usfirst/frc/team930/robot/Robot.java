@@ -8,8 +8,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team930.robot.commands.CloseClaw;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
+import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
+import org.usfirst.frc.team930.robot.commands.OpenClaw;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
+import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
@@ -19,18 +23,28 @@ public class Robot extends IterativeRobot {
 	
 	
 	public static final Arm arm = new Arm();
-	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed);
-	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed);
+	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
+	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
 	Command closeClaw;
+	Command closeLeftClaw;
+	Command closeRightClaw;
+	
 	Command openClaw;
+	Command openLeftClaw;
+	Command openRightClaw;
 
 	public void robotInit() {
+		System.out.println("Briboy init");
 		oi = new OI();
-		closeClaw = new CloseLeftClaw();
-		openClaw = new OpenLeftClaw();
+		closeClaw = new CloseClaw();
+		closeLeftClaw = new CloseLeftClaw();
+		closeRightClaw = new CloseRightClaw();
+		openClaw = new OpenClaw();
+		openLeftClaw = new OpenLeftClaw();
+		openRightClaw = new OpenRightClaw();
 	}
 
 	public void disabledPeriodic() {
