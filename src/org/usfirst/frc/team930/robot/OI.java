@@ -57,7 +57,7 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public double getStrafe() {
-		double axis = CoDrivXbox.getRawAxis(0);
+		double axis = DriverXbox.getRawAxis(0);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -73,7 +73,7 @@ public class OI {
 	}
 	
 	public double getRotX() {
-		double axis = CoDrivXbox.getRawAxis(4);
+		double axis = DriverXbox.getRawAxis(4);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -81,7 +81,7 @@ public class OI {
 	}
 	
 	public double getRotY() {
-		double axis = CoDrivXbox.getRawAxis(5);
+		double axis = DriverXbox.getRawAxis(5);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
