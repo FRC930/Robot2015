@@ -67,7 +67,7 @@ public class OI {
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
-		return axis;
+		return -1 * axis;
 	}
 	
 	public double getRotX() {
