@@ -16,10 +16,6 @@ public class Claw extends Subsystem{
 	DigitalInput limitSwitchClosed;
 	
 	boolean isFinished;
-	
-	public Claw() {
-
-	}
 
 	public Claw(Relay input, DigitalInput l1, DigitalInput l2) {
 		r = input;

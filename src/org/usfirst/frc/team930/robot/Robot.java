@@ -8,16 +8,19 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team930.robot.commands.CloseClaw;
-import org.usfirst.frc.team930.robot.commands.OpenClaw;
+import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
+import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 
 public class Robot extends IterativeRobot {
 
+	
+	
 	public static final Arm arm = new Arm();
-	public static final Claw claw = new Claw();
+	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed);
+	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed);
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
@@ -26,8 +29,8 @@ public class Robot extends IterativeRobot {
 
 	public void robotInit() {
 		oi = new OI();
-		closeClaw = new CloseClaw();
-		openClaw = new OpenClaw();
+		closeClaw = new CloseLeftClaw();
+		openClaw = new OpenLeftClaw();
 	}
 
 	public void disabledPeriodic() {

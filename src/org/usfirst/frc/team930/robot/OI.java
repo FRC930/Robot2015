@@ -1,7 +1,9 @@
 package org.usfirst.frc.team930.robot;
 
 import org.usfirst.frc.team930.robot.commands.CloseClaw;
+import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenClaw;
+import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
