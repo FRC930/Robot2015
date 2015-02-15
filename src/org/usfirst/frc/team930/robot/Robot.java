@@ -5,33 +5,31 @@ package org.usfirst.frc.team930.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team930.robot.commands.Drive;
+import org.usfirst.frc.team930.robot.commands.CloseClaw;
+import org.usfirst.frc.team930.robot.commands.OpenClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team930.robot.subsystems.Grip;
 
 public class Robot extends IterativeRobot {
 
 	public static final Arm arm = new Arm();
 	public static final Claw claw = new Claw();
 	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Grip grip = new Grip();
 	public static OI oi;
 
-<<<<<<< HEAD
-	Command drive;
-	Command closedclaw;
-	Command openclaw;
-=======
-    Command drive;
-    Command closeClaw;
-    Command openClaw;
->>>>>>> 241bffde9df7f41f24123ea9da86fe0b6bb169f3
+	Command closeClaw;
+	Command openClaw;
 
 	public void robotInit() {
 		oi = new OI();
-		drive = new Drive();
+		closeClaw = new CloseClaw();
+		openClaw = new OpenClaw();
 	}
 
 	public void disabledPeriodic() {
