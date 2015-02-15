@@ -24,7 +24,6 @@ public class SwerveDrive {
 
 	// Field Centric Specific Components
 	public boolean isFieldcentric; // are we doin' field centric calculations?
-	private double heading, lastHeading; // field centric headings
 
 	// Robot Specs
 	private double width, length, R; // length and width of the robot
@@ -49,7 +48,6 @@ public class SwerveDrive {
 		this.length = length;
 
 		this.isFieldcentric = false;
-		this.lastHeading = 0;
 
 		R = Math.sqrt(Math.pow(length, 2) + Math.pow(width, 2));
 	}

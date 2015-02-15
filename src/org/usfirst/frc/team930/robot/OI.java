@@ -22,7 +22,8 @@ public class OI {
 		public static final OI instance = new OI();
 	}
 
-	final int JOYPORT = 0;
+	final int JOYPORT1 = 0;
+	final int JOYPORT2 = 1;
 
 	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
@@ -36,7 +37,8 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 
-	Joystick Xbox = new Joystick(JOYPORT);
+	Joystick DriverXbox = new Joystick(JOYPORT1);
+	Joystick CoDrivXbox = new Joystick(JOYPORT2);
 
 	// // TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
@@ -55,7 +57,7 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	
 	public double getStrafe() {
-		double axis = Xbox.getRawAxis(0);
+		double axis = CoDrivXbox.getRawAxis(0);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -63,7 +65,7 @@ public class OI {
 	}
 	
 	public double getForward() {
-		double axis = Xbox.getRawAxis(1);
+		double axis = DriverXbox.getRawAxis(1);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -71,7 +73,7 @@ public class OI {
 	}
 	
 	public double getRotX() {
-		double axis = Xbox.getRawAxis(4);
+		double axis = CoDrivXbox.getRawAxis(4);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -79,7 +81,7 @@ public class OI {
 	}
 	
 	public double getRotY() {
-		double axis = Xbox.getRawAxis(5);
+		double axis = CoDrivXbox.getRawAxis(5);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
