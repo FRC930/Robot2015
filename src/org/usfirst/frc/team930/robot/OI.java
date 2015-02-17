@@ -15,13 +15,18 @@ public class OI {
 	Joystick driver = new Joystick(0);
 	Joystick codriver = new Joystick(1); 
 	
-	JoystickButton closeButton = new JoystickButton(driver, 1);
-	JoystickButton openButton = new JoystickButton(driver, 4);
+	JoystickButton closeButtonLeft = new JoystickButton(driver, 1);
+	JoystickButton openButtonLeft = new JoystickButton(driver, 3);
+	JoystickButton closeButtonRight = new JoystickButton(driver, 2);
+	JoystickButton openButtonRight = new JoystickButton(driver, 4);
 
 	
 	public OI (){
-		closeButton.whenPressed(new CloseLeftClaw());
-		openButton.whenPressed(new OpenLeftClaw());
+		closeButtonLeft.whenPressed(new CloseLeftClaw());
+		openButtonLeft.whenPressed(new OpenLeftClaw());
+		closeButtonRight.whenPressed(new CloseRightClaw());
+		openButtonRight.whenPressed(new OpenRightClaw());
+
 
 	}
 }
