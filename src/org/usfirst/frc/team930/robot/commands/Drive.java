@@ -5,16 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.Robot;
 
-/**
- *
- */
 public class Drive extends Command {
 
 	OI oi = OI.getInstance();
 
 	public Drive() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 		requires(Robot.drivetrain);
 	}
 
@@ -33,10 +28,6 @@ public class Drive extends Command {
 			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
 					Math.atan2(oi.getRotX(), oi.getRotY()));
 		}
-//		Robot.drivetrain.frRot.set(0);
-//		Robot.drivetrain.flRot.set(0);
-//		Robot.drivetrain.blRot.set(0);
-//		Robot.drivetrain.brRot.set(0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	
 	private static final double DEADBAND = .1;
-
+	public final static int DRIVER_PORT = 0;
+	public final static int CODRIVER_PORT = 1;
+	
 	public static OI getInstance() {
 		return Holder.instance;
 	}
@@ -22,42 +24,11 @@ public class OI {
 		public static final OI instance = new OI();
 	}
 
-	final int JOYPORT1 = 0;
-	final int JOYPORT2 = 1;
+	Joystick driverXbox = new Joystick(DRIVER_PORT);
+	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
 
-	// // CREATING BUTTONS
-	// One type of button is a joystick button which is any button on a
-	// joystick.
-	// You create one by telling it which joystick it's on and which button
-	// number it is.
-	// Joystick stick = new Joystick(port);
-	// Button button = new JoystickButton(stick, buttonNumber);
-
-	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
-	// commands the same as any other Button.
-
-	Joystick DriverXbox = new Joystick(JOYPORT1);
-	Joystick CoDrivXbox = new Joystick(JOYPORT2);
-
-	// // TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand());
-	
 	public double getStrafe() {
-		double axis = DriverXbox.getRawAxis(0);
+		double axis = driverXbox.getRawAxis(0);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -65,7 +36,7 @@ public class OI {
 	}
 	
 	public double getForward() {
-		double axis = DriverXbox.getRawAxis(1);
+		double axis = driverXbox.getRawAxis(1);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -73,7 +44,7 @@ public class OI {
 	}
 	
 	public double getRotX() {
-		double axis = DriverXbox.getRawAxis(4);
+		double axis = driverXbox.getRawAxis(4);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
@@ -81,7 +52,7 @@ public class OI {
 	}
 	
 	public double getRotY() {
-		double axis = DriverXbox.getRawAxis(5);
+		double axis = driverXbox.getRawAxis(5);
 		if(Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
