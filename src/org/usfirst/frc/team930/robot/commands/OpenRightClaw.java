@@ -3,6 +3,7 @@ package org.usfirst.frc.team930.robot.commands;
 import org.usfirst.frc.team930.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,6 +22,8 @@ public class OpenRightClaw extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        SmartDashboard.putString("Open right status", "Im opening the right claw ");
+        SmartDashboard.putBoolean("Right Claw Open", Robot.rightClaw.limitSwitchOpen.get());
       	Robot.rightClaw.openClaw();
     }
 
@@ -31,7 +34,8 @@ public class OpenRightClaw extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.rightClaw.stopClaw();
+    	Robot.rightClaw.stopClaw(); 
+    	SmartDashboard.putString("Open right status","Leaving open right claw");
     }
 
     // Called when another command which requires one or more of the same

@@ -36,9 +36,11 @@ public class Robot extends IterativeRobot {
 	Command openLeftClaw;
 	Command openRightClaw;
 
+	
 	public void robotInit() {
 		System.out.println("Briboy init");
 		oi = new OI();
+		leftClaw.reverseDirection();
 		closeClaw = new CloseClaw();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
@@ -71,6 +73,7 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	public void testPeriodic() {

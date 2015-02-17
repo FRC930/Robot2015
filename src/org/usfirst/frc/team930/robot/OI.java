@@ -5,6 +5,7 @@ import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.OpenClaw;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
+import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -19,8 +20,8 @@ public class OI {
 
 	
 	public OI (){
-		closeButton.whenPressed(new CloseRightClaw());
-		//openButton.whenPressed(new OpenClaw());
+		closeButton.whenPressed(new CloseLeftClaw());
+		openButton.whenPressed(new OpenLeftClaw());
 
 	}
 }
