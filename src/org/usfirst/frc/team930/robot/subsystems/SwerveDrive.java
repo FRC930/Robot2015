@@ -61,9 +61,6 @@ public class SwerveDrive {
 
 	// update swerve for raw vals (robo or field cent)
 	public void updateSwerve(double forward, double strafe, double rotIn) {
-		System.out.println("forward " + forward);
-		System.out.println("strafe " + strafe);
-		System.out.println("rotIn " + rotIn);
 		if (forward == 0 && strafe == 0 && rotIn == 0) {
 			topRightSpeed = 0;
 			topLeftSpeed = 0;
