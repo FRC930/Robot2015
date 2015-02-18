@@ -12,7 +12,6 @@ public class CloseLeftClaw extends Command {
 
     public CloseLeftClaw() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.leftClaw);
     }
 
@@ -22,8 +21,6 @@ public class CloseLeftClaw extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SmartDashboard.putString("Close left status", "Im closing the left claw ");
-        SmartDashboard.putBoolean("Close Left", Robot.leftClaw.limitSwitchClosed.get());
       	Robot.leftClaw.closeClaw();
     }
 
@@ -35,7 +32,6 @@ public class CloseLeftClaw extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.leftClaw.stopClaw();
-    	SmartDashboard.putString("Close left status","Leaving close left claw");
     }
 
     // Called when another command which requires one or more of the same

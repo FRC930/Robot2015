@@ -16,14 +16,16 @@ import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 
-public class Robot extends IterativeRobot {
 
+public class Robot extends IterativeRobot {
 	
+	public static final double DRIVETRAIN_WIDTH = 21.25;
+	public static final double DRIVETRAIN_LENGTH = 33.00;
 	
 	public static final Arm arm = new Arm();
 	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
 	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
-	public static final Drivetrain drivetrain = new Drivetrain();
+	public static final Drivetrain drivetrain = new Drivetrain(DRIVETRAIN_WIDTH, DRIVETRAIN_LENGTH);
 	public static OI oi;
 
 	Command closeLeftClaw;
@@ -31,30 +33,33 @@ public class Robot extends IterativeRobot {
 	
 	Command openLeftClaw;
 	Command openRightClaw;
-
+	Command drive;
 	
 	public void robotInit() {
-		oi = new OI();
+		oi = OI.getInstance();
 		leftClaw.reverseDirection();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
+		drive = new Drive();
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-	public void autonomousInit() {
-	}
+    public void autonomousInit() {
+        
+    }
+ 
+    public void autonomousPeriodic() {
+        Scheduler.getInstance().run();
+    }
 
-	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	public void teleopInit() {
-	}
+    public void teleopInit() {
+        
+    }
 
 	public void disabledInit() {
 
