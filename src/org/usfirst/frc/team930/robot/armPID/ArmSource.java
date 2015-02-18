@@ -3,14 +3,12 @@ package org.usfirst.frc.team930.robot.armPID;
 import org.usfirst.frc.team930.robot.OI;
 
 import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.ADXL345_SPI;
 
 public class ArmSource implements PIDSource {
-	OI oi;
-	ADXL345_SPI accel;
+	OI oi = OI.getInstance();
 
-	public ArmSource(OI oi) {
-		this.oi = oi;
+	public ArmSource() {
+		
 	}
 
 	public double pidGet() {

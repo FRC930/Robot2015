@@ -1,6 +1,5 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
-import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.RobotMap;
 import org.usfirst.frc.team930.robot.armPID.ArmOutput;
 import org.usfirst.frc.team930.robot.armPID.ArmSource;
@@ -28,7 +27,7 @@ public class Arm extends Subsystem {
 		talon2 = new CANTalon(RobotMap.LEFT_ARM);
 		
 		armOutput = new ArmOutput(talon1, talon2);
-		armSource = new ArmSource(OI.getInstance());
+		armSource = new ArmSource();
 		armPID = new PIDController(SPEED_P, SPEED_I, 0, armSource, armOutput);
 	}
 
