@@ -1,3 +1,5 @@
+//Subsystem: Drivetrain
+
 package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.RobotMap;
@@ -12,7 +14,6 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Drivetrain extends Subsystem {
-
 	// By Team 930
 
 	public static final int CODES_PER_REV = 414;
@@ -127,6 +128,5 @@ public class Drivetrain extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		setDefaultCommand(new Drive());
-
 	}
 }

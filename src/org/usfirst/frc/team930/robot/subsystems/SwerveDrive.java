@@ -1,5 +1,10 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
+import org.usfirst.frc.team930.robot.OI;
+import org.usfirst.frc.team930.robot.Robot;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class SwerveDrive {
 
 	/*
@@ -17,13 +22,18 @@ public class SwerveDrive {
 	 * robot so that it faces perpendicular to the baseline of the field.
 	 * Heading zero is that way
 	 * 
+<<<<<<< HEAD
+	 * THIS IS A MATH CLASS: do dont pass your speedcontrollers and shit
+=======
 	 * THIS IS A MATH CLASS: dont pass your speedcontrollers and shit
+>>>>>>> fa75819e2d4e07df98d36a421a4614893eab8f70
 	 */
 
 	// DECLARATIONS OF VARIABLES AND OTHER THINGS THE CODE MIGHT FIND USEFUL
 
 	// Field Centric Specific Components
 	public boolean isFieldcentric; // are we doin' field centric calculations?
+	private double heading, lastHeading; // field centric headings
 
 	// Robot Specs
 	private double width, length, R; // length and width of the robot
@@ -48,6 +58,7 @@ public class SwerveDrive {
 		this.length = length;
 
 		this.isFieldcentric = false;
+		this.lastHeading = 0;
 
 		R = Math.sqrt(Math.pow(length, 2) + Math.pow(width, 2));
 	}
@@ -55,6 +66,8 @@ public class SwerveDrive {
 	public SwerveDrive(double length, double width, boolean fieldcentric) {
 		this(length, width);
 		this.isFieldcentric = fieldcentric;
+
+		R = Math.sqrt(Math.pow(length, 2) + Math.pow(width, 2));
 	}
 
 	// INTERFACE METHODS
@@ -86,7 +99,6 @@ public class SwerveDrive {
 			double B2 = Math.pow(B, 2);
 			double C2 = Math.pow(C, 2);
 			double D2 = Math.pow(D, 2);
-
 			oldTopRightAngle = topRightAngle;
 			oldTopLeftAngle = topLeftAngle;
 			oldBottomRightAngle = bottomRightAngle;
@@ -133,12 +145,39 @@ public class SwerveDrive {
 		if (bottomRightSpeed < min) {
 			min = bottomRightSpeed;
 		}
+		
 		if (min < -1) {
 			topRightSpeed /= min;
 			topLeftSpeed /= min;
 			bottomLeftSpeed /= min;
 			bottomRightSpeed /= min;
 		}
+
+		// if (Math.abs(topRightAngle) > Math.abs(oldTopRightAngle) + 360){
+		// System.out.println("Top Right Angle: " + topRightAngle);
+		// topRightAngle = oldTopRightAngle;
+		// System.out.println("hi I'm in the if statement");
+		// System.out.println("OLD Top Right Angle: " + topRightAngle);
+		// }
+
+		/*
+		 * 
+		 * // Set wheel angles topRightAngle = Math.atan2(topX, rightY) *
+		 * RAD_TO_DEG; topLeftAngle = Math.atan2(topX, leftY) * RAD_TO_DEG;
+		 * bottomLeftAngle = Math.atan2(bottomX, leftY) * RAD_TO_DEG;
+		 * bottomRightAngle = Math.atan2(bottomX, rightY) * RAD_TO_DEG;
+		 */
+		// output
+
+		/*
+		 * System.out.println("top right speed: " + topRightSpeed + "\n" +
+		 * "top left speed: " + topLeftSpeed + "\n" + "bottom left speed: " +
+		 * bottomLeftSpeed + "\n" + "bottom right speed: " + bottomRightSpeed +
+		 * "\n"); System.out.println("top right angle: " + topRightAngle + "\n"
+		 * + "top left angle: " + topLeftAngle + "\n" + "bottom left angle: " +
+		 * bottomLeftAngle + "\n" + "bottom right angle: " + bottomRightAngle +
+		 * "\n");
+		 */
 	}
 
 	public void updateSwerve(double forward, double strafe, double rotIn,
@@ -151,7 +190,7 @@ public class SwerveDrive {
 
 		this.updateSwerve(forward, strafe, rotIn);
 	}
-
+	
 	public void switchCentricity() { // switch from robo to field and vicea
 										// versa while in code
 		isFieldcentric = !isFieldcentric;
@@ -179,5 +218,4 @@ public class SwerveDrive {
 			return 930; // incase of error, we throw a ridiculous value
 		}
 	}
-
 }
