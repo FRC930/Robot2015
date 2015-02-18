@@ -8,10 +8,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team930.robot.commands.CloseClaw;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
-import org.usfirst.frc.team930.robot.commands.OpenClaw;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
@@ -28,23 +26,18 @@ public class Robot extends IterativeRobot {
 	public static final Drivetrain drivetrain = new Drivetrain();
 	public static OI oi;
 
-	Command closeClaw;
 	Command closeLeftClaw;
 	Command closeRightClaw;
 	
-	Command openClaw;
 	Command openLeftClaw;
 	Command openRightClaw;
 
 	
 	public void robotInit() {
-		System.out.println("Briboy init");
 		oi = new OI();
 		leftClaw.reverseDirection();
-		closeClaw = new CloseClaw();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
-		openClaw = new OpenClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
 	}
@@ -54,8 +47,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-	//	if (autonomousCommand != null)
-			//autonomousCommand.start();
 	}
 
 	public void autonomousPeriodic() {
@@ -63,8 +54,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		//if (autonomousCommand != null)
-			//autonomousCommand.cancel();
 	}
 
 	public void disabledInit() {
