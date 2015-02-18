@@ -1,6 +1,9 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.OI;
+import org.usfirst.frc.team930.robot.RobotMap;
+import org.usfirst.frc.team930.robot.armPID.ArmOutput;
+import org.usfirst.frc.team930.robot.armPID.ArmSource;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -21,8 +24,8 @@ public class Arm extends Subsystem {
 	final double POS_I = 0;
 	
 	public Arm() {
-		talon1 = new CANTalon(5);
-		talon2 = new CANTalon(6);
+		talon1 = new CANTalon(RobotMap.RIGHT_ARM);
+		talon2 = new CANTalon(RobotMap.LEFT_ARM);
 		
 		armOutput = new ArmOutput(talon1, talon2);
 		armSource = new ArmSource(OI.getInstance());
@@ -36,37 +39,7 @@ public class Arm extends Subsystem {
 	public void setAngle(double set) {
 		armPID.setSetpoint(set);
 	}
-	
-//	public void armUp() {
-//		talon1.changeControlMode(ControlMode.Speed);
-//		talon2.changeControlMode(ControlMode.Speed);
-//
-//		talon1.enableControl();
-//		talon2.enableControl();
-//
-//		talon1.setPID(0, 0, 0);
-//		talon2.setPID(0, 0, 0);
-//
-//		talon1.set(1);
-//		talon2.set(1);
-//
-//	}
-//
-//	public void armDown() {
-//		talon1.changeControlMode(ControlMode.Speed);
-//		talon2.changeControlMode(ControlMode.Speed);
-//
-//		talon1.enableControl();
-//		talon2.enableControl();
-//
-//		talon1.setPID(0, 0, 0);
-//		talon2.setPID(0, 0, 0);
-//
-//		talon1.set(1);
-//		talon2.set(1);
-//
-//	}
-	
+		
 	public void initDefaultCommand() {
 
 	}
