@@ -26,7 +26,10 @@ public class OI {
 			Accelerometer.Range.k2G);
 	BuiltInAccelerometer roboaccel = new BuiltInAccelerometer(
 			Accelerometer.Range.k8G);
-
+	
+	// buttons
+	
+	
 	// funcs and stuff
 	public double getArmHeight() {
 		return stick2.getRawAxis(2);
