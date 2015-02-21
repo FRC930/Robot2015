@@ -54,6 +54,10 @@ public class OI {
 	public double getArmHeight() {
 		return coDriverXbox.getRawAxis(2);
 	}
+	
+	public double getArmSpeed(){
+		return driverXbox.getRawAxis(3) - driverXbox.getRawAxis(2);
+	}
 
 	public double getArmAccelX() {
 		return armaccel.getX();

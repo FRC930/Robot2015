@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class ArmOutput implements PIDOutput {
 
-	final double SPEED_P = .005;
-	final double SPEED_I = .0007;
+	final static double SPEED_P = .005;
+	final static double SPEED_I = .0007;
 
 	PIDController controller1;
 	PIDController controller2;
