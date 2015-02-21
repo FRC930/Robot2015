@@ -35,8 +35,8 @@ public class Arm extends Subsystem {
 		talon1.setPID(SPEED_P, SPEED_I, 0);
 		talon2.setPID(SPEED_P, SPEED_I, 0);
 		
-		talon1.enableLimitSwitch(true, true);
-		talon2.enableLimitSwitch(true, true);
+//		talon1.enableLimitSwitch(true, true);
+//		talon2.enableLimitSwitch(true, true);
 		
 		talon1.enableControl();
 		talon2.enableControl();

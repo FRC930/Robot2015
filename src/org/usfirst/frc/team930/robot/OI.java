@@ -25,6 +25,7 @@ public class OI {
 	Joystick driverXbox = new Joystick(DRIVER_PORT);
 	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
 
+
 	JoystickButton aButton = new JoystickButton(driverXbox, 1);
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
