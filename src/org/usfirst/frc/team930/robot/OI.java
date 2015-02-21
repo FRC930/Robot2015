@@ -12,14 +12,14 @@ public class OI {
 	private static final double DEADBAND = .1;
 	public final static int DRIVER_PORT = 0;
 	public final static int CODRIVER_PORT = 1;
+
+	Joystick driverXbox = new Joystick(DRIVER_PORT);
+	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
 	
-	Joystick driver = new Joystick(0);
-	Joystick codriver = new Joystick(1); 
-	
-	JoystickButton aButton = new JoystickButton(driver, 1);
-	JoystickButton xButton = new JoystickButton(driver, 3);
-	JoystickButton bButton = new JoystickButton(driver, 2);
-	JoystickButton yButton = new JoystickButton(driver, 4);
+	JoystickButton aButton = new JoystickButton(driverXbox, 1);
+	JoystickButton xButton = new JoystickButton(driverXbox, 3);
+	JoystickButton bButton = new JoystickButton(driverXbox, 2);
+	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 
 	public static OI getInstance() {
 		return Holder.instance;
@@ -30,16 +30,11 @@ public class OI {
 		xButton.whenPressed(new OpenLeftClaw());
 		bButton.whenPressed(new CloseRightClaw());
 		yButton.whenPressed(new OpenRightClaw());
-
-
 	}
 
 	public static class Holder {
 		public static final OI instance = new OI();
 	}
-
-	Joystick driverXbox = new Joystick(DRIVER_PORT);
-	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
 
 	public double getStrafe() {
 		double axis = driverXbox.getRawAxis(0);
