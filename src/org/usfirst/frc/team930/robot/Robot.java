@@ -12,7 +12,7 @@ import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
-import org.usfirst.frc.team930.robot.subsystems.Arm;
+
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 
@@ -22,7 +22,6 @@ public class Robot extends IterativeRobot {
 	public static final double DRIVETRAIN_WIDTH = 21.25;
 	public static final double DRIVETRAIN_LENGTH = 33.00;
 	
-	public static final Arm arm = new Arm();
 	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
 	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
 	public static final Drivetrain drivetrain = new Drivetrain(DRIVETRAIN_WIDTH, DRIVETRAIN_LENGTH);
