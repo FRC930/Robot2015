@@ -17,10 +17,10 @@ public class Arm extends Subsystem {
 	ArmSource armSource;
 	public PIDController armPID;
 
-	final double SPEED_P = .005;
-	final double SPEED_I = .0007;
-	final double POS_P = 0;
-	final double POS_I = 0;
+	final static double SPEED_P = .005;
+	final static double SPEED_I = .0007;
+	final static double POS_P = 0;
+	final static double POS_I = 0;
 
 	double mag = 1500;
 
@@ -28,23 +28,10 @@ public class Arm extends Subsystem {
 		talon1 = new CANTalon(RobotMap.RIGHT_ARM);
 		talon2 = new CANTalon(RobotMap.LEFT_ARM);
 
-		// temp
-		talon1.changeControlMode(CANTalon.ControlMode.Speed);
-		talon2.changeControlMode(CANTalon.ControlMode.Speed);
-
-		talon1.setPID(SPEED_P, SPEED_I, 0);
-		talon2.setPID(SPEED_P, SPEED_I, 0);
-		
-//		talon1.enableLimitSwitch(true, true);
-//		talon2.enableLimitSwitch(true, true);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-
-		// armOutput = new ArmOutput(talon1, talon2);
-		// armSource = new ArmSource();
-		// armPID = new PIDController(SPEED_P, SPEED_I, 0, armSource,
-		// armOutput);
+		armOutput = new ArmOutput(talon1, talon2);
+		armSource = new ArmSource();
+		armPID = new PIDController(SPEED_P, SPEED_I, 0, armSource,
+		armOutput);
 	}
 
 	public double getArmAngle() {
@@ -53,12 +40,6 @@ public class Arm extends Subsystem {
 
 	public void setAngle(double set) {
 		armPID.setSetpoint(set);
-	}
-
-	// temp
-	public void setSpeed(double speed) {
-		talon1.set(mag * speed);
-		talon2.set(mag * speed);
 	}
 
 	public void initDefaultCommand() {

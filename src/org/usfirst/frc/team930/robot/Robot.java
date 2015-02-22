@@ -5,10 +5,9 @@ package org.usfirst.frc.team930.robot;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
-import org.usfirst.frc.team930.robot.commands.MoveArm;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
-// import org.usfirst.frc.team930.robot.commands.SetHeight;
+import org.usfirst.frc.team930.robot.commands.SetHeight;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
@@ -34,8 +33,7 @@ public class Robot extends IterativeRobot {
 	Command openLeftClaw;
 	Command openRightClaw;
 	
-	// Command setHeight;
-	Command moveArm;
+	Command setHeight;
 	
 	Command drive;
 	
@@ -47,8 +45,7 @@ public class Robot extends IterativeRobot {
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
 		drive = new Drive();
-		// setHeight = new SetHeight();
-		moveArm = new MoveArm();
+		setHeight = new SetHeight();
 	}
 
 	public void disabledPeriodic() {
