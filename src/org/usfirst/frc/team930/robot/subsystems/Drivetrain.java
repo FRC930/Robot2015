@@ -4,6 +4,7 @@ package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.RobotMap;
 import org.usfirst.frc.team930.robot.commands.Drive;
+import org.usfirst.frc.team930.robot.commands.MoveForward;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
 	// By Team 930
@@ -25,6 +27,9 @@ public class Drivetrain extends Subsystem {
 	public static final double DEFAULT_JAG_I = -80;
 	public static final double DEFAULT_TAL_P = .05;
 	public static final double DEFAULT_TAL_I = .0007;
+	
+	public static final double DEFAULT_TAL_P_AUTO = .1;
+	public static final double DEFAULT_TAL_I_AUTO = .00001;
 
 	public SwerveDrive swerve;
 	
@@ -49,7 +54,14 @@ public class Drivetrain extends Subsystem {
 		this.swerve = new SwerveDrive(length, width, fieldcent);
 		this.setMotors();
 	}
-
+	
+	public void resetEncoder(){
+		frDrive.setPosition(0);
+		flDrive.setPosition(0);
+		brDrive.setPosition(0);
+		blDrive.setPosition(0);
+	}
+	
 	public void setMotors() {
 
 		frDrive = new CANTalon(RobotMap.FRONT_RIGHT);
@@ -125,22 +137,27 @@ public class Drivetrain extends Subsystem {
 
 	}
 	
-	public void manualDrive(){
-		frDrive.set(1000);
-		flDrive.set(1000);
-		blDrive.set(1000);
-		brDrive.set(1000);
+	public void manualDrive(double d){
+		frDrive.set(d);
+		flDrive.set(d);
+		blDrive.set(d);
+		brDrive.set(d);
+		SmartDashboard.putNumber("Encoder value front right", frDrive.getEncPosition());
+	}
+	
+	public double getWheelPosition(){
+		return frDrive.getPosition()/4.0;
 	}
 	
 	public void changeTalonToPosition(){
 		frDrive.changeControlMode(ControlMode.Position);
-		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		frDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
 		flDrive.changeControlMode(ControlMode.Position);
-		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		flDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
 		blDrive.changeControlMode(ControlMode.Position);
-		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		blDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
 		brDrive.changeControlMode(ControlMode.Position);
-		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		brDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
 	}
 
 	public void changeTalonToSpeed(){
@@ -156,6 +173,6 @@ public class Drivetrain extends Subsystem {
 	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new Drive());
+		setDefaultCommand(new MoveForward());
 	}
 }

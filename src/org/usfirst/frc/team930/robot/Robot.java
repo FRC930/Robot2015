@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team930.robot.commands.Auto;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
+import org.usfirst.frc.team930.robot.commands.MoveForward;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
@@ -33,6 +35,9 @@ public class Robot extends IterativeRobot {
 	Command openLeftClaw;
 	Command openRightClaw;
 	Command drive;
+
+	Command moveForward;
+	Command auto;
 	
 	public void robotInit() {
 		oi = OI.getInstance();
@@ -42,6 +47,8 @@ public class Robot extends IterativeRobot {
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
 		drive = new Drive();
+		auto = new Auto();
+		moveForward = new MoveForward();
 	}
 
 	public void disabledPeriodic() {
@@ -50,6 +57,8 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
     	Robot.drivetrain.changeTalonToPosition();
+    	Robot.drivetrain.resetEncoder();
+    	auto.start();
     }
  
     public void autonomousPeriodic() {
@@ -57,7 +66,8 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-    	Robot.drivetrain.changeTalonToSpeed();
+    	Robot.drivetrain.changeTalonToPosition();
+    	Robot.drivetrain.resetEncoder();
     }
 
 	public void disabledInit() {
