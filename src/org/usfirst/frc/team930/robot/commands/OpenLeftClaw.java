@@ -4,13 +4,12 @@ import org.usfirst.frc.team930.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class ArmHeight1 extends Command {
-
-    public ArmHeight1() {
-     requires(Robot.arm);
+public class OpenLeftClaw extends Command {
+	
+    public OpenLeftClaw() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.leftClaw);	
     }
 
     // Called just before this Command runs the first time
@@ -19,16 +18,17 @@ public class ArmHeight1 extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.armH1();
+      	Robot.leftClaw.openClaw();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.leftClaw.isOpened();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.leftClaw.stopClaw(); 
     }
 
     // Called when another command which requires one or more of the same

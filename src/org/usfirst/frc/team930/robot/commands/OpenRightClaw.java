@@ -1,16 +1,18 @@
 package org.usfirst.frc.team930.robot.commands;
+
 import org.usfirst.frc.team930.robot.Robot;
 
-import org.usfirst.frc.team930.robot.OI;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class MoveArm extends Command {
-	OI oi = OI.getInstance();
-    public MoveArm() {
-    	requires(Robot.arm);
+public class OpenRightClaw extends Command {
+	
+    public OpenRightClaw() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.rightClaw);	
     }
 
     // Called just before this Command runs the first time
@@ -19,17 +21,17 @@ public class MoveArm extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.moveArm(oi.getAxisY());
-    	
+      	Robot.rightClaw.openClaw();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.rightClaw.isOpened();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.rightClaw.stopClaw(); 
     }
 
     // Called when another command which requires one or more of the same

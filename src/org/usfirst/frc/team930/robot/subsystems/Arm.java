@@ -1,115 +1,63 @@
 package org.usfirst.frc.team930.robot.subsystems;
-import org.usfirst.frc.team930.robot.commands.MoveArm;
+
+import org.usfirst.frc.team930.robot.OI;
+import org.usfirst.frc.team930.robot.RobotMap;
+import org.usfirst.frc.team930.robot.armPID.ArmOutput;
+import org.usfirst.frc.team930.robot.armPID.ArmSource;
 
 import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class Arm extends Subsystem {
+	
+	OI oi = OI.getInstance();
+	
+	final static double RAD_TO_DEG = (180.0 / Math.PI);
 
 	CANTalon talon1;
 	CANTalon talon2;
-	final double LENGTH_OF_ARM = 1;
-	double a = 0; // height of pivot point
-	double b = 0; // lateral distance from pivot to motor
+
+	ArmOutput armOutput;
+	ArmSource armSource;
+	public PIDController armPID;
+
+	final static double SPEED_P = .005;
+	final static double SPEED_I = .0007;
+	final static double POS_P = .0075;
+	final static double POS_I = 0.0005;
+
+	double mag = 1500; 
 
 	public Arm() {
-		talon1 = new CANTalon(5);
-		talon2 = new CANTalon(6);
+//		System.out.println("im a grill btw");
+		talon1 = new CANTalon(RobotMap.RIGHT_ARM);
+		talon2 = new CANTalon(RobotMap.LEFT_ARM);
+
+		armOutput = new ArmOutput(talon1, talon2);
+		armSource = new ArmSource();
 		
+	}
+	
+	public void startPID(){
+		armPID = new PIDController(POS_P, POS_I, 0, new ArmSource(), new ArmOutput(talon1, talon2), .001);
+	}
+	
+	public double getArmAngle() {
+//		System.out.println("2gregz");
+		double zarm = oi.getArmAccelZ();
+		double yarm = oi.getArmAccelY();
+		double zrobot = oi.getRobotAccelZ();
+		double yrobot = oi.getRobotAccelY();
+
+		return Math.atan2(((zrobot * yarm) - (yrobot * zarm)), ((zrobot * zarm) + (yrobot * yarm)))*RAD_TO_DEG;
 	}
 
-	public double setHeight(double height) {
-
-		double val = 2 * LENGTH_OF_ARM * (height - a);
-		double output = Math
-				.sqrt((Math.sqrt(Math.pow(b, 4) + Math.pow(val, 2)) - Math.pow(
-						b, 2)) / 2);
-		return output; //gives height of the motor for the arm
-	}
-	
-	public void moveArm(double speed){
-		
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-		
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-		
-		talon1.set(speed);
-		talon2.set(speed);
-		
-	}
-	
-	public void armH0(){
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-		
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-		
-		talon1.set(1);
-		talon2.set(1);
-	}
-	
-	public void armH1(){
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-		
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-		
-		talon1.set(1);
-		talon2.set(1);
-		
-	}
-	
-	public void armUp(){
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-		
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-		
-		talon1.set(1);
-		talon2.set(1);
-		
-	}
-	
-	public void armDown(){
-		talon1.changeControlMode(ControlMode.Speed);
-		talon2.changeControlMode(ControlMode.Speed);
-		
-		talon1.enableControl();
-		talon2.enableControl();
-		
-		talon1.setPID(0, 0, 0);
-		talon2.setPID(0, 0, 0);
-		
-		talon1.set(1);
-		talon2.set(1);
-		
+	public void setAngle(double set) {
+		armPID.setSetpoint(set);
 	}
 
 	public void initDefaultCommand() {
 
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new MoveArm());
 	}
 }
