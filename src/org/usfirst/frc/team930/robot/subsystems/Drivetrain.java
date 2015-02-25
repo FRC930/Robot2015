@@ -124,6 +124,8 @@ public class Drivetrain extends Subsystem {
 		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
 
 	}
+	
+
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
