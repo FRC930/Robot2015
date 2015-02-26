@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Claw extends Subsystem{
 	public static Relay rightRelay = new Relay(0);
 	public static DigitalInput rightOpen = new DigitalInput(3);
-	public static DigitalInput rightClosed = new DigitalInput(2);
+	public static DigitalInput rightClosed = new DigitalInput(1);
 		
 	public static Relay leftRelay = new Relay(1);
-	public static DigitalInput leftOpen = new DigitalInput(1);
+	public static DigitalInput leftOpen = new DigitalInput(2);
 	public static DigitalInput leftClosed = new DigitalInput(0);
 	
 	Relay r;

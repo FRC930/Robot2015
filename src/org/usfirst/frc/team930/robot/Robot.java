@@ -37,12 +37,12 @@ public class Robot extends IterativeRobot {
 	
 	public void robotInit() {
 		oi = OI.getInstance();
-		leftClaw.reverseDirection();
+		//leftClaw.reverseDirection();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
-		drive = new Drive();
+		//drive = new Drive();
 	}
 
 	public void disabledPeriodic() {
