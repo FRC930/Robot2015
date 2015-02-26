@@ -24,8 +24,8 @@ public class Arm extends Subsystem {
 
 	final static double SPEED_P = .005;
 	final static double SPEED_I = .0007;
-	final static double POS_P = .0075;
-	final static double POS_I = 0.0005;
+	final static double POS_P = .0125;
+	final static double POS_I = 0.0002;
 
 	double mag = 1500; 
 
@@ -41,6 +41,7 @@ public class Arm extends Subsystem {
 	
 	public void startPID(){
 		armPID = new PIDController(POS_P, POS_I, 0, new ArmSource(), new ArmOutput(talon1, talon2), .001);
+		armPID.reset();
 	}
 	
 	public double getArmAngle() {

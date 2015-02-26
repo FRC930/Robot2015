@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
@@ -73,13 +74,13 @@ public class Robot extends IterativeRobot {
 		
 		arm.setAngle(0);
 		
-		System.out.println("arm angle " + arm.getArmAngle());
-//		System.out.println("arm accel x " + oi.getArmAccelX());
-//		System.out.println("arm accel y " + oi.getArmAccelY());
-//		System.out.println("arm accel z " + oi.getArmAccelZ());
-//		System.out.println("robot accel x " + oi.getRobotAccelX());
-//		System.out.println("robot accel y " + oi.getRobotAccelY());
-//		System.out.println("robot accel z " + oi.getRobotAccelZ());
+		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());
+		SmartDashboard.putNumber("arm accel x " , oi.getArmAccelX());
+		SmartDashboard.putNumber("arm accel y " , oi.getArmAccelY());
+		SmartDashboard.putNumber("arm accel z " , oi.getArmAccelZ());
+		SmartDashboard.putNumber("robot accel x " , oi.getRobotAccelX());
+		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
+		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
 //		
 //		System.out.println("other accel x " + oi.getOtherAccelX());
 //		System.out.println("other accel y " + oi.getOtherAccelY());

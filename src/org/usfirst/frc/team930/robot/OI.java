@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
@@ -18,8 +19,8 @@ public class OI {
 	public final static int DRIVER_PORT = 0;
 	public final static int CODRIVER_PORT = 1;
 
-	public ADXL345_SPI armaccel= new ADXL345_SPI(SPI.Port.kOnboardCS0, Accelerometer.Range.k8G);
-	public ADXL345_SPI otherAccel= new ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k8G);
+	ADXL345_SPI armaccel= new ADXL345_SPI(SPI.Port.kOnboardCS0, Accelerometer.Range.k2G);
+	public ADXL345_SPI otherAccel= new ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k2G);
 	BuiltInAccelerometer roboaccel =  new BuiltInAccelerometer(Accelerometer.Range.k8G);
 	Joystick driverXbox = new Joystick(DRIVER_PORT);
 	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
@@ -43,7 +44,10 @@ public class OI {
 	}
 	
 	public void initAccel(){
-
+		armaccel.free();
+		otherAccel.free();
+		armaccel= new ADXL345_SPI(SPI.Port.kOnboardCS0, Accelerometer.Range.k2G);
+		otherAccel= new ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k2G);
 	}
 
 	public static class Holder {
@@ -57,6 +61,7 @@ public class OI {
 	}
 	
 	public double getArmAccelX() {
+		SmartDashboard.putNumber("ArmAccelInOI" , armaccel.getX());
 		return armaccel.getX();
 	}
 
