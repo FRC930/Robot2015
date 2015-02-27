@@ -12,6 +12,8 @@ import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 
+import org.usfirst.frc.team930.robot.BoxCar;
+
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
@@ -30,6 +32,11 @@ public class OI {
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
+	
+	BoxCar boxCarArmX = new BoxCar();
+	BoxCar boxCarArmY = new BoxCar();
+	BoxCar boxCarArmZ = new BoxCar();
+	
 
 	public static OI getInstance() {
 		return Holder.instance;
@@ -61,16 +68,15 @@ public class OI {
 	}
 	
 	public double getArmAccelX() {
-		SmartDashboard.putNumber("ArmAccelInOI" , armaccel.getX());
-		return armaccel.getX();
+		return boxCarArmX.calculate(armaccel.getX());
 	}
 
 	public double getArmAccelY() {
-		return armaccel.getY();
+		return boxCarArmY.calculate(armaccel.getY());
 	}
 	
 	public double getArmAccelZ() {
-		return armaccel.getZ();
+		return boxCarArmZ.calculate(armaccel.getZ());
 	}
 	
 	public double getOtherAccelX() {

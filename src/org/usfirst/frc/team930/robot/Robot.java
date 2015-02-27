@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		arm.setAngle(0);
+		arm.setAngle(-5);
 		
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());
 		SmartDashboard.putNumber("arm accel x " , oi.getArmAccelX());
