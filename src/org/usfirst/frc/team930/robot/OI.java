@@ -134,4 +134,12 @@ public class OI {
 		}
 		return axis;
 	}
+	
+	public double getArmCoDriver() {
+		double axis = coDriverXbox.getRawAxis(1);
+		if (Math.abs(axis) < DEADBAND) {
+			return 0;
+		}
+		return -1 * axis;
+	}
 }

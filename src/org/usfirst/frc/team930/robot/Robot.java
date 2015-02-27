@@ -12,6 +12,7 @@ import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -36,6 +37,8 @@ public class Robot extends IterativeRobot {
 	Command setHeight;
 	
 	Command drive;
+	
+	final double OSC_RATE = 2;
 	
 	public void robotInit() {
 		oi = OI.getInstance();
@@ -72,7 +75,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		arm.setAngle(-5);
+		arm.setAngle(-5 + OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime())));
 		
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());
 		SmartDashboard.putNumber("arm accel x " , oi.getArmAccelX());
