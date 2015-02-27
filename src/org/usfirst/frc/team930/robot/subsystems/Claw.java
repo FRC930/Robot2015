@@ -8,16 +8,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Claw extends Subsystem {
 	public static Relay rightRelay = new Relay(RobotMap.RELAY_RIGHT);
-	public static DigitalInput rightOpen = new DigitalInput(
-			RobotMap.LIMIT_RIGHT_OPEN);
-	public static DigitalInput rightClosed = new DigitalInput(
-			RobotMap.LIMIT_LEFT_CLOSED);
+	public static DigitalInput rightOpen = new DigitalInput(RobotMap.LIMIT_RIGHT_OPEN);
+	public static DigitalInput rightClosed = new DigitalInput(RobotMap.LIMIT_RIGHT_CLOSED);
 
 	public static Relay leftRelay = new Relay(RobotMap.RELAY_LEFT);
-	public static DigitalInput leftOpen = new DigitalInput(
-			RobotMap.LIMIT_LEFT_OPEN);
-	public static DigitalInput leftClosed = new DigitalInput(
-			RobotMap.LIMIT_RIGHT_CLOSED);
+	public static DigitalInput leftOpen = new DigitalInput(RobotMap.LIMIT_LEFT_OPEN);
+	public static DigitalInput leftClosed = new DigitalInput(RobotMap.LIMIT_LEFT_CLOSED);
 
 	Relay r;
 	public DigitalInput limitSwitchOpen;

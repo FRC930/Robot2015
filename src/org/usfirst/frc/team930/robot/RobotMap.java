@@ -14,10 +14,10 @@ public class RobotMap {
 	
 	public static final int RELAY_RIGHT = 0;
 	public static final int RELAY_LEFT = 1;
-	public static final int LIMIT_RIGHT_OPEN = 1;
-	public static final int LIMIT_LEFT_OPEN = 0;
-	public static final int LIMIT_RIGHT_CLOSED = 3;
-	public static final int LIMIT_LEFT_CLOSED = 2;
+	public static final int LIMIT_RIGHT_OPEN = 3;
+	public static final int LIMIT_LEFT_OPEN = 2;
+	public static final int LIMIT_RIGHT_CLOSED = 1;
+	public static final int LIMIT_LEFT_CLOSED = 0;
 	
 	public static final int GYRO = 1;
 
