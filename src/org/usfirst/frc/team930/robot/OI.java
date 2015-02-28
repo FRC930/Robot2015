@@ -42,6 +42,9 @@ public class OI {
 	BoxCar boxCarRobotX = new BoxCar(10);
 	BoxCar boxCarRobotY = new BoxCar(10);
 	BoxCar boxCarRobotZ = new BoxCar(10);
+	BoxCar boxCarBindX = new BoxCar(10);
+	BoxCar boxCarBindY = new BoxCar(10);
+	BoxCar boxCarBindZ = new BoxCar(10);
 
 	public static OI getInstance() {
 		return Holder.instance;
@@ -141,16 +144,16 @@ public class OI {
 		return armAccel.getZ();
 	}
 	
-	public double getOtherAccelX() {
-		return bindAccel.getX();
+	public double getBindAccelX() {
+		return boxCarBindX.calculate(bindAccel.getX());
 	}
 
-	public double getOtherAccelY() {
-		return bindAccel.getY();
+	public double getBindAccelY() {
+		return boxCarBindY.calculate(bindAccel.getY());
 	}
 	
-	public double getOtherAccelZ() {
-		return bindAccel.getZ();
+	public double getBindAccelZ() {
+		return boxCarBindZ.calculate(bindAccel.getZ());
 	}
 
 	public double getRobotAccelX() {

@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	PIDController bindPID;
 	public static BindOutput bindOut = new BindOutput();
 	
-	public static final double P_BIND = 1;
+	public static final double P_BIND = .02;
 	final double OSC_RATE = 2;
 
 	public void robotInit() {

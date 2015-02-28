@@ -58,8 +58,8 @@ public class Arm extends Subsystem {
 	}
 
 	public double getBindAngle() {
-		double xarm = oi.getArmAccel(Axis.X);
-		double zarm = oi.getArmAccel(Axis.Z);
+		double xarm = oi.getBindAccelX();
+		double zarm = oi.getBindAccelZ();
 		double zrobot = oi.getRobotAccel(Axis.Z);
 		double xrobot = oi.getRobotAccel(Axis.X);
 
