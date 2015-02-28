@@ -3,6 +3,8 @@
 package org.usfirst.frc.team930.robot;
 
 import org.usfirst.frc.team930.robot.OI.Axis;
+import org.usfirst.frc.team930.robot.armPID.BindOutput;
+import org.usfirst.frc.team930.robot.armPID.BindSource;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
@@ -13,6 +15,7 @@ import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -38,7 +41,11 @@ public class Robot extends IterativeRobot {
 	Command setHeight;
 
 	Command drive;
-
+	
+	PIDController bindPID;
+	public static BindOutput bindOut = new BindOutput();
+	
+	public static final double P_BIND = 1;
 	final double OSC_RATE = 2;
 
 	public void robotInit() {
@@ -67,6 +74,13 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		arm.startPID();
 		arm.armPID.enable();
+		
+		bindPID = new PIDController(P_BIND, 0, 0, new BindSource(),
+				bindOut, .001);
+		bindPID.reset();
+		bindPID.enable();
+		bindPID.setSetpoint(0);
+		
 	}
 
 	public void disabledInit() {

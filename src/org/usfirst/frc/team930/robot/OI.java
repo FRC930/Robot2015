@@ -40,7 +40,7 @@ public class OI {
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
-	
+
 	BoxCar boxCarArmX = new BoxCar(5);
 	BoxCar boxCarArmY = new BoxCar(5);
 	BoxCar boxCarArmZ = new BoxCar(5);
@@ -58,15 +58,16 @@ public class OI {
 	}
 
 	public void initAccel() {
+		armAccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
+				Accelerometer.Range.k2G);
+		otherAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
+				Accelerometer.Range.k2G);
+		bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS2,
+				Accelerometer.Range.k2G);
+
 		armAccel.free();
 		otherAccel.free();
 		bindAccel.free();
-		/*
-		 * armAccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
-		 * Accelerometer.Range.k2G); otherAccel = new
-		 * ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k2G); bindAccel
-		 * = new ADXL345_SPI(SPI.Port.kOnboardCS2, Accelerometer.Range.k2G);
-		 */
 	}
 
 	public static class Holder {
@@ -86,7 +87,8 @@ public class OI {
 			return (getArmAccel(Axis.X) - getRobotAccel(Axis.X)) * radius
 					/ RobotMap.ARM_ACCEL_R;
 		case Y:
-			return this.getCentripAccel(Axis.X, radius) * RobotMap.ARM_ACCEL_TAN;
+			return this.getCentripAccel(Axis.X, radius)
+					* RobotMap.ARM_ACCEL_TAN;
 		default:
 			return 930;
 		}
