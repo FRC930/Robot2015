@@ -4,7 +4,7 @@ import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.OI.Axis;
 import org.usfirst.frc.team930.robot.RobotMap;
 import org.usfirst.frc.team930.robot.armPID.ArmOutput;
-import org.usfirst.frc.team930.robot.armPID.ArmSource;
+import org.usfirst.frc.team930.robot.armPID.AngleSource;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.PIDController;
@@ -20,7 +20,7 @@ public class Arm extends Subsystem {
 	CANTalon talon2;
 
 	ArmOutput armOutput;
-	ArmSource armSource;
+	AngleSource armSource;
 	public PIDController armPID;
 
 	final static double SPEED_P = .005;
@@ -36,12 +36,12 @@ public class Arm extends Subsystem {
 		talon2 = new CANTalon(RobotMap.LEFT_ARM);
 
 		armOutput = new ArmOutput(talon1, talon2);
-		armSource = new ArmSource();
+		armSource = new AngleSource();
 
 	}
 
 	public void startPID() {
-		armPID = new PIDController(POS_P, POS_I, 0, new ArmSource(),
+		armPID = new PIDController(POS_P, POS_I, 0, new AngleSource(),
 				new ArmOutput(talon1, talon2), .001);
 		armPID.reset();
 	}
@@ -56,9 +56,15 @@ public class Arm extends Subsystem {
 		return Math.atan2(((zrobot * yarm) - (yrobot * zarm)),
 				((zrobot * zarm) + (yrobot * yarm))) * RAD_TO_DEG;
 	}
-	
+
 	public double getBindAngle() {
-		return 0;
+		double xarm = oi.getArmAccel(Axis.X);
+		double zarm = oi.getArmAccel(Axis.Z);
+		double zrobot = oi.getRobotAccel(Axis.Z);
+		double xrobot = oi.getRobotAccel(Axis.X);
+
+		return Math.atan2(((zrobot * xarm) - (xrobot * zarm)),
+				((zrobot * zarm) + (xrobot * xarm))) * RAD_TO_DEG;
 	}
 
 	public void setAngle(double set) {
