@@ -6,6 +6,8 @@ import org.usfirst.frc.team930.robot.RobotMap;
 //import org.usfirst.frc.team930.robot.commands.Drive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
+import org.usfirst.frc.team930.robot.BoxCar;
+
 
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
@@ -37,6 +39,8 @@ public class Drivetrain extends Subsystem {
 	private CANJaguar flRot;
 	private CANJaguar blRot;
 	private CANJaguar brRot;
+	
+	BoxCar boxCarSpeed = new BoxCar(5);
 
 	private Gyro gyro;
 
@@ -121,7 +125,7 @@ public class Drivetrain extends Subsystem {
 
 		}
 		jag.set(angle * DEG_TO_GEAR_TO_REV);
-		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+		talon.set(boxCarSpeed.calculate(SPEED_TO_CODES * SLOWDOWN * speed));
 
 	}
 
