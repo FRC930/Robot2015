@@ -19,6 +19,7 @@ public class ArmOutput implements PIDOutput {
 				bindOut, .001);
 		
 		bindPID.reset();
+		bindPID.enable();
 		bindPID.setSetpoint(0);
 		
 		scRight = c1;
