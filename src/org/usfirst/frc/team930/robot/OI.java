@@ -23,7 +23,7 @@ public class OI {
 
 	ADXL345_SPI armaccel= new ADXL345_SPI(SPI.Port.kOnboardCS0, Accelerometer.Range.k2G);
 	public ADXL345_SPI otherAccel= new ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k2G);
-	BuiltInAccelerometer roboaccel =  new BuiltInAccelerometer(Accelerometer.Range.k8G);
+	BuiltInAccelerometer roboaccel =  new BuiltInAccelerometer(Accelerometer.Range.k2G);
 	Joystick driverXbox = new Joystick(DRIVER_PORT);
 	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
 
@@ -33,9 +33,9 @@ public class OI {
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
-	BoxCar boxCarArmX = new BoxCar(5);
-	BoxCar boxCarArmY = new BoxCar(5);
-	BoxCar boxCarArmZ = new BoxCar(5);
+	BoxCar boxCarArmX = new BoxCar(10);
+	BoxCar boxCarArmY = new BoxCar(10);
+	BoxCar boxCarArmZ = new BoxCar(10);
 	BoxCar boxCarRobotX = new BoxCar(10);
 	BoxCar boxCarRobotY = new BoxCar(10);
 	BoxCar boxCarRobotZ = new BoxCar(10);
@@ -109,27 +109,39 @@ public class OI {
 	}
 
 	public double getRobotAccelX() {
-		return boxCarArmX.calculate(roboaccel.getX());
+		return boxCarRobotX.calculate(getRobotAccelXRaw());
 	}
 	
 	public double getRobotAccelY() {
-		return boxCarArmY.calculate(roboaccel.getY());
+		return boxCarRobotY.calculate(getRobotAccelYRaw());
 	}
 
 	public double getRobotAccelZ() {
-		return boxCarArmZ.calculate(getRobotAccelZRaw());
+		return boxCarRobotZ.calculate(getRobotAccelZRaw());
 	}
 	
 	public double getRobotAccelXRaw(){
-		return roboaccel.getX();
+		double name = 0;
+		synchronized(roboaccel){
+			name = roboaccel.getX();
+		}
+		return name;
 	}
 	
 	public double getRobotAccelYRaw() {
-		return roboaccel.getY();
+		double name = 0;
+		synchronized(roboaccel){
+			name = roboaccel.getY();
+		}
+		return name;
 	}
 
 	public double getRobotAccelZRaw() {
-		return roboaccel.getZ();
+		double name = 0;
+		synchronized(roboaccel){
+			name = roboaccel.getZ();
+		}
+		return name;
 	}
 
 	

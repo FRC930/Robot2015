@@ -25,13 +25,18 @@ public class BoxCar {
 			boxCar.add(0, speed);
 			boxCar.remove(boxAmount);
 			for (int i = 0; i < boxCar.size(); i++) {
-				System.out.println(boxCar.get(i));
+//				System.out.println(boxCar.get(i));
 				sum += boxCar.get(i);
 			}
 		}
 		System.out.println("boxcar length " + boxCar.size());
 		SmartDashboard.putNumber("boxcar length ", boxCar.size());
 		return sum/boxAmount;
+	}
+	
+	public double calculate(double speed, boolean log) {
+		System.out.println("INPUT: " + speed);
+		return calculate(speed);
 	}
 
 	public void reset() {
