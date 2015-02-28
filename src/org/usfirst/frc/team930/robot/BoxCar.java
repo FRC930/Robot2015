@@ -6,9 +6,9 @@ public class BoxCar {
 	public ArrayList<Double> boxCar;
 	int boxAmount;
 
-	public BoxCar() {
+	public BoxCar(int length) {
 		boxCar = new ArrayList<Double>();
-		boxAmount = 5;
+		boxAmount = length;
 
 		for (int x = 0; x < boxAmount; x++) {
 			boxCar.add(0.0);

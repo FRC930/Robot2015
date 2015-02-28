@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
@@ -41,10 +40,10 @@ public class OI {
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
-
-	BoxCar boxCarArmX = new BoxCar();
-	BoxCar boxCarArmY = new BoxCar();
-	BoxCar boxCarArmZ = new BoxCar();
+	
+	BoxCar boxCarArmX = new BoxCar(5);
+	BoxCar boxCarArmY = new BoxCar(5);
+	BoxCar boxCarArmZ = new BoxCar(5);
 
 	public static OI getInstance() {
 		return Holder.instance;
