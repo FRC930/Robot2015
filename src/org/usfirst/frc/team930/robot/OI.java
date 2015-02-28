@@ -26,9 +26,7 @@ public class OI {
 
 	ADXL345_SPI armAccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
 			Accelerometer.Range.k2G);
-	ADXL345_SPI otherAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
-			Accelerometer.Range.k2G);
-	ADXL345_SPI bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS2,
+	ADXL345_SPI bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
 			Accelerometer.Range.k2G);
 	BuiltInAccelerometer roboAccel = new BuiltInAccelerometer(
 			Accelerometer.Range.k8G);
@@ -58,16 +56,13 @@ public class OI {
 	}
 
 	public void initAccel() {
+		armAccel.free();
+		bindAccel.free();
+		
 		armAccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
 				Accelerometer.Range.k2G);
-		otherAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
+		bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
 				Accelerometer.Range.k2G);
-		bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS2,
-				Accelerometer.Range.k2G);
-
-		armAccel.free();
-		otherAccel.free();
-		bindAccel.free();
 	}
 
 	public static class Holder {

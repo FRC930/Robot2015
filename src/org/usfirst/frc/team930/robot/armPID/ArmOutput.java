@@ -21,7 +21,7 @@ public class ArmOutput implements PIDOutput {
 	}
 
 	public void pidWrite(double output) {
-		scRight.set(output + bindOut.getOut());
-		scLeft.set(output - bindOut.getOut());
+		scRight.set(output - bindOut.getOut());
+		scLeft.set(output + bindOut.getOut());
 	}
 }
