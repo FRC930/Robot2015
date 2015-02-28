@@ -67,6 +67,8 @@ public class OI {
 		return coDriverXbox.getRawAxis(2);
 	}
 	
+	
+	// -Accelerations
 	public double getArmAccelX() {
 		return boxCarArmX.calculate(armaccel.getX());
 	}
@@ -103,6 +105,8 @@ public class OI {
 		return roboaccel.getZ();
 	}
 
+	
+	// -Joysticks
 	public double getStrafe() {
 		double axis = driverXbox.getRawAxis(0);
 		if (Math.abs(axis) < DEADBAND) {

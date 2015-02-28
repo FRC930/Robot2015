@@ -17,7 +17,6 @@ public class ArmOutput implements PIDOutput {
 	}
 
 	public void pidWrite(double output) {
-		output = output;
 		sc1.set(output);
 		sc2.set(output);
 		
