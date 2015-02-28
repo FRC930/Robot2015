@@ -26,7 +26,7 @@ public class Arm extends Subsystem {
 	final static double SPEED_P = .005;
 	final static double SPEED_I = .0007;
 	final static double POS_P = .015;
-	final static double POS_I = 0.0002;
+	final static double POS_I = 0.0000;
 
 	double mag = 1500;
 

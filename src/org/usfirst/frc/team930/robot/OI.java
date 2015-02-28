@@ -23,13 +23,10 @@ public class OI {
 	private static final double DEADBAND = .1;
 	public final static int DRIVER_PORT = 0;
 	public final static int CODRIVER_PORT = 1;
-
-	ADXL345_SPI armAccel = new ADXL345_SPI(SPI.Port.kOnboardCS0,
-			Accelerometer.Range.k2G);
-	ADXL345_SPI bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
-			Accelerometer.Range.k2G);
-	BuiltInAccelerometer roboAccel = new BuiltInAccelerometer(
-			Accelerometer.Range.k8G);
+	
+	ADXL345_SPI armAccel= new ADXL345_SPI(SPI.Port.kOnboardCS0, Accelerometer.Range.k2G);
+	public ADXL345_SPI bindAccel= new ADXL345_SPI(SPI.Port.kOnboardCS1, Accelerometer.Range.k2G);
+	BuiltInAccelerometer roboAccel =  new BuiltInAccelerometer(Accelerometer.Range.k2G);
 
 	Joystick driverXbox = new Joystick(DRIVER_PORT);
 	Joystick coDriverXbox = new Joystick(CODRIVER_PORT);
@@ -38,10 +35,13 @@ public class OI {
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
-
-	BoxCar boxCarArmX = new BoxCar(5);
-	BoxCar boxCarArmY = new BoxCar(5);
-	BoxCar boxCarArmZ = new BoxCar(5);
+	
+	BoxCar boxCarArmX = new BoxCar(10);
+	BoxCar boxCarArmY = new BoxCar(10);
+	BoxCar boxCarArmZ = new BoxCar(10);
+	BoxCar boxCarRobotX = new BoxCar(10);
+	BoxCar boxCarRobotY = new BoxCar(10);
+	BoxCar boxCarRobotZ = new BoxCar(10);
 
 	public static OI getInstance() {
 		return Holder.instance;
@@ -92,11 +92,11 @@ public class OI {
 	public double getArmAccel(Axis axis) {
 		switch (axis) {
 		case X:
-			return boxCarArmX.calc(-armAccel.getX());
+			return boxCarArmX.calculate(-armAccel.getX());
 		case Y:
-			return boxCarArmY.calc(-armAccel.getY());
+			return boxCarArmY.calculate(-armAccel.getY());
 		case Z:
-			return boxCarArmZ.calc(armAccel.getZ());
+			return boxCarArmZ.calculate(armAccel.getZ());
 		default:
 			return 930;
 		}
@@ -119,6 +119,74 @@ public class OI {
 		default:
 			return 930;
 		}
+	}
+	
+	public double getArmAccelY() {
+		return boxCarArmY.calculate(armAccel.getY());
+	}
+	
+	public double getArmAccelZ() {
+		return boxCarArmZ.calculate(armAccel.getZ());
+	}
+	
+	public double getArmAccelXRaw() {
+		return armAccel.getX();
+	}
+
+	public double getArmAccelYRaw() {
+		return armAccel.getY();
+	}
+	
+	public double getArmAccelZRaw() {
+		return armAccel.getZ();
+	}
+	
+	public double getOtherAccelX() {
+		return bindAccel.getX();
+	}
+
+	public double getOtherAccelY() {
+		return bindAccel.getY();
+	}
+	
+	public double getOtherAccelZ() {
+		return bindAccel.getZ();
+	}
+
+	public double getRobotAccelX() {
+		return boxCarRobotX.calculate(getRobotAccelXRaw());
+	}
+	
+	public double getRobotAccelY() {
+		return boxCarRobotY.calculate(getRobotAccelYRaw());
+	}
+
+	public double getRobotAccelZ() {
+		return boxCarRobotZ.calculate(getRobotAccelZRaw());
+	}
+	
+	public double getRobotAccelXRaw(){
+		double name = 0;
+		synchronized(roboAccel){
+			name = roboAccel.getX();
+		}
+		return name;
+	}
+	
+	public double getRobotAccelYRaw() {
+		double name = 0;
+		synchronized(roboAccel){
+			name = roboAccel.getY();
+		}
+		return name;
+	}
+
+	public double getRobotAccelZRaw() {
+		double name = 0;
+		synchronized(roboAccel){
+			name = roboAccel.getZ();
+		}
+		return name;
 	}
 
 	// -Joysticks
