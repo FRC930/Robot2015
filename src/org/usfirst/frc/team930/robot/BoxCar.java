@@ -15,7 +15,7 @@ public class BoxCar {
 		}
 	}
 
-	public double calculate(double speed) {
+	public double calc(double speed) {
 		boxCar.add(0, speed);
 		boxCar.remove(boxCar.size() - 1);
 		double sum = 0;
@@ -23,6 +23,14 @@ public class BoxCar {
 			sum += boxCar.get(i);
 		}
 		return sum/boxAmount;
+	}
+	
+	public double getAvg() {
+		double sum = 0;
+		for (int i =0; i < boxCar.size(); i++) {
+			sum += boxCar.get(i);
+		}
+		return sum / boxAmount;
 	}
 
 	public void reset() {

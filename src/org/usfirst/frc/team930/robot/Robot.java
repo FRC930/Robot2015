@@ -2,6 +2,7 @@
 
 package org.usfirst.frc.team930.robot;
 
+import org.usfirst.frc.team930.robot.OI.Axis;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
@@ -19,13 +20,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	
-	public static final double DRIVETRAIN_WIDTH = 21.25;
-	public static final double DRIVETRAIN_LENGTH = 33.00;
-	
-	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
-	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
-	public static final Drivetrain drivetrain = new Drivetrain(DRIVETRAIN_WIDTH, DRIVETRAIN_LENGTH);
+
+	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen,
+			Claw.leftClosed, 1);
+	public static final Claw rightClaw = new Claw(Claw.rightRelay,
+			Claw.rightOpen, Claw.rightClosed, 2);
+	public static final Drivetrain drivetrain = new Drivetrain(
+			RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH);
 	public static final Arm arm = new Arm();
 	public static OI oi;
 
@@ -33,22 +34,22 @@ public class Robot extends IterativeRobot {
 	Command closeRightClaw;
 	Command openLeftClaw;
 	Command openRightClaw;
-	
+
 	Command setHeight;
-	
+
 	Command drive;
-	
+
 	final double OSC_RATE = 2;
-	
+
 	public void robotInit() {
 		oi = OI.getInstance();
 		oi.initAccel();
-		//leftClaw.reverseDirection();
+		// leftClaw.reverseDirection();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
-		//drive = new Drive();
+		// drive = new Drive();
 	}
 
 	public void disabledPeriodic() {
@@ -74,20 +75,21 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
-		arm.setAngle(-5 + OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime())));
-		
+
+		arm.setAngle(-5 + OSC_RATE
+				* Math.sin(2 * Math.PI * (Timer.getMatchTime())));
+
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());
-		SmartDashboard.putNumber("arm accel x " , oi.getArmAccelX());
-		SmartDashboard.putNumber("arm accel y " , oi.getArmAccelY());
-		SmartDashboard.putNumber("arm accel z " , oi.getArmAccelZ());
-		SmartDashboard.putNumber("robot accel x " , oi.getRobotAccelX());
-		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
-		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
-//		
-//		System.out.println("other accel x " + oi.getOtherAccelX());
-//		System.out.println("other accel y " + oi.getOtherAccelY());
-//		System.out.println("other accel z " + oi.getOtherAccelZ());
+		SmartDashboard.putNumber("arm accel x ", oi.getArmAccel(Axis.X));
+		SmartDashboard.putNumber("arm accel y ", oi.getArmAccel(Axis.Y));
+		SmartDashboard.putNumber("arm accel z ", oi.getArmAccel(Axis.Z));
+		SmartDashboard.putNumber("robot accel x ", oi.getRobotAccel(Axis.X));
+		SmartDashboard.putNumber("robot accel y ", oi.getRobotAccel(Axis.Y));
+		SmartDashboard.putNumber("robot accel z ", oi.getRobotAccel(Axis.Z));
+		//
+		// System.out.println("other accel x " + oi.getOtherAccelX());
+		// System.out.println("other accel y " + oi.getOtherAccelY());
+		// System.out.println("other accel z " + oi.getOtherAccelZ());
 	}
 
 	public void testPeriodic() {
