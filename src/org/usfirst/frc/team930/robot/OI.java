@@ -33,9 +33,9 @@ public class OI {
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
-	BoxCar boxCarArmX = new BoxCar();
-	BoxCar boxCarArmY = new BoxCar();
-	BoxCar boxCarArmZ = new BoxCar();
+	BoxCar boxCarArmX = new BoxCar(5);
+	BoxCar boxCarArmY = new BoxCar(5);
+	BoxCar boxCarArmZ = new BoxCar(5);
 	
 
 	public static OI getInstance() {
