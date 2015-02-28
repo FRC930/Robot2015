@@ -36,6 +36,9 @@ public class OI {
 	BoxCar boxCarArmX = new BoxCar(5);
 	BoxCar boxCarArmY = new BoxCar(5);
 	BoxCar boxCarArmZ = new BoxCar(5);
+	BoxCar boxCarRobotX = new BoxCar(10);
+	BoxCar boxCarRobotY = new BoxCar(10);
+	BoxCar boxCarRobotZ = new BoxCar(10);
 	
 
 	public static OI getInstance() {
@@ -81,6 +84,18 @@ public class OI {
 		return boxCarArmZ.calculate(armaccel.getZ());
 	}
 	
+	public double getArmAccelXRaw() {
+		return armaccel.getX();
+	}
+
+	public double getArmAccelYRaw() {
+		return armaccel.getY();
+	}
+	
+	public double getArmAccelZRaw() {
+		return armaccel.getZ();
+	}
+	
 	public double getOtherAccelX() {
 		return otherAccel.getX();
 	}
@@ -94,14 +109,26 @@ public class OI {
 	}
 
 	public double getRobotAccelX() {
-		return roboaccel.getX();
+		return boxCarArmX.calculate(roboaccel.getX());
 	}
 	
 	public double getRobotAccelY() {
-		return roboaccel.getY();
+		return boxCarArmY.calculate(roboaccel.getY());
 	}
 
 	public double getRobotAccelZ() {
+		return boxCarArmZ.calculate(getRobotAccelZRaw());
+	}
+	
+	public double getRobotAccelXRaw(){
+		return roboaccel.getX();
+	}
+	
+	public double getRobotAccelYRaw() {
+		return roboaccel.getY();
+	}
+
+	public double getRobotAccelZRaw() {
 		return roboaccel.getZ();
 	}
 

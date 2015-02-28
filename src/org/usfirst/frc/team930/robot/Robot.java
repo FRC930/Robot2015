@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+		if(arm != null && arm.armPID != null) arm.armPID.disable();
 	}
 
 	public void autonomousInit() {
@@ -69,13 +69,13 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-
+		
 	}
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		arm.setAngle(-5 + OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime())));
+		arm.setAngle(0 + OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime())));
 		
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());
 		SmartDashboard.putNumber("arm accel x " , oi.getArmAccelX());
@@ -84,6 +84,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("robot accel x " , oi.getRobotAccelX());
 		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
 		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
+		
+		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
+		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());
+		SmartDashboard.putNumber("arm accel z RAW" , oi.getArmAccelZRaw());
+		SmartDashboard.putNumber("robot accel x RAW " , oi.getRobotAccelXRaw());
+		SmartDashboard.putNumber("robot accel y RAW" , oi.getRobotAccelYRaw());
+		SmartDashboard.putNumber("robot accel z RAW" , oi.getRobotAccelZRaw());
 //		
 //		System.out.println("other accel x " + oi.getOtherAccelX());
 //		System.out.println("other accel y " + oi.getOtherAccelY());

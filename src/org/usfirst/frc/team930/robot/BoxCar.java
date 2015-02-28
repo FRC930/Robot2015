@@ -1,13 +1,17 @@
 package org.usfirst.frc.team930.robot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BoxCar {
-	public ArrayList<Double> boxCar;
+	private List<Double> boxCar;
 	int boxAmount;
 
 	public BoxCar(int length) {
-		boxCar = new ArrayList<Double>();
+		boxCar = Collections.synchronizedList(new ArrayList<Double>());
 		boxAmount = length;
 
 		for (int x = 0; x < boxAmount; x++) {
@@ -16,12 +20,17 @@ public class BoxCar {
 	}
 
 	public double calculate(double speed) {
-		boxCar.add(0, speed);
-		boxCar.remove(boxCar.size() - 1);
 		double sum = 0;
-		for (int i = 0; i < boxCar.size(); i++) {
-			sum += boxCar.get(i);
+		synchronized(boxCar) {
+			boxCar.add(0, speed);
+			boxCar.remove(boxAmount);
+			for (int i = 0; i < boxCar.size(); i++) {
+				System.out.println(boxCar.get(i));
+				sum += boxCar.get(i);
+			}
 		}
+		System.out.println("boxcar length " + boxCar.size());
+		SmartDashboard.putNumber("boxcar length ", boxCar.size());
 		return sum/boxAmount;
 	}
 
