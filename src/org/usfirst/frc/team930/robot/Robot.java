@@ -45,8 +45,8 @@ public class Robot extends IterativeRobot {
 	PIDController bindPID;
 	public static BindOutput bindOut = new BindOutput();
 	
-	public static final double P_BIND = .005;
-	public static final double I_BIND = .003;
+	public static final double P_BIND = .03;
+	public static final double I_BIND = .00007;
 
 	final double OSC_RATE = 2;
 
@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		arm.armPID.enable();
 		
 		bindPID = new PIDController(P_BIND, I_BIND, 0, new BindSource(),
-				bindOut, .001);
+				bindOut, .01);
 		bindPID.reset();
 		bindPID.enable();
 		bindPID.setSetpoint(0);

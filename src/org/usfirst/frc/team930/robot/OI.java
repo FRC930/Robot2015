@@ -1,5 +1,8 @@
 package org.usfirst.frc.team930.robot;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import edu.wpi.first.wpilibj.ADXL345_SPI;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Joystick;
@@ -15,7 +18,8 @@ import org.usfirst.frc.team930.robot.BoxCar;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
-
+	public static long time = System.currentTimeMillis();
+	public static long time2 = System.currentTimeMillis();
 	public static enum Axis {
 		X, Y, Z;
 	}
@@ -36,16 +40,31 @@ public class OI {
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
-	BoxCar boxCarArmX = new BoxCar(10);
-	BoxCar boxCarArmY = new BoxCar(10);
-	BoxCar boxCarArmZ = new BoxCar(10);
+	BoxCar boxCarArmX = new BoxCar(6);
+	BoxCar boxCarArmY = new BoxCar(6);
+	BoxCar boxCarArmZ = new BoxCar(6);
 	BoxCar boxCarRobotX = new BoxCar(10);
 	BoxCar boxCarRobotY = new BoxCar(10);
 	BoxCar boxCarRobotZ = new BoxCar(10);
-	BoxCar boxCarBindX = new BoxCar(10);
-	BoxCar boxCarBindY = new BoxCar(10);
-	BoxCar boxCarBindZ = new BoxCar(10);
+	BoxCar boxCarBindX = new BoxCar(6);
+	BoxCar boxCarBindY = new BoxCar(6);
+	BoxCar boxCarBindZ = new BoxCar(6);
 
+	double roboX = 0;
+	double roboY = 0;
+	double roboZ = 0;
+	Timer timer; 
+	TimerTask task = new TimerTask(){
+		
+		@Override
+		public void run() {
+			roboX = roboAccel.getX();
+			roboY = roboAccel.getY();
+			roboZ = roboAccel.getZ();
+		}
+		
+	};
+	
 	public static OI getInstance() {
 		return Holder.instance;
 	}
@@ -66,6 +85,8 @@ public class OI {
 				Accelerometer.Range.k2G);
 		bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
 				Accelerometer.Range.k2G);
+		timer = new Timer();
+		timer.schedule(task, 0, 1);
 	}
 
 	public static class Holder {
@@ -169,27 +190,20 @@ public class OI {
 	}
 	
 	public double getRobotAccelXRaw(){
-		double name = 0;
-		synchronized(roboAccel){
-			name = roboAccel.getX();
-		}
-		return name;
+	
+		return roboX;
 	}
 	
 	public double getRobotAccelYRaw() {
-		double name = 0;
-		synchronized(roboAccel){
-			name = roboAccel.getY();
-		}
-		return name;
+		
+		return roboY;
+
 	}
 
 	public double getRobotAccelZRaw() {
-		double name = 0;
-		synchronized(roboAccel){
-			name = roboAccel.getZ();
-		}
-		return name;
+	
+		return roboZ;
+
 	}
 
 	// -Joysticks

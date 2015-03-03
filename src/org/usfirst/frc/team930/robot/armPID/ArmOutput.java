@@ -1,5 +1,6 @@
 package org.usfirst.frc.team930.robot.armPID;
 
+import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.Robot;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -21,10 +22,12 @@ public class ArmOutput implements PIDOutput {
 		scLeft = c2;
 	}
 
-	public void pidWrite(double output) {
-		System.out.println(System.currentTimeMillis());
-		scRight.set(1*bindOut.getOut());
+	public void pidWrite(double output) { 
+		long time = System.currentTimeMillis();
+		SmartDashboard.putNumber("time", time - OI.time);
+		OI.time = time; 
+		scRight.set(bindOut.getOut());
 		SmartDashboard.putNumber("bindOut", bindOut.getOut());
-		scLeft.set(-1* bindOut.getOut());
+		scLeft.set(-1 * bindOut.getOut());
 	}
 }

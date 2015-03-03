@@ -42,7 +42,7 @@ public class Arm extends Subsystem {
 
 	public void startPID() {
 		armPID = new PIDController(POS_P, POS_I, 0, new AngleSource(),
-				new ArmOutput(talon1, talon2), .001);
+				new ArmOutput(talon1, talon2), .01);
 		armPID.reset();
 	}
 
