@@ -45,7 +45,9 @@ public class Robot extends IterativeRobot {
 	PIDController bindPID;
 	public static BindOutput bindOut = new BindOutput();
 	
-	public static final double P_BIND = .02;
+	public static final double P_BIND = .005;
+	public static final double I_BIND = .003;
+
 	final double OSC_RATE = 2;
 
 	public void robotInit() {
@@ -61,6 +63,8 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		if(arm != null && arm.armPID != null) arm.armPID.disable();
+		if(arm != null && bindPID != null) bindPID.disable();
+
 	}
 
 	public void autonomousInit() {
@@ -75,7 +79,7 @@ public class Robot extends IterativeRobot {
 		arm.startPID();
 		arm.armPID.enable();
 		
-		bindPID = new PIDController(P_BIND, 0, 0, new BindSource(),
+		bindPID = new PIDController(P_BIND, I_BIND, 0, new BindSource(),
 				bindOut, .001);
 		bindPID.reset();
 		bindPID.enable();
@@ -98,6 +102,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("robot accel x " , oi.getRobotAccelX());
 		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
 		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
+		SmartDashboard.putNumber("bind accel x " , oi.getBindAccelX());
+		SmartDashboard.putNumber("bind accel y " , oi.getBindAccelY());
+		SmartDashboard.putNumber("bind accel z " , oi.getBindAccelZ());
+		SmartDashboard.putNumber("bind angle", arm.getBindAngle());
 		
 		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
 		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());

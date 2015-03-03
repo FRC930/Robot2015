@@ -22,7 +22,9 @@ public class ArmOutput implements PIDOutput {
 	}
 
 	public void pidWrite(double output) {
-		scRight.set(output - bindOut.getOut());
-		scLeft.set(output + bindOut.getOut());
+		System.out.println(System.currentTimeMillis());
+		scRight.set(1*bindOut.getOut());
+		SmartDashboard.putNumber("bindOut", bindOut.getOut());
+		scLeft.set(-1* bindOut.getOut());
 	}
 }

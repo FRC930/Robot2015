@@ -114,11 +114,11 @@ public class OI {
 	public double getRobotAccel(Axis axis) {
 		switch (axis) {
 		case X:
-			return -roboAccel.getX();
+			return -getRobotAccelXRaw();
 		case Y:
-			return -roboAccel.getY();
+			return -getRobotAccelYRaw();
 		case Z:
-			return roboAccel.getZ();
+			return getRobotAccelZRaw();
 		default:
 			return 930;
 		}
