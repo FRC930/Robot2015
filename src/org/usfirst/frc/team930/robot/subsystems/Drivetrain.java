@@ -3,7 +3,6 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.RobotMap;
-import org.usfirst.frc.team930.robot.commands.Drive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
@@ -30,6 +29,8 @@ public class Drivetrain extends Subsystem {
 	public static final double DEFAULT_TAL_P_AUTO = .1;
 	public static final double DEFAULT_TAL_I_AUTO = .00001;
 
+	public boolean isSpeedMode;
+	
 	public SwerveDrive swerve;
 	
 	private CANTalon frDrive;
@@ -92,6 +93,8 @@ public class Drivetrain extends Subsystem {
 		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
 		brDrive.changeControlMode(ControlMode.Speed);
 		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		
+		isSpeedMode = true;
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -136,6 +139,10 @@ public class Drivetrain extends Subsystem {
 
 	}
 	
+	public boolean isSpeedMode() {
+		return isSpeedMode;
+	}
+	
 	public void manualDrive(double d){
 		frDrive.set(d);
 		flDrive.set(d);
@@ -157,6 +164,8 @@ public class Drivetrain extends Subsystem {
 		blDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
 		brDrive.changeControlMode(ControlMode.Position);
 		brDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
+		
+		isSpeedMode = false;
 	}
 
 	public void changeTalonToSpeed(){
@@ -168,6 +177,8 @@ public class Drivetrain extends Subsystem {
 		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
 		brDrive.changeControlMode(ControlMode.Speed);
 		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		
+		isSpeedMode = true;
 	}
 	
 	public void initDefaultCommand() {
