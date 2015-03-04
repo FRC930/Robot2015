@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveLeft extends Command {
+public class Rotate extends Command {
 
-    public MoveLeft() {
+    public Rotate() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
@@ -22,7 +22,7 @@ public class MoveLeft extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.drive(0,-.2,0);
+    	Robot.drivetrain.drive(0,0,.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()

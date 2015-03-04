@@ -12,7 +12,6 @@ import org.usfirst.frc.team930.robot.commands.Auto;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
-import org.usfirst.frc.team930.robot.commands.MoveForward;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
@@ -48,7 +47,6 @@ public class Robot extends IterativeRobot {
 		openRightClaw = new OpenRightClaw();
 		drive = new Drive();
 		auto = new Auto();
-		moveForward = new MoveForward();
 	}
 
 	public void disabledPeriodic() {

@@ -4,7 +4,6 @@ package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.RobotMap;
 import org.usfirst.frc.team930.robot.commands.Drive;
-import org.usfirst.frc.team930.robot.commands.MoveForward;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive.Outputs;
 
@@ -173,6 +172,6 @@ public class Drivetrain extends Subsystem {
 	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		setDefaultCommand(new MoveForward());
+		// setDefaultCommand();
 	}
 }
