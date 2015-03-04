@@ -13,6 +13,7 @@ import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
+import org.usfirst.frc.team930.robot.commands.SetHeight;
 import org.usfirst.frc.team930.robot.BoxCar;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,6 +40,10 @@ public class OI {
 	JoystickButton xButton = new JoystickButton(driverXbox, 3);
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
+	
+
+	JoystickButton aButtonCodriver = new JoystickButton(driverXbox, 1);
+	JoystickButton xButtonCodriver = new JoystickButton(driverXbox, 3);
 	
 	BoxCar boxCarArmX = new BoxCar(6);
 	BoxCar boxCarArmY = new BoxCar(6);
@@ -74,6 +79,9 @@ public class OI {
 		xButton.whenPressed(new OpenLeftClaw());
 		bButton.whenPressed(new CloseRightClaw());
 		yButton.whenPressed(new OpenRightClaw());
+		
+		//aButtonCodriver.whenPressed(new SetHeight(0));
+		//xButtonCodriver.whenPressed(new SetHeight(30));
 
 	}
 

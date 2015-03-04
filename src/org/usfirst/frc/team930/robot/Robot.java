@@ -3,8 +3,6 @@
 package org.usfirst.frc.team930.robot;
 
 import org.usfirst.frc.team930.robot.OI.Axis;
-import org.usfirst.frc.team930.robot.armPID.BindOutput;
-import org.usfirst.frc.team930.robot.armPID.BindSource;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
@@ -13,6 +11,7 @@ import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.subsystems.Arm;
 import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PIDController;
@@ -24,12 +23,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
-	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen,
-			Claw.leftClosed, 1);
-	public static final Claw rightClaw = new Claw(Claw.rightRelay,
-			Claw.rightOpen, Claw.rightClosed, 2);
-	public static final Drivetrain drivetrain = new Drivetrain(
-			RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH);
+	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
+	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
+	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH);
 	public static final Arm arm = new Arm();
 	public static OI oi;
 
@@ -41,12 +37,6 @@ public class Robot extends IterativeRobot {
 	Command setHeight;
 
 	Command drive;
-	
-	PIDController bindPID;
-	public static BindOutput bindOut = new BindOutput();
-	
-	public static final double P_BIND = .03;
-	public static final double I_BIND = .00007;
 
 	final double OSC_RATE = 2;
 
@@ -63,7 +53,6 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		if(arm != null && arm.armPID != null) arm.armPID.disable();
-		if(arm != null && bindPID != null) bindPID.disable();
 
 	}
 
@@ -79,11 +68,6 @@ public class Robot extends IterativeRobot {
 		arm.startPID();
 		arm.armPID.enable();
 		
-		bindPID = new PIDController(P_BIND, I_BIND, 0, new BindSource(),
-				bindOut, .01);
-		bindPID.reset();
-		bindPID.enable();
-		bindPID.setSetpoint(0);
 		
 	}
 

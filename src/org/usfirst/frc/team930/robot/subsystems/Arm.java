@@ -7,6 +7,7 @@ import org.usfirst.frc.team930.robot.armPID.ArmOutput;
 import org.usfirst.frc.team930.robot.armPID.AngleSource;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -34,6 +35,7 @@ public class Arm extends Subsystem {
 		// System.out.println("im a grill btw");
 		talon1 = new CANTalon(RobotMap.RIGHT_ARM);
 		talon2 = new CANTalon(RobotMap.LEFT_ARM);
+		talon2.changeControlMode(ControlMode.Follower);
 
 		armOutput = new ArmOutput(talon1, talon2);
 		armSource = new AngleSource();
@@ -41,9 +43,9 @@ public class Arm extends Subsystem {
 	}
 
 	public void startPID() {
-		armPID = new PIDController(POS_P, POS_I, 0, new AngleSource(),
-				new ArmOutput(talon1, talon2), .01);
+		armPID = new PIDController(POS_P, POS_I, 0, new AngleSource(), new ArmOutput(talon1, talon2), .01);
 		armPID.reset();
+		talon2.set(RobotMap.RIGHT_ARM);
 	}
 
 	public double getArmAngle() {
