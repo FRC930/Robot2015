@@ -23,9 +23,9 @@ public class ManualArmHeight extends Command {
    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 double input = oi.getArmCoDriver();
+    	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()/2.0;
     	 //double angle = angle + input; 
-    	//Robot.arm.setAngle(angle);
+    	Robot.arm.setAngle(input);
     }
 
     // Make this return true when this Command no longer needs to run execute() or nah
