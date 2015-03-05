@@ -28,8 +28,6 @@ public class Drivetrain extends Subsystem {
 	
 	public static final double DEFAULT_TAL_P_AUTO = .1;
 	public static final double DEFAULT_TAL_I_AUTO = .00001;
-
-	public boolean isSpeedMode;
 	
 	public SwerveDrive swerve;
 	
@@ -53,13 +51,6 @@ public class Drivetrain extends Subsystem {
 	public Drivetrain(double length, double width, boolean fieldcent) {
 		this.swerve = new SwerveDrive(length, width, fieldcent);
 		this.setMotors();
-	}
-	
-	public void resetEncoder(){
-		frDrive.setPosition(0);
-		flDrive.setPosition(0);
-		brDrive.setPosition(0);
-		blDrive.setPosition(0);
 	}
 	
 	public void setMotors() {
@@ -94,8 +85,6 @@ public class Drivetrain extends Subsystem {
 		brDrive.changeControlMode(ControlMode.Speed);
 		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
 		
-		isSpeedMode = true;
-
 		frRot.enableControl();
 		flRot.enableControl();
 		blRot.enableControl();
@@ -138,47 +127,13 @@ public class Drivetrain extends Subsystem {
 		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
 
 	}
-	
-	public boolean isSpeedMode() {
-		return isSpeedMode;
-	}
-	
+		
 	public void manualDrive(double d){
 		frDrive.set(d);
 		flDrive.set(d);
 		blDrive.set(d);
 		brDrive.set(d);
 		SmartDashboard.putNumber("Encoder value front right", frDrive.getEncPosition());
-	}
-	
-	public double getWheelPosition(){
-		return frDrive.getPosition()/4.0;
-	}
-	
-	public void changeTalonToPosition(){
-		frDrive.changeControlMode(ControlMode.Position);
-		frDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
-		flDrive.changeControlMode(ControlMode.Position);
-		flDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
-		blDrive.changeControlMode(ControlMode.Position);
-		blDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
-		brDrive.changeControlMode(ControlMode.Position);
-		brDrive.setPID(DEFAULT_TAL_P_AUTO, DEFAULT_TAL_I_AUTO, 0);
-		
-		isSpeedMode = false;
-	}
-
-	public void changeTalonToSpeed(){
-		frDrive.changeControlMode(ControlMode.Speed);
-		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
-		flDrive.changeControlMode(ControlMode.Speed);
-		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
-		blDrive.changeControlMode(ControlMode.Speed);
-		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
-		brDrive.changeControlMode(ControlMode.Speed);
-		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
-		
-		isSpeedMode = true;
 	}
 	
 	public void initDefaultCommand() {

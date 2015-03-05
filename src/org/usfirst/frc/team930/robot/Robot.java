@@ -2,7 +2,6 @@
 
 package org.usfirst.frc.team930.robot;
 
-import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -54,8 +53,6 @@ public class Robot extends IterativeRobot {
 	}
 
     public void autonomousInit() {
-    	Robot.drivetrain.changeTalonToPosition();
-    	Robot.drivetrain.resetEncoder();
     	auto.start();
     }
  
@@ -64,8 +61,6 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-    	Robot.drivetrain.changeTalonToPosition();
-    	Robot.drivetrain.resetEncoder();
     }
 
 	public void disabledInit() {

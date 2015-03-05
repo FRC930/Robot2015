@@ -8,27 +8,46 @@ import org.usfirst.frc.team930.robot.Robot;
 public class Drive extends Command {
 
 	OI oi = OI.getInstance();
+	boolean isManual;
+	double fwd;
+	double str;
+	double rot;
 
 	public Drive() {
 		requires(Robot.drivetrain);
+		isManual = false;
+	}
+
+	public Drive(double fwd, double str, double rot) {
+		this();
+		this.fwd = fwd;
+		this.str = str;
+		this.rot = rot;
+		isManual = true;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (!Robot.drivetrain.isSpeedMode())
-			Robot.drivetrain.changeTalonToSpeed();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.drivetrain.swerve.isFieldcentric == false) {
-			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
-					oi.getRotX());
+		if (isManual = false) {
+			if (Robot.drivetrain.swerve.isFieldcentric == false) {
+				Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
+						oi.getRotX());
 
+			} else {
+				Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
+						Math.atan2(oi.getRotX(), oi.getRotY()));
+			}
+		} else if (isManual = true) {
+			Robot.drivetrain.drive(fwd, str, rot);
 		} else {
-			Robot.drivetrain.drive(oi.getForward(), oi.getStrafe(),
-					Math.atan2(oi.getRotX(), oi.getRotY()));
+			System.out
+					.println("somehow you set a boolean value to a non boolean value. *slow clap*");
 		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
