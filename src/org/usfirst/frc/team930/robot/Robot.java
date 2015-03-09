@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 
 	Command drive;
 
-	final double OSC_RATE = 2;
+	final double OSC_RATE = 10;
 
 	public void robotInit() {
 		oi = OI.getInstance();
@@ -78,18 +78,14 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		arm.setAngle(0 /*+ OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime()))*/);
+		//arm.setAngle(0 /*+ OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime()))*/);
 		
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
-		SmartDashboard.putNumber("arm accel y " , oi.getArmAccelY());
-		SmartDashboard.putNumber("arm accel z " , oi.getArmAccelZ());
-		SmartDashboard.putNumber("robot accel x " , oi.getRobotAccelX());
+		SmartDashboard.putNumber("arm accel y " ,  oi.getArmAccel(Axis.Y));
+		SmartDashboard.putNumber("arm accel z " ,  oi.getArmAccel(Axis.Z));
+		SmartDashboard.putNumber("arm accel x " ,  oi.getArmAccel(Axis.X));
 		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
 		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
-		SmartDashboard.putNumber("bind accel x " , oi.getBindAccelX());
-		SmartDashboard.putNumber("bind accel y " , oi.getBindAccelY());
-		SmartDashboard.putNumber("bind accel z " , oi.getBindAccelZ());
-		SmartDashboard.putNumber("bind angle", arm.getBindAngle());
 		
 		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
 		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());

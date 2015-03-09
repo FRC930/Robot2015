@@ -7,40 +7,36 @@ import java.util.List;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BoxCar {
-	private List<Double> boxCar;
+	double[] boxCar;
 	int boxAmount;
+	double inverseBoxAmount;
+	private static final double[] array = {0.0155,0.0371,0.0925,0.1564,0.1985,0.1985,0.1564,0.0925,0.0371,0.0155};
 
 	public BoxCar(int length) {
-		boxCar = Collections.synchronizedList(new ArrayList<Double>());
-		boxAmount = length;
+		boxAmount = length;		
+		boxCar = new double[length];		
+		inverseBoxAmount = 1.0/boxAmount;
 
-		for (int x = 0; x < boxAmount; x++) {
-			boxCar.add(0.0);
-		}
 	}
 
 	public double calculate(double speed) {
-		double sum = 0;
+		double sum = 0.0;
 		synchronized(boxCar) {
-			boxCar.add(0, speed);
-			boxCar.remove(boxAmount);
-			for (int i = 0; i < boxCar.size(); i++) {
-//				System.out.println(boxCar.get(i));
-				sum += boxCar.get(i);
+			for (int i = boxAmount-1; i > 0; i--){
+				boxCar[i]=boxCar[i-1];
 			}
+			boxCar[0] = speed;
+			
+			for(int i = 0; i  <= (boxAmount-1); i++){
+				sum+=/*array[i]**/boxCar[i];
+			}
+
 		}
-		System.out.println("boxcar length " + boxCar.size());
-		SmartDashboard.putNumber("boxcar length ", boxCar.size());
-		return sum/boxAmount;
+		SmartDashboard.putNumber("boxcar length ", boxAmount);
+		SmartDashboard.putNumber("boxcar sum ", speed);
+		return sum*inverseBoxAmount;
 	}
 
-	public double getAvg() {
-		double sum = 0;
-		for (int i =0; i < boxCar.size(); i++) {
-			sum += boxCar.get(i);
-		}
-		return sum / boxAmount;
-}
 
 	public void reset() {
 

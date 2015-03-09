@@ -11,9 +11,6 @@ public class AngleSource implements PIDSource {
 	Arm arm = Robot.arm;
 
 	public double pidGet() {
-		long time2 = System.currentTimeMillis();
-		SmartDashboard.putNumber("source time", time2 - OI.time2);
-		OI.time2 = time2; 
 		return arm.getArmAngle();
 	}
 

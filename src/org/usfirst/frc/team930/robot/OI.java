@@ -42,30 +42,39 @@ public class OI {
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
 
-	JoystickButton aButtonCodriver = new JoystickButton(driverXbox, 1);
-	JoystickButton xButtonCodriver = new JoystickButton(driverXbox, 3);
+	JoystickButton aButtonCodriver = new JoystickButton(coDriverXbox, 1);
+	JoystickButton xButtonCodriver = new JoystickButton(coDriverXbox, 3);
+	JoystickButton bButtonCodriver = new JoystickButton(coDriverXbox, 2);
+	JoystickButton yButtonCodriver = new JoystickButton(coDriverXbox, 4);
 	
-	BoxCar boxCarArmX = new BoxCar(6);
-	BoxCar boxCarArmY = new BoxCar(6);
-	BoxCar boxCarArmZ = new BoxCar(6);
-	BoxCar boxCarRobotX = new BoxCar(10);
-	BoxCar boxCarRobotY = new BoxCar(10);
-	BoxCar boxCarRobotZ = new BoxCar(10);
-	BoxCar boxCarBindX = new BoxCar(6);
-	BoxCar boxCarBindY = new BoxCar(6);
-	BoxCar boxCarBindZ = new BoxCar(6);
+	int boxCarLength = 100;
+	
+	BoxCar boxCarArmX = new BoxCar(boxCarLength);
+	BoxCar boxCarArmY = new BoxCar(boxCarLength);
+	BoxCar boxCarArmZ = new BoxCar(boxCarLength);
+	BoxCar boxCarRobotX = new BoxCar(boxCarLength);
+	BoxCar boxCarRobotY = new BoxCar(boxCarLength);
+	BoxCar boxCarRobotZ = new BoxCar(boxCarLength);
 
 	double roboX = 0;
 	double roboY = 0;
 	double roboZ = 0;
+	double armX = 0;
+	double armY = 0;
+	double armZ = 0;
 	Timer timer; 
 	TimerTask task = new TimerTask(){
 		
 		@Override
 		public void run() {
-			roboX = roboAccel.getX();
-			roboY = roboAccel.getY();
-			roboZ = roboAccel.getZ();
+			synchronized(roboAccel) {
+				roboX = boxCarRobotX.calculate(roboAccel.getX());
+				roboY = boxCarRobotY.calculate(roboAccel.getY());
+				roboZ = boxCarRobotZ.calculate(roboAccel.getZ());
+			}
+			armX = boxCarArmX.calculate(armAccel.getX());
+			armY = boxCarArmY.calculate(armAccel.getY());
+			armZ = boxCarArmZ.calculate(armAccel.getZ());
 		}
 		
 	};
@@ -75,10 +84,10 @@ public class OI {
 	}
 
 	private OI() {
-		aButton.whenPressed(new CloseLeftClaw());
-		xButton.whenPressed(new OpenLeftClaw());
-		bButton.whenPressed(new CloseRightClaw());
-		yButton.whenPressed(new OpenRightClaw());
+		aButtonCodriver.whenPressed(new CloseLeftClaw());
+		xButtonCodriver.whenPressed(new OpenLeftClaw());
+		bButtonCodriver.whenPressed(new CloseRightClaw());
+		yButtonCodriver.whenPressed(new OpenRightClaw());
 		
 		//aButtonCodriver.whenPressed(new SetHeight(0));
 		//xButtonCodriver.whenPressed(new SetHeight(30));
@@ -124,11 +133,11 @@ public class OI {
 	public double getArmAccel(Axis axis) {
 		switch (axis) {
 		case X:
-			return boxCarArmX.calculate(-armAccel.getX());
+			return armX;
 		case Y:
-			return boxCarArmY.calculate(-armAccel.getY());
+			return armY;
 		case Z:
-			return boxCarArmZ.calculate(armAccel.getZ());
+			return armZ;
 		default:
 			return 930;
 		}
@@ -143,22 +152,14 @@ public class OI {
 	public double getRobotAccel(Axis axis) {
 		switch (axis) {
 		case X:
-			return -getRobotAccelXRaw();
+			return roboX;
 		case Y:
-			return -getRobotAccelYRaw();
+			return roboY;
 		case Z:
-			return getRobotAccelZRaw();
+			return roboZ;
 		default:
 			return 930;
 		}
-	}
-	
-	public double getArmAccelY() {
-		return boxCarArmY.calculate(armAccel.getY());
-	}
-	
-	public double getArmAccelZ() {
-		return boxCarArmZ.calculate(armAccel.getZ());
 	}
 	
 	public double getArmAccelXRaw() {
@@ -172,46 +173,44 @@ public class OI {
 	public double getArmAccelZRaw() {
 		return armAccel.getZ();
 	}
-	
-	public double getBindAccelX() {
-		return boxCarBindX.calculate(bindAccel.getX());
-	}
-
-	public double getBindAccelY() {
-		return boxCarBindY.calculate(bindAccel.getY());
-	}
-	
-	public double getBindAccelZ() {
-		return boxCarBindZ.calculate(bindAccel.getZ());
-	}
 
 	public double getRobotAccelX() {
-		return boxCarRobotX.calculate(getRobotAccelXRaw());
-	}
-	
-	public double getRobotAccelY() {
-		return boxCarRobotY.calculate(getRobotAccelYRaw());
-	}
-
-	public double getRobotAccelZ() {
-		return boxCarRobotZ.calculate(getRobotAccelZRaw());
-	}
-	
-	public double getRobotAccelXRaw(){
-	
 		return roboX;
 	}
 	
-	public double getRobotAccelYRaw() {
-		
+	public double getRobotAccelY() {
 		return roboY;
+	}
 
+	public double getRobotAccelZ() {
+		return roboZ;
+	}
+	
+	public double getRobotAccelXRaw(){
+		double readval;
+		synchronized(roboAccel){
+			readval = roboAccel.getX();
+		}
+
+		return readval;
+	}
+	
+	public double getRobotAccelYRaw() {
+		double readval;
+		synchronized(roboAccel){
+			readval = roboAccel.getY();
+		}
+
+		return readval;
 	}
 
 	public double getRobotAccelZRaw() {
-	
-		return roboZ;
+		double readval;
+		synchronized(roboAccel){
+			readval = roboAccel.getZ();
+		}
 
+		return readval;
 	}
 
 	// -Joysticks
@@ -251,7 +250,9 @@ public class OI {
 		double axis = coDriverXbox.getRawAxis(1);
 		if (Math.abs(axis) < DEADBAND) {
 			return 0;
-		}
-		return -1 * axis;
+		}		
+		System.out.println("inside oi");
+		return axis;
+
 	}
 }

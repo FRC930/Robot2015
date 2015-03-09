@@ -49,7 +49,7 @@ public class SetHeight extends Command {
 //			Robot.arm.setAngle(angle);
 //		}
 		angle = Math.asin((globalHeight - HEIGHT_OF_ROBOT) / LENGTH_OF_ARM);
-		Robot.arm.setAngle(angle);
+		//Robot.arm.setAngle(angle);
 	}	
 
 	// Make this return true when this Command no longer needs to run execute()

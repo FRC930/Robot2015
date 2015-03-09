@@ -1,15 +1,18 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
+import org.usfirst.frc.team930.robot.BoxCar;
 import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.OI.Axis;
 import org.usfirst.frc.team930.robot.RobotMap;
 import org.usfirst.frc.team930.robot.armPID.ArmOutput;
 import org.usfirst.frc.team930.robot.armPID.AngleSource;
+import org.usfirst.frc.team930.robot.commands.ManualArmHeight;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Arm extends Subsystem {
 
@@ -23,11 +26,12 @@ public class Arm extends Subsystem {
 	ArmOutput armOutput;
 	AngleSource armSource;
 	public PIDController armPID;
+	BoxCar armAngleBoxCar = new BoxCar(10);
 
 	final static double SPEED_P = .005;
 	final static double SPEED_I = .0007;
-	final static double POS_P = .002;
-	final static double POS_I = .0125;
+	final static double POS_P = .05;
+	final static double POS_I = .00005;
 
 	double mag = 1500;
 
@@ -54,19 +58,11 @@ public class Arm extends Subsystem {
 		double yarm = oi.getArmAccel(Axis.Y);
 		double zrobot = oi.getRobotAccel(Axis.Z);
 		double yrobot = oi.getRobotAccel(Axis.Y);
+		
+		SmartDashboard.putNumber("ZZZZZZZZZZZ ", zarm);
+		SmartDashboard.putNumber("YYYYYYYYYYY ", yarm);
 
-		return Math.atan2(((zrobot * yarm) - (yrobot * zarm)),
-				((zrobot * zarm) + (yrobot * yarm))) * RAD_TO_DEG;
-	}
-
-	public double getBindAngle() {
-		double xarm = oi.getBindAccelX();
-		double zarm = oi.getBindAccelZ();
-		double zrobot = oi.getRobotAccel(Axis.Z);
-		double xrobot = oi.getRobotAccel(Axis.X);
-
-		return Math.atan2(((zrobot * xarm) - (xrobot * zarm)),
-				((zrobot * zarm) + (xrobot * xarm))) * RAD_TO_DEG;
+		return  /*armAngleBoxCar.calculate(*/Math.atan2(((zrobot * yarm) - (yrobot * zarm)), ((zrobot * zarm) + (yrobot * yarm))) * RAD_TO_DEG/*)*/;
 	}
 
 	public void setAngle(double set) {
@@ -74,6 +70,6 @@ public class Arm extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new ManualArmHeight());
 	}
 }

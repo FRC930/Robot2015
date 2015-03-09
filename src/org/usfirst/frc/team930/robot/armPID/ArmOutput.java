@@ -2,6 +2,7 @@ package org.usfirst.frc.team930.robot.armPID;
 
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmOutput implements PIDOutput {
 
@@ -16,6 +17,7 @@ public class ArmOutput implements PIDOutput {
 	}
 
 	public void pidWrite(double output) { 
-		scRight.set(-1*output);
+		SmartDashboard.putNumber("OUTPU ", output);
+		scRight.set(output);
 	}
 }

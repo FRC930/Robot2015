@@ -4,6 +4,7 @@ import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -19,13 +20,16 @@ public class ManualArmHeight extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("inside manual arm height");
     }
    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()/2.0;
+    	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()*10;
+    	 SmartDashboard.putNumber("Input for the arm", input);
+    	 SmartDashboard.putNumber("JOYSTICK THING", oi.getArmCoDriver());
     	 //double angle = angle + input; 
-    	Robot.arm.setAngle(input);
+    	 Robot.arm.setAngle(input);
     }
 
     // Make this return true when this Command no longer needs to run execute() or nah
