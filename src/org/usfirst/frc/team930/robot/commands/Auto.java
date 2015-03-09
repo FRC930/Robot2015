@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -35,22 +34,40 @@ public class Auto extends CommandGroup {
 				e.printStackTrace();
 			}
 
+			dis.close();
+			fis.close();
+
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
 	// END STATIC BLOCK
 
 	public Auto() {
-		
+
 	}
-	
-	private void drive(ArrayList<Double> command){
+
+	private void drive(ArrayList<Double> command) {
 		// read through the thing here and send to drive command
-		
+		double fwd = command.get(0);
+		double str = command.get(1);
+
+		double d = Math.sqrt(Math.pow(fwd, 2) + Math.pow(str, 2));
+
+		for (int step = 2; step < command.size(); step++) {
+			new Drive(command.get(step) * fwd / d, command.get(step) * str / d,
+					0);
+		}
+
 	}
-	
-	private void rotate(ArrayList<Double> command){
-		// d = delta theta * sqrt(L^2+W^2) / 2		
+
+	private void rotate(ArrayList<Double> command) {
+		// d = delta theta * sqrt(L^2+W^2) / 2
+		for (int step = 0; step < command.size(); step++) {
+			new Drive(0, 0, command.get(step));
+		}
 	}
 }
