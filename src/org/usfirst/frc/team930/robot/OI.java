@@ -85,8 +85,8 @@ public class OI {
 	}
 
 	private OI() {
-		aButtonCodriver.whenPressed(new CloseLeftClaw());
-		xButtonCodriver.whenPressed(new OpenLeftClaw());
+		xButtonCodriver.whenPressed(new CloseLeftClaw());
+		aButtonCodriver.whenPressed(new OpenLeftClaw());
 		bButtonCodriver.whenPressed(new CloseRightClaw());
 		yButtonCodriver.whenPressed(new OpenRightClaw());
 		
