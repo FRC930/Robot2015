@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import edu.wpi.first.wpilibj.ADXL345_SPI;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
