@@ -27,7 +27,7 @@ public class Drivetrain extends Subsystem {
 	public static final double DEFAULT_TAL_I = .0007;
 
 	public SwerveDrive swerve;
-	
+
 	private CANTalon frDrive;
 	private CANTalon flDrive;
 	private CANTalon blDrive;
@@ -107,14 +107,14 @@ public class Drivetrain extends Subsystem {
 	public void quickAngle(double angle, double speed, CANJaguar jag,
 			CANTalon talon) {
 		double oldAngle = jag.getPosition() * 360;
-		double dir = 0;
 		angle += 360 * (int) ((oldAngle - angle) / 360);
 
-		if (oldAngle > angle) {
-			dir = 1;
-		} else {
-			dir = -1;
-		}
+		int dir = oldAngle > angle ? 1 : -1;
+		// if (oldAngle > angle) {
+		// dir = 1;
+		// } else {
+		// dir = -1;
+		// }
 		while (Math.abs(oldAngle - angle) > 90) {
 			angle += dir * 180;
 			speed *= -1;

@@ -38,33 +38,37 @@ public class OI {
 
 	public double getStrafe() {
 		double axis = driverXbox.getRawAxis(0);
-		if(Math.abs(axis) < DEADBAND) {
-			return 0;
-		}
-		return axis;
+		return Math.abs(axis) < DEADBAND ? 0 : axis;
+//		if(Math.abs(axis) < DEADBAND) {
+//			return 0;
+//		}
+//		return axis;
 	}
 	
 	public double getForward() {
 		double axis = driverXbox.getRawAxis(1);
-		if(Math.abs(axis) < DEADBAND) {
-			return 0;
-		}
-		return -1 * axis;
+		return Math.abs(axis) < DEADBAND ? 0 : -axis;
+//		if(Math.abs(axis) < DEADBAND) {
+//			return 0;
+//		}
+//		return -1 * axis;
 	}
 	
 	public double getRotX() {
 		double axis = driverXbox.getRawAxis(4);
-		if(Math.abs(axis) < DEADBAND) {
-			return 0;
-		}
-		return axis;
+		return Math.abs(axis) < DEADBAND ? 0 : axis;
+//		if(Math.abs(axis) < DEADBAND) {
+//			return 0;
+//		}
+//		return axis;
 	}
 	
 	public double getRotY() {
 		double axis = driverXbox.getRawAxis(5);
-		if(Math.abs(axis) < DEADBAND) {
-			return 0;
-		}
-		return axis;
+		return Math.abs(axis) < DEADBAND ? 0 : axis;
+//		if(Math.abs(axis) < DEADBAND) {
+//			return 0;
+//		}
+//		return axis;
 	}
 }

@@ -16,14 +16,14 @@ public class SwerveDrive {
 	 * For the field centric utilization of the code, you must calibrate the
 	 * robot so that it faces perpendicular to the baseline of the field.
 	 * Heading zero is that way
-	 *
+	 * 
 	 * THIS IS A MATH CLASS: dont pass your speedcontrollers and shit
 	 */
 
 	// DECLARATIONS OF VARIABLES AND OTHER THINGS THE CODE MIGHT FIND USEFUL
 
 	// Field Centric Specific Components
-	public boolean isFieldcentric; // are we doin' field centric calculations?
+	private boolean isFieldcentric; // are we doin' field centric calculations?
 
 	// Robot Specs
 	private double width, length, R; // length and width of the robot
@@ -48,7 +48,7 @@ public class SwerveDrive {
 		this.length = length;
 
 		this.isFieldcentric = false;
-		
+
 		R = Math.sqrt(Math.pow(length, 2) + Math.pow(width, 2));
 	}
 
@@ -86,6 +86,7 @@ public class SwerveDrive {
 			double B2 = Math.pow(B, 2);
 			double C2 = Math.pow(C, 2);
 			double D2 = Math.pow(D, 2);
+
 			oldTopRightAngle = topRightAngle;
 			oldTopLeftAngle = topLeftAngle;
 			oldBottomRightAngle = bottomRightAngle;
@@ -104,15 +105,15 @@ public class SwerveDrive {
 		}
 
 		double max;
-		max = topRightSpeed;
-		if (topLeftSpeed > max) {
-			max = topLeftSpeed;
+		max = Math.abs(topRightSpeed);
+		if (Math.abs(topLeftSpeed) > max) {
+			max = Math.abs(topLeftSpeed);
 		}
-		if (bottomLeftSpeed > max) {
-			max = bottomLeftSpeed;
+		if (Math.abs(bottomLeftSpeed) > max) {
+			max = Math.abs(bottomLeftSpeed);
 		}
-		if (bottomRightSpeed > max) {
-			max = bottomRightSpeed;
+		if (Math.abs(bottomRightSpeed) > max) {
+			max = Math.abs(bottomRightSpeed);
 		}
 		if (max > 1) {
 			topRightSpeed /= max;
@@ -120,25 +121,25 @@ public class SwerveDrive {
 			bottomLeftSpeed /= max;
 			bottomRightSpeed /= max;
 		}
-
-		double min;
-		min = topRightSpeed;
-		if (topLeftSpeed < min) {
-			min = topLeftSpeed;
-		}
-		if (bottomLeftSpeed < min) {
-			min = bottomLeftSpeed;
-		}
-		if (bottomRightSpeed < min) {
-			min = bottomRightSpeed;
-		}
-		
-		if (min < -1) {
-			topRightSpeed /= min;
-			topLeftSpeed /= min;
-			bottomLeftSpeed /= min;
-			bottomRightSpeed /= min;
-		}
+		//
+		// double min;
+		// min = topRightSpeed;
+		// if (topLeftSpeed < min) {
+		// min = topLeftSpeed;
+		// }
+		// if (bottomLeftSpeed < min) {
+		// min = bottomLeftSpeed;
+		// }
+		// if (bottomRightSpeed < min) {
+		// min = bottomRightSpeed;
+		// }
+		//
+		// if (min < -1) {
+		// topRightSpeed /= min;
+		// topLeftSpeed /= min;
+		// bottomLeftSpeed /= min;
+		// bottomRightSpeed /= min;
+		// }
 	}
 
 	public void updateSwerve(double forward, double strafe, double rotIn,
@@ -150,6 +151,10 @@ public class SwerveDrive {
 		strafe = -1 * tempF * Math.cos(heading) + tempS * Math.sin(heading);
 
 		this.updateSwerve(forward, strafe, rotIn);
+	}
+
+	public boolean isFieldcentric() {
+		return isFieldcentric;
 	}
 	
 	public void switchCentricity() { // switch from robo to field and vicea
