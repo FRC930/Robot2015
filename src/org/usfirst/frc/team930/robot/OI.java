@@ -43,10 +43,9 @@ public class OI {
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
 
-	JoystickButton aButtonCodriver = new JoystickButton(coDriverXbox, 1);
-	JoystickButton xButtonCodriver = new JoystickButton(coDriverXbox, 3);
-	JoystickButton bButtonCodriver = new JoystickButton(coDriverXbox, 2);
-	JoystickButton yButtonCodriver = new JoystickButton(coDriverXbox, 4);
+	JoystickButton clawleftButtonCodriver = new JoystickButton(coDriverXbox, 5);
+	JoystickButton clawrightButtonCodriver = new JoystickButton(coDriverXbox, 6);
+
 	
 	int boxCarLength = 100;
 	
@@ -85,10 +84,16 @@ public class OI {
 	}
 
 	private OI() {
-		xButtonCodriver.whenPressed(new CloseLeftClaw());
-		aButtonCodriver.whenPressed(new OpenLeftClaw());
-		bButtonCodriver.whenPressed(new CloseRightClaw());
-		yButtonCodriver.whenPressed(new OpenRightClaw());
+		//Claw Button OPEN/CLOSE Mapping 
+		double clawAxis = coDriverXbox.getRawAxis(3);
+		if (clawAxis > 0.75){
+			new CloseLeftClaw();
+		}
+		if (clawAxis < -0.75){
+			new CloseRightClaw();
+		}
+		clawleftButtonCodriver.whenPressed(new OpenLeftClaw());
+		clawrightButtonCodriver.whenPressed(new OpenRightClaw());
 		
 		//aButtonCodriver.whenPressed(new SetHeight(0));
 		//xButtonCodriver.whenPressed(new SetHeight(30));
