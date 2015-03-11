@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 
 	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
 	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
-	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH);
+	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH,true);
 	public static final Arm arm = new Arm();
 	public static OI oi;
 
