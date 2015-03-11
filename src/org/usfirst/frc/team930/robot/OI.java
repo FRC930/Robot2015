@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
@@ -22,6 +23,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public static long time = System.currentTimeMillis();
 	public static long time2 = System.currentTimeMillis();
+	public static int armPreset_0 = -40; 
+	public static int armPreset_1 = 43;
 	public static enum Axis {
 		X, Y, Z;
 	}
@@ -42,10 +45,11 @@ public class OI {
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
-
-	JoystickButton clawleftButtonCodriver = new JoystickButton(coDriverXbox, 5);
-	JoystickButton clawrightButtonCodriver = new JoystickButton(coDriverXbox, 6);
-
+	
+	JoystickButton leftbumperButtonCodriver = new JoystickButton(coDriverXbox, 5);
+	JoystickButton rightbumperButtonCodriver = new JoystickButton(coDriverXbox, 6);
+	JoystickButton aButtonCodriver = new JoystickButton(coDriverXbox, 1);
+	JoystickButton yButtonCodriver = new JoystickButton(coDriverXbox, 4);
 	
 	int boxCarLength = 100;
 	
@@ -86,18 +90,17 @@ public class OI {
 	private OI() {
 		//Claw Button OPEN/CLOSE Mapping 
 		double clawAxis = coDriverXbox.getRawAxis(3);
-		if (clawAxis > 0.75){
-			new CloseLeftClaw();
-		}
-		if (clawAxis < -0.75){
-			new CloseRightClaw();
-		}
-		clawleftButtonCodriver.whenPressed(new OpenLeftClaw());
-		clawrightButtonCodriver.whenPressed(new OpenRightClaw());
-		
-		//aButtonCodriver.whenPressed(new SetHeight(0));
-		//xButtonCodriver.whenPressed(new SetHeight(30));
-
+		SmartDashboard.putNumber("Axis 3 Output", coDriverXbox.getRawAxis(3));
+//		if (clawAxis > 0.75){
+//			new CloseLeftClaw();
+//		}
+//		if (clawAxis < -0.75){
+//			new CloseRightClaw();
+//		}
+		leftbumperButtonCodriver.whenPressed(new OpenLeftClaw());
+		rightbumperButtonCodriver.whenPressed(new OpenRightClaw());
+		aButtonCodriver.whenPressed(new SetHeight(armPreset_0));
+		yButtonCodriver.whenPressed(new SetHeight(armPreset_1));
 	}
 
 	public void initAccel() {
