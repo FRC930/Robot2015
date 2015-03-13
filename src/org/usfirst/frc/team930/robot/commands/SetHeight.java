@@ -14,50 +14,24 @@ public class SetHeight extends Command {
 	final double LENGTH_OF_ARM = 47.0;
 
 	double angle;
-	
-	double globalHeight;
 
-	OI oi = OI.getInstance();
-
-	public SetHeight(double height) {
+	public SetHeight(double angle) {
 		requires(Robot.arm);
-		globalHeight = height;
-		// SmartDashboard.putBoolean("Update", false);
-		// SmartDashboard.putNumber("ArmHeight (inches)", 40);
+		this.angle = angle;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		SmartDashboard.putBoolean("Update", false);
-		SmartDashboard.putNumber("ArmHeight (inches)", 40);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		// height in inches from the floor
-//		if (SmartDashboard.getBoolean("Update")) {
-//			double height = SmartDashboard.getNumber("ArmHeight (inches)");
-//			/* HEIGHT_MIN + (HEIGHT_MAX - HEIGHT_MIN) * oi.getArmHeight(); */
-//
-//			if (height > HEIGHT_MAX)
-//				height = HEIGHT_MAX;
-//			else if (height < HEIGHT_MIN)
-//				height = HEIGHT_MIN;
-//
-//			angle = Math.asin((height - HEIGHT_OF_ROBOT) / LENGTH_OF_ARM);
-//
-//			Robot.arm.setAngle(angle);
-//		}
-		angle = Math.asin((globalHeight - HEIGHT_OF_ROBOT) / LENGTH_OF_ARM);
-		//Robot.arm.setAngle(angle);
+		Robot.arm.setAngle(angle);
 	}	
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.arm.getArmAngle() == angle)
-			return true;
-		else
-			return false;
+		return Robot.arm.getArmAngle() == angle;
 	}
 
 	// Called once after isFinished returns true

@@ -23,10 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 
+	public static final Arm arm = new Arm();
 	public static final Claw leftClaw = new Claw(Claw.leftRelay, Claw.leftOpen, Claw.leftClosed, 1);
 	public static final Claw rightClaw = new Claw(Claw.rightRelay, Claw.rightOpen, Claw.rightClosed, 2);
-	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH,true);
-	public static final Arm arm = new Arm();
+	public static final Drivetrain drivetrain = new Drivetrain(RobotMap.DRIVETRAIN_WIDTH, RobotMap.DRIVETRAIN_LENGTH);
 	public static OI oi;
 
 	Command closeLeftClaw;
@@ -78,7 +78,21 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
+		double clawAxisRight = oi.getCoDriverTriggerRight();
+		double clawAxisLeft = oi.getCoDriverTriggerLeft();
+		if (clawAxisLeft > 0.75){
+			Scheduler.getInstance().add(new OpenLeftClaw());
+		}
+		if (clawAxisRight > 0.75){
+			Scheduler.getInstance().add(new CloseRightClaw());
+		}
+		
 		//arm.setAngle(0 /*+ OSC_RATE*Math.sin(2*Math.PI*(Timer.getMatchTime()))*/);
+		
+		if (arm.armPID.onTarget()){
+			arm.armPID.reset();
+			arm.armPID.enable();
+		}
 		
 		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
 		SmartDashboard.putNumber("arm accel y " ,  oi.getArmAccel(Axis.Y));
@@ -93,6 +107,14 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("robot accel x RAW " , oi.getRobotAccelXRaw());
 		SmartDashboard.putNumber("robot accel y RAW" , oi.getRobotAccelYRaw());
 		SmartDashboard.putNumber("robot accel z RAW" , oi.getRobotAccelZRaw());
+		
+		SmartDashboard.putBoolean("left open", Claw.leftOpen.get());
+		SmartDashboard.putBoolean("left closed", Claw.leftClosed.get());
+		SmartDashboard.putBoolean("right open", Claw.rightOpen.get());
+		SmartDashboard.putBoolean("right closed", Claw.rightClosed.get());
+		
+		SmartDashboard.putNumber("back right angle", Robot.drivetrain.getBackRightAngle());
+		SmartDashboard.putNumber("back right swerve angle", Robot.drivetrain.getBackRightSwerve());
 //		
 //		System.out.println("other accel x " + oi.getOtherAccelX());
 //		System.out.println("other accel y " + oi.getOtherAccelY());

@@ -25,8 +25,10 @@ public class Drivetrain extends Subsystem {
 
 	public static final double DEFAULT_JAG_P = -5900;
 	public static final double DEFAULT_JAG_I = -80;
-	public static final double DEFAULT_TAL_P = .05;
-	public static final double DEFAULT_TAL_I = .0007;
+	public static final double DEFAULT_TAL_P = .06; //Test at .05
+	public static final double DEFAULT_TAL_I = .0003; //Test at .0035
+	public static final double DEFAULT_TAL_D = .00007;
+
 
 	public SwerveDrive swerve;
 	
@@ -74,15 +76,15 @@ public class Drivetrain extends Subsystem {
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
 		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
-
+		
 		frDrive.changeControlMode(ControlMode.Speed);
-		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 		flDrive.changeControlMode(ControlMode.Speed);
-		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 		blDrive.changeControlMode(ControlMode.Speed);
-		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 		brDrive.changeControlMode(ControlMode.Speed);
-		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, 0);
+		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -125,6 +127,14 @@ public class Drivetrain extends Subsystem {
 		jag.set(angle * DEG_TO_GEAR_TO_REV);
 		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
 
+	}
+	
+	public double getBackRightAngle(){
+		return brRot.getPosition();
+	}
+	
+	public double getBackRightSwerve(){
+		return swerve.output(Outputs.backRightAngle);
 	}
 
 	public void initDefaultCommand() {

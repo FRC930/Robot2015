@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
+import org.usfirst.frc.team930.robot.commands.ManualArmHeight;
 import org.usfirst.frc.team930.robot.commands.OpenLeftClaw;
 import org.usfirst.frc.team930.robot.commands.OpenRightClaw;
 import org.usfirst.frc.team930.robot.commands.SetHeight;
@@ -25,6 +26,10 @@ public class OI {
 	public static enum Axis {
 		X, Y, Z;
 	}
+	
+	public static int armPreset_0 = 41; 
+	public static int armPreset_1 = 19;
+	public static int armPreset_2 = -10;
 
 	private static final double DEADBAND = .1;
 	public final static int DRIVER_PORT = 0;
@@ -42,9 +47,13 @@ public class OI {
 	JoystickButton bButton = new JoystickButton(driverXbox, 2);
 	JoystickButton yButton = new JoystickButton(driverXbox, 4);
 	
+	JoystickButton leftbumperButtonCodriver = new JoystickButton(coDriverXbox, 5);
+	JoystickButton rightbumperButtonCodriver = new JoystickButton(coDriverXbox, 6);
+	JoystickButton aButtonCodriver = new JoystickButton(coDriverXbox, 1);
+	JoystickButton xButtonCodriver = new JoystickButton(coDriverXbox, 3);
+	JoystickButton yButtonCodriver = new JoystickButton(coDriverXbox, 4);
+	JoystickButton bButtonCodriver = new JoystickButton(coDriverXbox, 2);
 
-	JoystickButton clawleftButtonCodriver = new JoystickButton(coDriverXbox, 5);
-	JoystickButton clawrightButtonCodriver = new JoystickButton(coDriverXbox, 6);
 
 	
 	int boxCarLength = 100;
@@ -85,18 +94,23 @@ public class OI {
 
 	private OI() {
 		//Claw Button OPEN/CLOSE Mapping 
-		double clawAxis = coDriverXbox.getRawAxis(3);
-		if (clawAxis > 0.75){
-			new CloseLeftClaw();
-		}
-		if (clawAxis < -0.75){
-			new CloseRightClaw();
-		}
-		clawleftButtonCodriver.whenPressed(new OpenLeftClaw());
-		clawrightButtonCodriver.whenPressed(new OpenRightClaw());
+		
+		leftbumperButtonCodriver.whenPressed(new CloseLeftClaw());
+		rightbumperButtonCodriver.whenPressed(new OpenRightClaw());
 		
 		//aButtonCodriver.whenPressed(new SetHeight(0));
 		//xButtonCodriver.whenPressed(new SetHeight(30));
+		
+		//		if (clawAxis > 0.75){
+		//			new CloseLeftClaw();
+		//		}
+		//		if (clawAxis < -0.75){
+		//			new CloseRightClaw();
+		//		}
+				aButtonCodriver.whenPressed(new SetHeight(armPreset_0));
+				xButtonCodriver.whenPressed(new SetHeight(armPreset_1));
+				yButtonCodriver.whenPressed(new SetHeight(armPreset_2));
+				bButtonCodriver.whenPressed(new ManualArmHeight());
 
 	}
 
@@ -220,6 +234,14 @@ public class OI {
 	}
 
 	// -Joysticks
+	public double getCoDriverTriggerRight(){
+		return coDriverXbox.getRawAxis(3);
+	}
+	
+	public double getCoDriverTriggerLeft(){
+		return coDriverXbox.getRawAxis(2);
+	}
+	
 	public double getStrafe() {
 		double axis = driverXbox.getRawAxis(0);
 		if (Math.abs(axis) < DEADBAND) {
