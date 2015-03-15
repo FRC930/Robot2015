@@ -1,5 +1,7 @@
 package org.usfirst.frc.team930.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class SwerveDrive {
 
 	/*
@@ -74,13 +76,15 @@ public class SwerveDrive {
 		} else {
 
 			double FWD = forward;
+			SmartDashboard.putNumber("forward", forward);
 			double STR = strafe;
+			SmartDashboard.putNumber("strafe", strafe);
 			double RCW = rotIn;
 
-			double A = STR - RCW * (length / R);
-			double B = STR + RCW * (length / R);
-			double C = FWD - RCW * (width / R);
-			double D = FWD + RCW * (width / R);
+			double A = STR - RCW * (length / 2); //Changed R to 2
+			double B = STR + RCW * (length / 2);
+			double C = FWD - RCW * (width / 2);
+			double D = FWD + RCW * (width / 2);
 
 			double A2 = Math.pow(A, 2);
 			double B2 = Math.pow(B, 2);

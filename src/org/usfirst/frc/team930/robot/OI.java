@@ -247,6 +247,7 @@ public class OI {
 		if (Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
+		axis = axis * axis * Math.signum(axis);
 		return axis;
 	}
 
@@ -255,6 +256,7 @@ public class OI {
 		if (Math.abs(axis) < DEADBAND) {
 			return 0;
 		}
+		axis = axis * axis * Math.signum(axis);
 		return -1 * axis;
 	}
 
