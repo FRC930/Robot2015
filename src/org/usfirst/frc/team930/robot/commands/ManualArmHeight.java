@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ManualArmHeight extends Command {
-	OI oi = OI.getInstance();
+	
 	
     public ManualArmHeight() {
         // Use requires() here to declare subsystem dependencies
@@ -25,6 +25,7 @@ public class ManualArmHeight extends Command {
    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	 OI oi = OI.getInstance();
     	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()*10;
     	 SmartDashboard.putNumber("Input for the arm", input);
     	 SmartDashboard.putNumber("JOYSTICK THING", oi.getArmCoDriver());

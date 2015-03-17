@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Arm extends Subsystem {
 
-	OI oi = OI.getInstance();
+	OI oi;
 
 	final static double RAD_TO_DEG = (180.0 / Math.PI);
 
@@ -30,8 +30,10 @@ public class Arm extends Subsystem {
 
 	final static double SPEED_P = .005;
 	final static double SPEED_I = .0007;
-	final static double POS_P = .05;
-	final static double POS_I = .00005;
+	final static double POS_P = .025;
+	final static double POS_I = .000150;
+	final static double POS_D = .000030;
+
 
 	double mag = 1500;
 
@@ -47,13 +49,15 @@ public class Arm extends Subsystem {
 	}
 
 	public void startPID() {
-		armPID = new PIDController(POS_P, POS_I, 0, new AngleSource(), new ArmOutput(talon1, talon2), .01);
+		armPID = new PIDController(POS_P, POS_I, POS_D, new AngleSource(), new ArmOutput(talon1, talon2), .01);
 		armPID.reset();
+		armPID.setAbsoluteTolerance(1);
+
 		talon2.set(RobotMap.RIGHT_ARM);
 	}
 
 	public double getArmAngle() {
-		// System.out.println("2gregz");
+		if(oi == null) oi = OI.getInstance();
 		double zarm = oi.getArmAccel(Axis.Z);
 		double yarm = oi.getArmAccel(Axis.Y);
 		double zrobot = oi.getRobotAccel(Axis.Z);
