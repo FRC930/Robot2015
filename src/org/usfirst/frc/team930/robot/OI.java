@@ -242,6 +242,14 @@ public class OI {
 		return coDriverXbox.getRawAxis(2);
 	}
 	
+	public double getDriverTriggerRight(){
+		return driverXbox.getRawAxis(3);
+	}
+	
+	public double getDriverTriggerLeft(){
+		return driverXbox.getRawAxis(2);
+	}
+	
 	public double getStrafe() {
 		double axis = driverXbox.getRawAxis(0);
 		if (Math.abs(axis) < DEADBAND) {
