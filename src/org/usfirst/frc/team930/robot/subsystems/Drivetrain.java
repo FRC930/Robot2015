@@ -77,14 +77,22 @@ public class Drivetrain extends Subsystem {
 		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
 		
-		frDrive.changeControlMode(ControlMode.Speed);
-		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		flDrive.changeControlMode(ControlMode.Speed);
-		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		blDrive.changeControlMode(ControlMode.Speed);
-		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		brDrive.changeControlMode(ControlMode.Speed);
-		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+		 //
+		 frDrive.changeControlMode(ControlMode.PercentVbus);
+		 flDrive.changeControlMode(ControlMode.PercentVbus);
+		 brDrive.changeControlMode(ControlMode.PercentVbus);
+		 blDrive.changeControlMode(ControlMode.PercentVbus);
+		 //
+		 
+//		
+//		frDrive.changeControlMode(ControlMode.Speed);
+//		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		flDrive.changeControlMode(ControlMode.Speed);
+//		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		blDrive.changeControlMode(ControlMode.Speed);
+//		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		brDrive.changeControlMode(ControlMode.Speed);
+//		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -92,6 +100,19 @@ public class Drivetrain extends Subsystem {
 		brRot.enableControl();
 
 		gyro.initGyro();
+	}
+	
+	public void manualSetMotors(double forward, int rotate){
+		frRot.set(rotate);
+    	flRot.set(rotate);
+    	brRot.set(rotate);
+    	blRot.set(rotate);
+
+    	frDrive.set(forward);
+    	flDrive.set(forward);
+    	brDrive.set(forward);
+    	blDrive.set(forward); 
+		
 	}
 
 	public void drive(double forward, double strafe, double rot) {
@@ -106,6 +127,7 @@ public class Drivetrain extends Subsystem {
 				swerve.output(Outputs.backLeftSpeed), blRot, blDrive);
 		this.quickAngle(swerve.output(Outputs.backRightAngle),
 				swerve.output(Outputs.backRightSpeed), brRot, brDrive);
+		
 	}
 
 	public void quickAngle(double angle, double speed, CANJaguar jag,
@@ -125,7 +147,8 @@ public class Drivetrain extends Subsystem {
 
 		}
 		jag.set(angle * DEG_TO_GEAR_TO_REV);
-		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+		//talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+		talon.set(SLOWDOWN * speed);
 
 	}
 	

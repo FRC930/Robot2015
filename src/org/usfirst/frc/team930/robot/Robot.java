@@ -3,6 +3,7 @@
 package org.usfirst.frc.team930.robot;
 
 import org.usfirst.frc.team930.robot.OI.Axis;
+import org.usfirst.frc.team930.robot.commands.Auto;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
@@ -33,21 +34,25 @@ public class Robot extends IterativeRobot {
 	Command closeRightClaw;
 	Command openLeftClaw;
 	Command openRightClaw;
+	//Command auto;
 
 	Command setHeight;
 
 	Command drive;
 
 	final double OSC_RATE = 10;
+	
+	boolean autonomousCommand = false;
 
 	public void robotInit() {
 		oi = OI.getInstance();
 		oi.initAccel();
-		// leftClaw.reverseDirection();
+		leftClaw.reverseDirection();
 		closeLeftClaw = new CloseLeftClaw();
 		closeRightClaw = new CloseRightClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
+		//auto = new Auto();
 		// drive = new Drive();
 	}
 
@@ -57,11 +62,17 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-		// if (autonomousCommand != null) autonomousCommand.start();
+//		if (autonomousCommand == true){
+//			auto.start();
+//			arm.startPID();
+//			arm.armPID.enable();
+//		}
 	}
 
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
+//		if (autonomousCommand == true){
+//			Scheduler.getInstance().run();
+//		}
 	}
 
 	public void teleopInit() {
@@ -80,10 +91,10 @@ public class Robot extends IterativeRobot {
 		
 		double clawAxisRight = oi.getCoDriverTriggerRight();
 		double clawAxisLeft = oi.getCoDriverTriggerLeft();
-		if (clawAxisLeft > 0.75){
+		if (clawAxisLeft > 0.5){
 			Scheduler.getInstance().add(new OpenLeftClaw());
 		}
-		if (clawAxisRight > 0.75){
+		if (clawAxisRight > 0.5){
 			Scheduler.getInstance().add(new CloseRightClaw());
 		}
 		
