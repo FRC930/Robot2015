@@ -2,6 +2,7 @@
 
 package org.usfirst.frc.team930.robot.subsystems;
 
+import org.usfirst.frc.team930.robot.OI;
 import org.usfirst.frc.team930.robot.RobotMap;
 //import org.usfirst.frc.team930.robot.commands.Drive;
 
@@ -14,20 +15,21 @@ import edu.wpi.first.wpilibj.CANTalon.ControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
 	// By Team 930
 
 	public static final int CODES_PER_REV = 414;
 	public static final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
-	public static final double SLOWDOWN = .5;
+	public static final double SLOWDOWN = 1;
 	public static final int SPEED_TO_CODES = 8000;
 
 	public static final double DEFAULT_JAG_P = -5900;
 	public static final double DEFAULT_JAG_I = -80;
 	public static final double DEFAULT_TAL_P = .06; //Test at .05
-	public static final double DEFAULT_TAL_I = .0003; //Test at .0035
-	public static final double DEFAULT_TAL_D = .00007;
+	public static final double DEFAULT_TAL_I = .0035; //Test at .0035
+	public static final double DEFAULT_TAL_D = .0000;
 
 
 	public SwerveDrive swerve;
@@ -77,22 +79,22 @@ public class Drivetrain extends Subsystem {
 		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
 		
-		 //
-		 frDrive.changeControlMode(ControlMode.PercentVbus);
-		 flDrive.changeControlMode(ControlMode.PercentVbus);
-		 brDrive.changeControlMode(ControlMode.PercentVbus);
-		 blDrive.changeControlMode(ControlMode.PercentVbus);
-		 //
+//		 
+//		 frDrive.changeControlMode(ControlMode.PercentVbus);
+//		 flDrive.changeControlMode(ControlMode.PercentVbus);
+//		 brDrive.changeControlMode(ControlMode.PercentVbus);
+//		 blDrive.changeControlMode(ControlMode.PercentVbus);
+//		 
 		 
-//		
-//		frDrive.changeControlMode(ControlMode.Speed);
-//		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-//		flDrive.changeControlMode(ControlMode.Speed);
-//		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-//		blDrive.changeControlMode(ControlMode.Speed);
-//		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-//		brDrive.changeControlMode(ControlMode.Speed);
-//		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+		
+		frDrive.changeControlMode(ControlMode.Speed);
+		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+		flDrive.changeControlMode(ControlMode.Speed);
+		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+		blDrive.changeControlMode(ControlMode.Speed);
+		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+		brDrive.changeControlMode(ControlMode.Speed);
+		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -116,9 +118,12 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void drive(double forward, double strafe, double rot) {
-
+//		if (OI.getInstance().getDriverTriggerRight()>.5){
+//			forward = forward * 1.333;
+//		}
+		
 		swerve.updateSwerve(forward, strafe, rot);
-
+		
 		this.quickAngle(swerve.output(Outputs.frontRightAngle),
 				swerve.output(Outputs.frontRightSpeed), frRot, frDrive);
 		this.quickAngle(swerve.output(Outputs.frontLeftAngle),
@@ -127,6 +132,7 @@ public class Drivetrain extends Subsystem {
 				swerve.output(Outputs.backLeftSpeed), blRot, blDrive);
 		this.quickAngle(swerve.output(Outputs.backRightAngle),
 				swerve.output(Outputs.backRightSpeed), brRot, brDrive);
+//		SmartDashboard.putNumber("fl speed", swerve.output(Outputs.frontLeftSpeed));
 		
 	}
 
@@ -147,18 +153,18 @@ public class Drivetrain extends Subsystem {
 
 		}
 		jag.set(angle * DEG_TO_GEAR_TO_REV);
-		//talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
-		talon.set(SLOWDOWN * speed);
+		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+//		talon.set(SLOWDOWN * speed);
 
 	}
-	
-	public double getBackRightAngle(){
-		return brRot.getPosition();
-	}
-	
-	public double getBackRightSwerve(){
-		return swerve.output(Outputs.backRightAngle);
-	}
+//	
+//	public double getBackRightAngle(){
+//		return brRot.getPosition();
+//	}
+//	
+//	public double getBackRightSwerve(){
+//		return swerve.output(Outputs.backRightAngle);
+//	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.

@@ -81,10 +81,10 @@ public class SwerveDrive {
 			SmartDashboard.putNumber("strafe", strafe);
 			double RCW = rotIn;
 
-			double A = STR - RCW * (length / 2); //Changed R to 2
-			double B = STR + RCW * (length / 2);
-			double C = FWD - RCW * (width / 2);
-			double D = FWD + RCW * (width / 2);
+			double A = STR - RCW * (length / R); //Changed R to 2
+			double B = STR + RCW * (length / R);
+			double C = FWD - RCW * (width / R);
+			double D = FWD + RCW * (width / R);
 
 			double A2 = Math.pow(A, 2);
 			double B2 = Math.pow(B, 2);

@@ -104,28 +104,28 @@ public class Robot extends IterativeRobot {
 			arm.armPID.reset();
 			arm.armPID.enable();
 		}
-		
-		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
-		SmartDashboard.putNumber("arm accel y " ,  oi.getArmAccel(Axis.Y));
-		SmartDashboard.putNumber("arm accel z " ,  oi.getArmAccel(Axis.Z));
-		SmartDashboard.putNumber("arm accel x " ,  oi.getArmAccel(Axis.X));
-		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
-		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
-		
-		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
-		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());
-		SmartDashboard.putNumber("arm accel z RAW" , oi.getArmAccelZRaw());
-		SmartDashboard.putNumber("robot accel x RAW " , oi.getRobotAccelXRaw());
-		SmartDashboard.putNumber("robot accel y RAW" , oi.getRobotAccelYRaw());
-		SmartDashboard.putNumber("robot accel z RAW" , oi.getRobotAccelZRaw());
-		
-		SmartDashboard.putBoolean("left open", Claw.leftOpen.get());
-		SmartDashboard.putBoolean("left closed", Claw.leftClosed.get());
-		SmartDashboard.putBoolean("right open", Claw.rightOpen.get());
-		SmartDashboard.putBoolean("right closed", Claw.rightClosed.get());
-		
-		SmartDashboard.putNumber("back right angle", Robot.drivetrain.getBackRightAngle());
-		SmartDashboard.putNumber("back right swerve angle", Robot.drivetrain.getBackRightSwerve());
+//		
+//		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
+//		SmartDashboard.putNumber("arm accel y " ,  oi.getArmAccel(Axis.Y));
+//		SmartDashboard.putNumber("arm accel z " ,  oi.getArmAccel(Axis.Z));
+//		SmartDashboard.putNumber("arm accel x " ,  oi.getArmAccel(Axis.X));
+//		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
+//		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
+//		
+//		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
+//		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());
+//		SmartDashboard.putNumber("arm accel z RAW" , oi.getArmAccelZRaw());
+//		SmartDashboard.putNumber("robot accel x RAW " , oi.getRobotAccelXRaw());
+//		SmartDashboard.putNumber("robot accel y RAW" , oi.getRobotAccelYRaw());
+//		SmartDashboard.putNumber("robot accel z RAW" , oi.getRobotAccelZRaw());
+//		
+//		SmartDashboard.putBoolean("left open", Claw.leftOpen.get());
+//		SmartDashboard.putBoolean("left closed", Claw.leftClosed.get());
+//		SmartDashboard.putBoolean("right open", Claw.rightOpen.get());
+//		SmartDashboard.putBoolean("right closed", Claw.rightClosed.get());
+//		
+//		SmartDashboard.putNumber("back right angle", Robot.drivetrain.getBackRightAngle());
+//		SmartDashboard.putNumber("back right swerve angle", Robot.drivetrain.getBackRightSwerve());
 //		
 //		System.out.println("other accel x " + oi.getOtherAccelX());
 //		System.out.println("other accel y " + oi.getOtherAccelY());

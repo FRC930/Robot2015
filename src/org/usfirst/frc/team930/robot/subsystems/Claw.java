@@ -2,9 +2,11 @@ package org.usfirst.frc.team930.robot.subsystems;
 
 import org.usfirst.frc.team930.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Claw extends Subsystem {
 	public static Relay rightRelay = new Relay(RobotMap.RELAY_RIGHT);
@@ -43,17 +45,29 @@ public class Claw extends Subsystem {
 	}
 
 	public void stopClaw() {
+		//AnalogInput a;
 		r.set(Relay.Value.kOff);
 	}
 	
 	public boolean isOpened(){
-		return limitSwitchOpen.get();
+		for (int counter = 0; counter<1000;counter++){
+			SmartDashboard.putNumber("Counter Open", counter);
+			if (limitSwitchOpen.get()){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean isClosed() {
-		return limitSwitchClosed.get();
+		for (int counter2 = 0; counter2<1000;counter2++){
+			SmartDashboard.putNumber("Counter Close", counter2);
+			if (limitSwitchClosed.get()){
+				return true;
+			}
+		}
+		return false;
 	}
-
 	protected void initDefaultCommand() {
 
 	}
