@@ -28,15 +28,18 @@ public class SwerveDrive {
 	public boolean isFieldcentric; // are we doin' field centric calculations?
 
 	// Robot Specs
-	private double width, length, R; // length and width of the robot
+			private static float width; // length and width of the robot
+			private static float length;
+			private static float R;
 
-	// Calculation Components
-	public static final double RAD_TO_DEG = 180 / Math.PI;
-	private double topRightSpeed, topLeftSpeed, bottomLeftSpeed,
-			bottomRightSpeed;
-	private double topRightAngle, topLeftAngle, bottomLeftAngle,
-			bottomRightAngle, oldTopRightAngle, oldTopLeftAngle,
-			oldBottomLeftAngle, oldBottomRightAngle;
+			// Calculation Components
+			public static final float RAD_TO_DEG = (float) (180 / Math.PI);
+			private static float topRightSpeed;
+			private static float topLeftSpeed;
+			private static float bottomLeftSpeed;
+			private static float bottomRightSpeed;
+			private static float topRightAngle, topLeftAngle, bottomLeftAngle,
+					bottomRightAngle;
 
 	// Output components
 	public enum Outputs {
@@ -45,13 +48,13 @@ public class SwerveDrive {
 
 	// CONSTRUCTORS - eventually get them all to accept passed SpeedControllers
 
-	public SwerveDrive(double length, double width) {
-		this.width = width;
-		this.length = length;
+	public SwerveDrive(double length2, double width2) {
+		this.width = (float) width2;
+		this.length = (float) length2;
 
 		this.isFieldcentric = false;
 		
-		R = Math.sqrt(Math.pow(length, 2) + Math.pow(width, 2));
+		R = (float)(1.0/(Math.sqrt(Math.pow(length2, 2) + Math.pow(width2, 2))));
 	}
 
 	public SwerveDrive(double length, double width, boolean fieldcentric) {
@@ -62,43 +65,43 @@ public class SwerveDrive {
 	// INTERFACE METHODS
 
 	// update swerve for raw vals (robo or field cent)
-	public void updateSwerve(double forward, double strafe, double rotIn) {
+	public void updateSwerve(float forward, float strafe, float rotIn) {
 		if (forward == 0 && strafe == 0 && rotIn == 0) {
 			topRightSpeed = 0;
 			topLeftSpeed = 0;
 			bottomLeftSpeed = 0;
 			bottomRightSpeed = 0;
 
-			topRightAngle = oldTopRightAngle;
-			topLeftAngle = oldTopLeftAngle;
-			bottomLeftAngle = oldBottomLeftAngle;
-			bottomRightAngle = oldBottomRightAngle;
+//			topRightAngle = oldTopRightAngle;
+//			topLeftAngle = oldTopLeftAngle;
+//			bottomLeftAngle = oldBottomLeftAngle;
+//			bottomRightAngle = oldBottomRightAngle;
 		} else {
 
-			double FWD = forward;
+			float FWD = forward;
 			SmartDashboard.putNumber("forward", forward);
-			double STR = strafe;
+			float STR = strafe;
 			SmartDashboard.putNumber("strafe", strafe);
-			double RCW = rotIn;
+			float RCW = rotIn;
 
-			double A = STR - RCW * (length / R); //Changed R to 2
-			double B = STR + RCW * (length / R);
-			double C = FWD - RCW * (width / R);
-			double D = FWD + RCW * (width / R);
+			float A = STR - RCW * (length * R); //Changed R to 2
+			float B = STR + RCW * (length * R);
+			float C = FWD - RCW * (width * R);
+			float D = FWD + RCW * (width * R);
 
-			double A2 = Math.pow(A, 2);
-			double B2 = Math.pow(B, 2);
-			double C2 = Math.pow(C, 2);
-			double D2 = Math.pow(D, 2);
-			oldTopRightAngle = topRightAngle;
-			oldTopLeftAngle = topLeftAngle;
-			oldBottomRightAngle = bottomRightAngle;
-			oldBottomLeftAngle = bottomLeftAngle;
+			float A2 = A*A;//Math.pow(A, 2);
+			float B2 = B*B;//Math.pow(B, 2);
+			float C2 = C*C;//Math.pow(C, 2);
+			float D2 = D*D;//Math.pow(D, 2);
+//			oldTopRightAngle = topRightAngle;
+//			oldTopLeftAngle = topLeftAngle;
+//			oldBottomRightAngle = bottomRightAngle;
+//			oldBottomLeftAngle = bottomLeftAngle;
 
-			topRightSpeed = Math.sqrt(B2 + C2);
-			topLeftSpeed = Math.sqrt(B2 + D2);
-			bottomLeftSpeed = Math.sqrt(A2 + D2);
-			bottomRightSpeed = Math.sqrt(A2 + C2);
+			topRightSpeed = (float) Math.sqrt(B2 + C2);
+			topLeftSpeed = (float) Math.sqrt(B2 + D2);
+			bottomLeftSpeed = (float) Math.sqrt(A2 + D2);
+			bottomRightSpeed = (float) Math.sqrt(A2 + C2);
 
 			topRightAngle = (int) (Math.atan2(B, C) * RAD_TO_DEG);
 			topLeftAngle = (int) (Math.atan2(B, D) * RAD_TO_DEG);
@@ -107,7 +110,7 @@ public class SwerveDrive {
 
 		}
 
-		double max;
+		float max;
 		max = topRightSpeed;
 		if (topLeftSpeed > max) {
 			max = topLeftSpeed;
@@ -125,7 +128,7 @@ public class SwerveDrive {
 			bottomRightSpeed /= max;
 		}
 
-		double min;
+		float min;
 		min = topRightSpeed;
 		if (topLeftSpeed < min) {
 			min = topLeftSpeed;
@@ -145,13 +148,13 @@ public class SwerveDrive {
 		}
 	}
 
-	public void updateSwerve(double forward, double strafe, double rotIn,
+	public void updateSwerve(float forward, float strafe, float rotIn,
 			double heading) {
-		double tempF = forward;
-		double tempS = strafe;
+		float tempF = forward;
+		float tempS = strafe;
 
-		forward = tempF * Math.sin(heading) + tempS * Math.cos(heading);
-		strafe = -1 * tempF * Math.cos(heading) + tempS * Math.sin(heading);
+		forward = (float)(tempF * Math.sin(heading) + tempS * Math.cos(heading));
+		strafe = (float)(-1 * tempF * Math.cos(heading) + tempS * Math.sin(heading));
 
 		this.updateSwerve(forward, strafe, rotIn);
 	}

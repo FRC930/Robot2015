@@ -17,7 +17,7 @@ public class ArmOutput implements PIDOutput {
 	}
 
 	public void pidWrite(double output) { 
-		SmartDashboard.putNumber("OUTPU ", output);
-		scRight.set(output);
+		SmartDashboard.putNumber("OUTPUT ", output);
+		scRight.set(output*-1);
 	}
 }

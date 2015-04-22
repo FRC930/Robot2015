@@ -23,6 +23,16 @@ public class Drivetrain extends Subsystem {
 	public static final int CODES_PER_REV = 414;
 	public static final double DEG_TO_GEAR_TO_REV = 1 / 360.0;
 	public static final double SLOWDOWN = 1;
+	
+	//GE Day:
+	public static final double SPEED_NORMAL = 0.5;
+	public static final double SPEED_SLOW = 0.35;
+	public static final double SPEED_VERY_SLOW = .2;
+	
+//	public static final double SPEED_NORMAL = 0.7;
+//	public static final double SPEED_SLOW = 0.5;
+//	public static final double SPEED_VERY_SLOW = .25;
+	
 	public static final int SPEED_TO_CODES = 8000;
 
 	public static final double DEFAULT_JAG_P = -5900;
@@ -79,22 +89,22 @@ public class Drivetrain extends Subsystem {
 		brRot.setPositionMode(CANJaguar.kQuadEncoder, CODES_PER_REV,
 				DEFAULT_JAG_P, DEFAULT_JAG_I, 0);
 		
-//		 
-//		 frDrive.changeControlMode(ControlMode.PercentVbus);
-//		 flDrive.changeControlMode(ControlMode.PercentVbus);
-//		 brDrive.changeControlMode(ControlMode.PercentVbus);
-//		 blDrive.changeControlMode(ControlMode.PercentVbus);
-//		 
+		 
+		 frDrive.changeControlMode(ControlMode.PercentVbus);
+		 flDrive.changeControlMode(ControlMode.PercentVbus);
+		 brDrive.changeControlMode(ControlMode.PercentVbus);
+		 blDrive.changeControlMode(ControlMode.PercentVbus);
+		 
 		 
 		
-		frDrive.changeControlMode(ControlMode.Speed);
-		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		flDrive.changeControlMode(ControlMode.Speed);
-		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		blDrive.changeControlMode(ControlMode.Speed);
-		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
-		brDrive.changeControlMode(ControlMode.Speed);
-		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		frDrive.changeControlMode(ControlMode.Speed);
+//		frDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		flDrive.changeControlMode(ControlMode.Speed);
+//		flDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		blDrive.changeControlMode(ControlMode.Speed);
+//		blDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
+//		brDrive.changeControlMode(ControlMode.Speed);
+//		brDrive.setPID(DEFAULT_TAL_P, DEFAULT_TAL_I, DEFAULT_TAL_D);
 
 		frRot.enableControl();
 		flRot.enableControl();
@@ -118,11 +128,22 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void drive(double forward, double strafe, double rot) {
-//		if (OI.getInstance().getDriverTriggerRight()>.5){
-//			forward = forward * 1.333;
-//		}
+		if(OI.getInstance().getDriverTriggerLeft() > 0.5){
+			forward *= SPEED_NORMAL;
+			strafe *= SPEED_NORMAL;
+			rot *= SPEED_NORMAL;
+		}else if (OI.getInstance().getDriverTriggerRight()>0.5) {
+			forward *= SPEED_VERY_SLOW;
+			strafe *= SPEED_VERY_SLOW;
+			rot *= SPEED_VERY_SLOW;
+		}
+		else {
+			forward *= SPEED_SLOW;
+			strafe *= SPEED_SLOW;
+			rot *= SPEED_SLOW;
+		}
 		
-		swerve.updateSwerve(forward, strafe, rot);
+		swerve.updateSwerve((float)forward, (float)strafe, (float)rot);
 		
 		this.quickAngle(swerve.output(Outputs.frontRightAngle),
 				swerve.output(Outputs.frontRightSpeed), frRot, frDrive);
@@ -153,8 +174,9 @@ public class Drivetrain extends Subsystem {
 
 		}
 		jag.set(angle * DEG_TO_GEAR_TO_REV);
-		talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
+		//talon.set(SPEED_TO_CODES * SLOWDOWN * speed);
 //		talon.set(SLOWDOWN * speed);
+		talon.set(speed);
 
 	}
 //	

@@ -26,7 +26,7 @@ public class ManualArmHeight extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	 OI oi = OI.getInstance();
-    	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()*10;
+    	 double input = Robot.arm.getArmAngle() +  oi.getArmCoDriver()*20;
     	 SmartDashboard.putNumber("Input for the arm", input);
     	 SmartDashboard.putNumber("JOYSTICK THING", oi.getArmCoDriver());
     	 //double angle = angle + input; 

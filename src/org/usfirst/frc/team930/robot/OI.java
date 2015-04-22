@@ -29,9 +29,25 @@ public class OI {
 		X, Y, Z;
 	}
 	
-	public static int armPreset_0 = 41; 
-	public static int armPreset_1 = 19;
-	public static int armPreset_2 = -10;
+	/**
+	 * Arm height for grabbing totes
+	 */
+	public static double armPreset_0 = -40; //Grab tote (used to be 41)
+	
+	/**
+	 * Arm height for stacking a tote on one tote
+	 */
+	public static double armPreset_1 = -11; //Stack on 1 tote (used to be 19)
+	
+	/**
+	 * Arm height for stacking on 3 totes
+	 */
+	public static double armPreset_2 = 16; //Stack on 3 totes
+	
+	/**
+	 * Arm height to grab cans
+	 */
+	public static double armPreset_3 = 0; //Arm height to grab cans
 
 	private static final double DEADBAND = .1;
 	public final static int DRIVER_PORT = 0;
@@ -55,6 +71,7 @@ public class OI {
 	JoystickButton xButtonCodriver = new JoystickButton(coDriverXbox, 3);
 	JoystickButton yButtonCodriver = new JoystickButton(coDriverXbox, 4);
 	JoystickButton bButtonCodriver = new JoystickButton(coDriverXbox, 2);
+	JoystickButton startButtonCodriver = new JoystickButton(coDriverXbox,7);
 	
 	int boxCarLength = 100;
 	
@@ -111,6 +128,7 @@ public class OI {
 				xButtonCodriver.whenPressed(new SetHeight(armPreset_1));
 				yButtonCodriver.whenPressed(new SetHeight(armPreset_2));
 				bButtonCodriver.whenPressed(new ManualArmHeight());
+				startButtonCodriver.whenPressed(new SetHeight(armPreset_3));
 
 	}
 
@@ -123,7 +141,7 @@ public class OI {
 		bindAccel = new ADXL345_SPI(SPI.Port.kOnboardCS1,
 				Accelerometer.Range.k2G);
 		timer = new Timer();
-		timer.schedule(task, 0, 1);
+		timer.schedule(task, 0, 5);
 	}
 
 	public static class Holder {
@@ -290,7 +308,7 @@ public class OI {
 			return 0;
 		}		
 		System.out.println("inside oi");
-		return axis;
+		return axis*-1;
 
 	}
 }

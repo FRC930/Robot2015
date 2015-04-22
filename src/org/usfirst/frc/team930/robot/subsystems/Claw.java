@@ -51,7 +51,7 @@ public class Claw extends Subsystem {
 	
 	public boolean isOpened(){
 		for (int counter = 0; counter<1000;counter++){
-			SmartDashboard.putNumber("Counter Open", counter);
+			//SmartDashboard.putNumber("Counter Open", counter);
 			if (limitSwitchOpen.get()){
 				return true;
 			}
@@ -61,7 +61,7 @@ public class Claw extends Subsystem {
 	
 	public boolean isClosed() {
 		for (int counter2 = 0; counter2<1000;counter2++){
-			SmartDashboard.putNumber("Counter Close", counter2);
+			//SmartDashboard.putNumber("Counter Close", counter2);
 			if (limitSwitchClosed.get()){
 				return true;
 			}

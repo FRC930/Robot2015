@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SetHeight extends Command {
 
-	final double HEIGHT_MAX = 65;
+	/*final double HEIGHT_MAX = 65;
 	final double HEIGHT_MIN = 10;
 	final double HEIGHT_OF_ROBOT = 45.25;
-	final double LENGTH_OF_ARM = 47.0;
+	final double LENGTH_OF_ARM = 47.0;*/
 
 	double angle;
 
@@ -26,12 +26,13 @@ public class SetHeight extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		SmartDashboard.putNumber("Execute Angle", angle);
 		Robot.arm.setAngle(angle);
 	}	
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.arm.getArmAngle() == angle;
+		return Robot.arm.armPID.onTarget();
 	}
 
 	// Called once after isFinished returns true

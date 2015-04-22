@@ -4,6 +4,7 @@ package org.usfirst.frc.team930.robot;
 
 import org.usfirst.frc.team930.robot.OI.Axis;
 import org.usfirst.frc.team930.robot.commands.Auto;
+import org.usfirst.frc.team930.robot.commands.AutoGroup;
 import org.usfirst.frc.team930.robot.commands.CloseLeftClaw;
 import org.usfirst.frc.team930.robot.commands.CloseRightClaw;
 import org.usfirst.frc.team930.robot.commands.Drive;
@@ -14,6 +15,10 @@ import org.usfirst.frc.team930.robot.subsystems.Claw;
 import org.usfirst.frc.team930.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team930.robot.subsystems.SwerveDrive;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
+
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
@@ -34,17 +39,25 @@ public class Robot extends IterativeRobot {
 	Command closeRightClaw;
 	Command openLeftClaw;
 	Command openRightClaw;
-	//Command auto;
-
+	Command auto;
+	
 	Command setHeight;
 
 	Command drive;
 
 	final double OSC_RATE = 10;
 	
-	boolean autonomousCommand = false;
+	boolean autonomousCommand = true;
+	
+    ///CameraServer server;
+	
+	//Briguy
+	////int session;
+	////Image frame;
+
 
 	public void robotInit() {
+		//SmartDashboard.putBoolean("Run Autonomous?", true);
 		oi = OI.getInstance();
 		oi.initAccel();
 		leftClaw.reverseDirection();
@@ -52,8 +65,28 @@ public class Robot extends IterativeRobot {
 		closeRightClaw = new CloseRightClaw();
 		openLeftClaw = new OpenLeftClaw();
 		openRightClaw = new OpenRightClaw();
-		//auto = new Auto();
-		// drive = new Drive();
+		auto = new AutoGroup();
+		drive = new Drive();
+	
+		//briguy
+		////frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0);
+
+        // the camera name (ex "cam0") can be found through the roborio web interface
+		////session = NIVision.IMAQdxOpenCamera("cam0",
+        ////		NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+      ////NIVision.IMAQdxConfigureGrab(session);
+		
+     //// NIVision.IMAQdxStartAcquisition(session);
+        //server = CameraServer.getInstance();
+        //server.setQuality(1);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        
+		
+	    ///server = CameraServer.getInstance();
+	    ///server.setQuality(1);
+	    ///server.setSize(0);
+	    //the camera name (ex "cam0") can be found through the roborio web interface
+	    //server.startAutomaticCapture("cam0");
 	}
 
 	public void disabledPeriodic() {
@@ -62,23 +95,25 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-//		if (autonomousCommand == true){
-//			auto.start();
-//			arm.startPID();
-//			arm.armPID.enable();
-//		}
+		//autonomousCommand = SmartDashboard.getBoolean("Run Autonomous?");
+		if (autonomousCommand == true){
+			auto.start();
+			arm.startPID();
+			arm.armPID.enable();
+		}
 	}
 
 	public void autonomousPeriodic() {
-//		if (autonomousCommand == true){
-//			Scheduler.getInstance().run();
-//		}
+		if (autonomousCommand == true){
+			Scheduler.getInstance().run();
+		}
 	}
 
 	public void teleopInit() {
+		auto.cancel();
 		arm.startPID();
 		arm.armPID.enable();
-		
+		///server.startAutomaticCapture("cam0");
 		
 	}
 
@@ -87,6 +122,18 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopPeriodic() {
+		
+		
+		//briguy
+		///NIVision.IMAQdxGrab(session, frame, 20);
+        //NIVision.imaqDrawShapeOnImage(frame, frame, rect,
+        //        DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
+        
+        ///CameraServer.getInstance().setImage(frame);
+
+		
+		
+		SmartDashboard.putData("commands", Scheduler.getInstance());
 		Scheduler.getInstance().run();
 		
 		double clawAxisRight = oi.getCoDriverTriggerRight();
@@ -104,14 +151,25 @@ public class Robot extends IterativeRobot {
 			arm.armPID.reset();
 			arm.armPID.enable();
 		}
+		
+		long time = System.currentTimeMillis();
+		SmartDashboard.putNumber("time", time - oi.time);
+		oi.time = time;
+		
 //		
-//		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
+		
+		SmartDashboard.putBoolean("Left Claw Open", !Robot.leftClaw.isOpened());
+		SmartDashboard.putBoolean("Right Claw Open", Robot.rightClaw.isOpened());
+		SmartDashboard.putBoolean("Left Claw Closed", !Robot.leftClaw.isClosed());
+		SmartDashboard.putBoolean("Right Claw Closed", Robot.rightClaw.isClosed());
+		
+		SmartDashboard.putNumber("arm angle ", arm.getArmAngle());	
 //		SmartDashboard.putNumber("arm accel y " ,  oi.getArmAccel(Axis.Y));
 //		SmartDashboard.putNumber("arm accel z " ,  oi.getArmAccel(Axis.Z));
 //		SmartDashboard.putNumber("arm accel x " ,  oi.getArmAccel(Axis.X));
 //		SmartDashboard.putNumber("robot accel y " , oi.getRobotAccelY());
 //		SmartDashboard.putNumber("robot accel z " , oi.getRobotAccelZ());
-//		
+		
 //		SmartDashboard.putNumber("arm accel x RAW" , oi.getArmAccelXRaw());
 //		SmartDashboard.putNumber("arm accel y RAW" , oi.getArmAccelYRaw());
 //		SmartDashboard.putNumber("arm accel z RAW" , oi.getArmAccelZRaw());
@@ -119,10 +177,10 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("robot accel y RAW" , oi.getRobotAccelYRaw());
 //		SmartDashboard.putNumber("robot accel z RAW" , oi.getRobotAccelZRaw());
 //		
-//		SmartDashboard.putBoolean("left open", Claw.leftOpen.get());
-//		SmartDashboard.putBoolean("left closed", Claw.leftClosed.get());
-//		SmartDashboard.putBoolean("right open", Claw.rightOpen.get());
-//		SmartDashboard.putBoolean("right closed", Claw.rightClosed.get());
+		SmartDashboard.putBoolean("left open limit switch", Claw.leftOpen.get());
+		SmartDashboard.putBoolean("left closed limit switch", Claw.leftClosed.get());
+		SmartDashboard.putBoolean("right open limit switch", Claw.rightOpen.get());
+		SmartDashboard.putBoolean("right closed limit switch", Claw.rightClosed.get());
 //		
 //		SmartDashboard.putNumber("back right angle", Robot.drivetrain.getBackRightAngle());
 //		SmartDashboard.putNumber("back right swerve angle", Robot.drivetrain.getBackRightSwerve());

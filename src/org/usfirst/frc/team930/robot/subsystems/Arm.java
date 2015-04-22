@@ -49,9 +49,10 @@ public class Arm extends Subsystem {
 	}
 
 	public void startPID() {
-		armPID = new PIDController(POS_P, POS_I, POS_D, new AngleSource(), new ArmOutput(talon1, talon2), .01);
+		armPID = new PIDController(POS_P, POS_I, POS_D, new AngleSource(), new ArmOutput(talon1, talon2), .2);
 		armPID.reset();
 		armPID.setAbsoluteTolerance(1);
+		armPID.setSetpoint(getArmAngle());
 
 		talon2.set(RobotMap.RIGHT_ARM);
 	}
